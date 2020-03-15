@@ -4,15 +4,14 @@ import (
 	"context"
 	"fmt"
 	"log"
-	//	"go.mongodb.org/mongo-driver/bson"
+	//    "go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
-func Run_mongoDB() string {
-
+func Run_mongoDB(hostname string, databaseName string, documents string) (string, *mongo.Collection) {
 	// Set client options
-	clientOptions := options.Client().ApplyURI("mongodb://localhost:27017")
+	clientOptions := options.Client().ApplyURI(hostname)
 
 	// Connect to MongoDB
 	client, err := mongo.Connect(context.TODO(), clientOptions)
@@ -28,6 +27,9 @@ func Run_mongoDB() string {
 		log.Fatal(err)
 	}
 
-	fmt.Println("Connected to MongoDB!")
-    return "Connected to MongoDB!"
+	collection := client.Database(databaseName).Collection(documents)
+
+	//some useful utility functions
+	return fmt.Sprintf("Connected to MongoDB database %v at %v for collection %v", databaseName, hostname, documents), collection
+
 }
