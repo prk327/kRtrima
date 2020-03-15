@@ -1,0 +1,59 @@
+{{ define "layout"}}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="/resources/vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/resources/css/layout.css">
+</head>
+
+<body>
+    <div class="wrapper">
+        <!-- Sidebar  -->
+        {{ template "leftsidebar" .}}
+
+        <!-- Page Content -->
+        <div id="content">
+
+            {{ template "topsidebar" .}}
+
+            {{ template "content" .}}
+
+        </div>
+    </div>
+
+    <!-- The Modal -->
+    {{ template "modal" .}}
+
+
+    <script src="/resources/vendor/js/jquery-3.4.1.min.js"></script>
+    <script src="/resources/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="/resources/vendor/fontawesome/js/fontawesome.js"></script>
+    <script>
+        // Add the following code if you want the name of the file appear on select
+        $(".custom-file-input").on("change", function() {
+            var fileName = $(this).val().split("\\").pop();
+            $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+        });
+
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#sidebarCollapse').on('click', function() {
+                $('#sidebar').toggleClass('active');
+            });
+        });
+
+    </script>
+
+</body>
+
+</html>
+
+{{ end }}

@@ -1,0 +1,24 @@
+{{ define "content" }}
+
+<div class="container">
+    <header class="jumbotron">
+        <div class="container">
+            <h1>This is the DataSource Page</h1>
+            <p>View your working datasource</p>
+        </div>
+    </header>
+
+<div class="card-deck">
+    {{ range . }}
+    <div class="card">
+        <img class="card-img-top" src="{{ .Image }}" alt="{{ .Name }}">
+        <div class="card-body">
+            <h4 class="card-title">{{ .Name }}</h4>
+        </div>
+    </div>
+    {{ end }}
+</div>
+
+</div>
+
+{{ end }}
