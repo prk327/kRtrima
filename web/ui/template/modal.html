@@ -26,5 +26,39 @@
     </div>
 </div>
 
+<!-- The MongoDB modal -->
+<div class="modal fade" id="myMongo">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Connection Setting</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body">
+                <form action="/dataSource" enctype="multipart/form-data" method="post">
+                    <div class="form-group">
+                        <input class="form-control" type="text" name="mongo_HostName" placeholder="hostname">
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" type="text" name="mongo_DBName" placeholder="DataBase Name">
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" type="text" name="mongo_CollName" placeholder="Collection Name">
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-block">Submit!</button>
+                    </div>
+                </form>
+            </div>
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 {{ end }}

@@ -1,16 +1,17 @@
 package main
 
 import (
-	"kRtrima/plugins/database/mongoDB"
+//	"fmt"
+//	"kRtrima/plugins/database/mongoDB"
 	"kRtrima/web"
-    "fmt"
 )
 
 func main() {
-    //running the mongoDB server
-    msg, _ := mongoDB.Run_mongoDB("mongodb://localhost:27017", "kRtrima", "Thread")
-    
-    fmt.Println(msg)
+
+	//    msg, DB := mongoDB.Run_mongoDB("mongodb://localhost:27017", "kRtrima")
+	//
+	//    DB.Collection("Thread")
+
 	//running the kRtrima web server
 	web.Web()
 }

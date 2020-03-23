@@ -1,84 +1,107 @@
 {{ define "leftsidebar"}}
 
 <!-- Sidebar  -->
-        <nav id="sidebar">
-            <div class="sidebar-header">
-                <h3 class="navbar-brand">kRtrima.Com</h3>
-                <strong class="navbar-brand mb-0 h1">kR</strong>
-            </div>
-            <ul class="list-unstyled components">
-                <p>Profile Image</p>
-                <li class="active">
-                    <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                        <i class="fas fa-chart-pie"></i>
-                        Dashboard
-                    </a>
-                    <ul class="collapse list-unstyled" id="homeSubmenu">
-                        <li>
-                            <a class="nav-link" href="/Dashboard/New">Add New DashBoard</a>
-                        </li>
-                        <li>
-                            <a class="nav-link" href="#">Home 2</a>
-                        </li>
-                        <li>
-                            <a class="nav-link" href="#">Home 3</a>
-                        </li>
-                    </ul>
+<nav id="sidebar">
+    <div class="sidebar-header">
+        <h3 class="navbar-brand">kRtrima.Com</h3>
+        <strong class="navbar-brand mb-0 h1">kR</strong>
+    </div>
+    <ul class="list-unstyled components">
+        <p>Profile Image</p>
+        <li class="active">
+            <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                <i class="fas fa-chart-pie"></i>
+                Dashboard
+            </a>
+            <ul class="collapse list-unstyled" id="homeSubmenu">
+                <li>
+                    <a class="nav-link" href="/Dashboard/New">Add New DashBoard</a>
                 </li>
                 <li>
-                    <a href="#">
-                        <i class="fas fa-file-invoice-dollar"></i>
-                        Accounts Payable
-                    </a>
-                    <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                        <i class="fas fa-copy"></i>
-                        Pages
-                    </a>
-                    <ul class="collapse list-unstyled" id="pageSubmenu">
-                        <li>
-                            <a href="#">Page 1</a>
-                        </li>
-                        <li>
-                            <a href="#">Page 2</a>
-                        </li>
-                        <li>
-                            <a href="#">Page 3</a>
-                        </li>
-                    </ul>
+                    <a class="nav-link" href="#">Home 2</a>
                 </li>
                 <li>
-                    <a href="#">
-                        <i class="fas fa-receipt"></i>
-                        Accounts Receivable
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <i class="fas fa-question"></i>
-                        FAQ
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <i class="fas fa-paper-plane"></i>
-                        Contact
-                    </a>
+                    <a class="nav-link" href="#">Home 3</a>
                 </li>
             </ul>
-            <ul class="list-unstyled CTAs">
+        </li>
+        <li>
+            <a href="#">
+                <i class="fas fa-file-invoice-dollar"></i>
+                Accounts Payable
+            </a>
+            <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                <i class="fas fa-copy"></i>
+                Pages
+            </a>
+            <ul class="collapse list-unstyled" id="pageSubmenu">
                 <li>
-                    <!-- Button to Open the Modal -->
-                    <a type="button" href="#" class="download" data-toggle="modal" data-target="#myModal">
-                        Select DataSource
-                    </a>
+                    <a href="#">Page 1</a>
                 </li>
                 <li>
-                    <a href="#" class="article">Back to article</a>
+                    <a href="#">Page 2</a>
+                </li>
+                <li>
+                    <a href="#">Page 3</a>
                 </li>
             </ul>
-        </nav>
-        
-        
+        </li>
+        <li>
+            <a href="#">
+                <i class="fas fa-receipt"></i>
+                Accounts Receivable
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <i class="fas fa-question"></i>
+                FAQ
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <i class="fas fa-paper-plane"></i>
+                Contact
+            </a>
+        </li>
+    </ul>
+    <ul class="list-unstyled CTAs">
+        <li>
+            <!-- Button to Open the Modal -->
+            <a type="button" href="#" class="download" data-toggle="modal" data-target="#myMongo">
+                Select DataSource
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <i class="fas fa-file-invoice-dollar"></i>
+                Mongo DB
+            </a>
+            <a href="#mongoDBItems" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                <i class="fas fa-copy"></i>
+                Collections
+            </a>
+            <ul class="collapse list-unstyled" id="mongoDBItems">
+    
+                <li>
+                    <a href="#">Page 1</a>
+                </li>
+           
+                <li>
+                    <a href="#">Page 2</a>
+                </li>
+                <li>
+                    <a href="#">Page 3</a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href="#" class="article">Back to article</a>
+        </li>
+    </ul>
+</nav>
+
+
 
 
 {{ end }}

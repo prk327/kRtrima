@@ -15,26 +15,25 @@
 <body>
     <div class="wrapper">
         <!-- Sidebar  -->
-        {{ template "leftsidebar" .}}
+        {{ template "leftsidebar" . }}
 
         <!-- Page Content -->
         <div id="content">
 
-            {{ template "topsidebar" .}}
+            {{ template "topsidebar" . }}
 
-            {{ template "content" .}}
+            {{ template "content" . }}
 
         </div>
     </div>
 
     <!-- The Modal -->
-    {{ template "modal" .}}
-
+    {{ template "modal" }}
 
     <script src="/resources/vendor/js/jquery-3.4.1.min.js"></script>
     <script src="/resources/vendor/bootstrap/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://kit.fontawesome.com/e3e8eb4e3d.js" crossorigin="anonymous"></script>
+    <script src="/resources/vendor/bootstrap/js/popper.min.js"></script>
+    <script src="/resources/vendor/fontawesome/js/e3e8eb4e3d.js"></script>
     <script>
         // Add the following code if you want the name of the file appear on select
         $(".custom-file-input").on("change", function() {

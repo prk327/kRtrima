@@ -28,7 +28,7 @@ func p(a ...interface{}) {
 func init() {
 	loadConfig()
 	file, err := os.OpenFile("web/log/kRtrima.log", os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
-    defer file.Close()
+//	defer file.Close()
 	if err != nil {
 		log.Fatalln("Failed to open log file", err)
 	}
@@ -37,7 +37,7 @@ func init() {
 
 func loadConfig() {
 	file, err := os.Open("web/config/config.json")
-    defer file.Close()
+	defer file.Close()
 	if err != nil {
 		log.Fatalln("Cannot open config file", err)
 	}
