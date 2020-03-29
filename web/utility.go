@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"html/template"
+	"kRtrima/plugins/database/mongoDB"
 	"log"
 	"net/http"
 	"os"
@@ -26,27 +27,37 @@ func p(a ...interface{}) {
 }
 
 func init() {
-	loadConfig()
 	file, err := os.OpenFile("web/log/kRtrima.log", os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
-//	defer file.Close()
+	//	defer file.Close()
 	if err != nil {
 		log.Fatalln("Failed to open log file", err)
 	}
 	logger = log.New(file, "INFO ", log.Ldate|log.Ltime|log.Lshortfile)
+    loadConfig()
+	initializeDB()
 }
 
 func loadConfig() {
 	file, err := os.Open("web/config/config.json")
 	defer file.Close()
 	if err != nil {
-		log.Fatalln("Cannot open config file", err)
+		logger.Fatalln("Cannot open config file", err)
 	}
 	decoder := json.NewDecoder(file)
 	config = Configuration{}
 	err = decoder.Decode(&config)
 	if err != nil {
-		log.Fatalln("Cannot get configuration from file", err)
+		logger.Fatalln("Cannot get configuration from file", err)
 	}
+}
+
+func initializeDB() {
+	*lm, mongoDB.DB = mongoDB.Connect_mongoDB("mongodb://localhost:27017", "kRtrima")
+	fmt.Println(mongoDB.Msg)
+
+	//    conect to collection
+	*lm, mongoDB.Collection = mongoDB.Cnt_Collection("Thread", mongoDB.DB)
+	fmt.Println(mongoDB.Msg)
 }
 
 // Convenience function to redirect to the error message page

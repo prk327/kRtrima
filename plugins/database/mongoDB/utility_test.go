@@ -5,7 +5,7 @@ import (
 	"testing"
 )
 
-var p2 = Thread{"City At Night", "/resources/images/CityNight.jpg"}
+var p2 = Thread{"City At Night", "/resources/images/CityNight.jpg", "some description"}
 
 func TestAddItem(t *testing.T) {
 	lm := &Msg

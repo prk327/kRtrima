@@ -3,23 +3,22 @@ package web
 import (
 	"fmt"
 	"github.com/julienschmidt/httprouter"
+	"go.mongodb.org/mongo-driver/bson/primitive" // for BSON ObjectID
 	"kRtrima/plugins/database/mongoDB"
 	"net/http"
+	"regexp"
 )
-
 
 var lm = &mongoDB.Msg
 
-//var Mcoll *mongo.Collection
-//running the mongoDB server
-//var DB *mongo.Database
-//var hostName string
-//var DBName string
-//var collName string
-
 type mainCongifDetails struct {
-	collectionNames []string
-	contentDetails  []*mongoDB.Thread
+	CollectionNames []string
+	ContentDetails  []*mongoDB.Thread
+}
+
+type findDetails struct {
+	CollectionNames []string
+	ContentDetails  *mongoDB.Thread
 }
 
 type DBConfig struct {
@@ -28,58 +27,16 @@ type DBConfig struct {
 	Collection string
 }
 
-//     fmt.Println(msg)
-
-//func init(){
-//    msg, Mcoll := mongoDB.Run_mongoDB("mongodb://localhost:27017", "kRtrima").Collection("Thread")
-//     fmt.Println(msg)
-//}
-
-//    DB.Collection("Thread")
-
-//dummy data for testing
-//var p1 = map[string]string{
-//	"Name":  "Circuit",
-//	"Image": "/resources/images/circuit.jpg",
-//}
-//var p2 = map[string]string{
-//	"Name":  "City At Night",
-//	"Image": "/resources/images/CityNight.jpg",
-//}
-//var p3 = map[string]string{
-//	"Name":  "Pyramid",
-//	"Image": "/resources/images/piramid.jpg",
-//}
-//var dashList = []map[string]string{p1, p2, p3}
 
 func dashboard(writer http.ResponseWriter, request *http.Request, _ httprouter.Params) {
-    
-    *lm, mongoDB.DB = mongoDB.Connect_mongoDB("mongodb://localhost:27017", "kRtrima")
-    mongoDB.Logger.Println(mongoDB.Msg)
 
-	//    conect to collection
-	*lm, mongoDB.Collection = mongoDB.Cnt_Collection("Thread", mongoDB.DB)
-	mongoDB.Logger.Println(mongoDB.Msg)
 
-//	thread := mongoDB.FindAllItem(10, mongoDB.Collection)
-//    
-//    fmt.Printf("The type of thread is: %T\n", thread)
-//    
-//
-//    result := mongoDB.ShowCollectionNames(mongoDB.DB)
-//    
-//    fmt.Printf("The type of result is is: %T\n", result)
-
-    dashlist := mainCongifDetails{
-        collectionNames: mongoDB.ShowCollectionNames(mongoDB.DB),
-        contentDetails: mongoDB.FindAllItem(10, mongoDB.Collection),
+	dashlist := mainCongifDetails{
+		mongoDB.ShowCollectionNames(mongoDB.DB),
+		mongoDB.FindAllItem(10, mongoDB.Collection),
 	}
-    
-    	for _, coll := range dashlist.collectionNames {
-		fmt.Println(coll)
-	}
-	
-	generateHTML(writer, &dashlist.contentDetails, "layout", "leftsidebar", "topsidebar", "modal", "dashboard")
+
+	generateHTML(writer, &dashlist, "layout", "leftsidebar", "topsidebar", "modal", "index")
 }
 
 func postData(writer http.ResponseWriter, request *http.Request, _ httprouter.Params) {
@@ -88,27 +45,16 @@ func postData(writer http.ResponseWriter, request *http.Request, _ httprouter.Pa
 		danger(err)
 	}
 
-	//  name := request.Form["name"]
-	//	image := request.Form["image"]
+	newItem := mongoDB.Thread{
+		Name:        request.Form["name"][0],
+		Image:       request.Form["image"][0],
+		Description: request.Form["desc"][0],
+	}
+    
+    logger.Println(mongoDB.AddItem(newItem, mongoDB.Collection))
+    
+	http.Redirect(writer, request, "/Dashboard", 302)
 
-	//	newItem := mongoDB.Thread{
-	//		request.Form["name"][0],
-	//		request.Form["image"][0],
-	//	}
-
-	//	mongoDB.AddItem(newItem, mongoDB.Collection)
-	//	name := request.Form["name"]
-	//	image := request.Form["image"]
-	//	p4 := map[string]string{
-	//		"Name":  name[0],
-	//		"Image": image[0],
-	//	}
-
-	//	dashList = append(dashList, p4)
-
-	http.Redirect(writer, request, "/", 302)
-
-	//	generateHTML(writer, dashList, "layout", "leftsidebar", "topsidebar", "modal", "dashboard")
 }
 
 func landingPage(writer http.ResponseWriter, request *http.Request, _ httprouter.Params) {
@@ -133,12 +79,32 @@ func connectDB(writer http.ResponseWriter, request *http.Request, _ httprouter.P
 
 	_, mongoDB.DB = mongoDB.Connect_mongoDB(DB_Config.Host, DB_Config.Database)
 
-//	fmt.Println(msg)
 
 	_, mongoDB.Collection = mongoDB.Cnt_Collection(DB_Config.Collection, mongoDB.DB)
 
-//	fmt.Println(msgA)
-
+	
 	http.Redirect(writer, request, "/", 302)
 
+}
+
+func detailDash(w http.ResponseWriter, request *http.Request, p httprouter.Params) {
+
+	re := regexp.MustCompile(`"(.*?)"`)
+
+	rStr := fmt.Sprintf(`%v`, p.ByName("id"))
+
+	res1 := re.FindStringSubmatch(rStr)[1]
+
+	// Create a BSON ObjectID by passing string to ObjectIDFromHex() method
+	docID, err := primitive.ObjectIDFromHex(res1)
+	if err != nil {
+		danger(err)
+	}
+
+	dashlist := findDetails{
+		mongoDB.ShowCollectionNames(mongoDB.DB),
+		mongoDB.FindItem(docID, mongoDB.Collection),
+	}
+
+	generateHTML(w, &dashlist, "layout", "leftsidebar", "topsidebar", "modal", "showMoreinfo")
 }

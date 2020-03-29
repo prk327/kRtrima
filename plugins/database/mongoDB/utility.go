@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/bson/primitive" // for BSON ObjectID
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"log"
@@ -41,7 +42,7 @@ func ShowCollectionNames(DB *mongo.Database) []string {
 		Logger.Fatal(err)
 		//        return
 	}
-    
+
 	return result
 }
 
@@ -49,15 +50,6 @@ func Cnt_Collection(Name string, DB *mongo.Database) (string, *mongo.Collection)
 	collection := DB.Collection(Name)
 	return fmt.Sprintf("Connected to MongoDB Collection: %v", Name), collection
 }
-
-//func FilterItem() (string, bson.D) {
-//	fItem := bson.D{
-//		{
-//			t.Name, t.Image,
-//		},
-//	}
-//	return fmt.Sprintf("Filter Thread on Name: %v and Image: %v", t.Name, t.Image), fItem
-//}
 
 //func UpdateCollection(method string, key string, value interface{}) bson.D {
 //	update := bson.D{
@@ -72,7 +64,6 @@ func Cnt_Collection(Name string, DB *mongo.Database) (string, *mongo.Collection)
 func AddItem(t Thread, collection *mongo.Collection) string {
 	insertResult, err := collection.InsertOne(context.TODO(), t)
 	if err != nil {
-		//		return fmt.Sprintf("Got an Error %v while saving the doc", err)
 		Logger.Fatalln(err)
 	}
 	return fmt.Sprintf("Inserted a single document: %v", insertResult.InsertedID)
@@ -98,17 +89,17 @@ func AddItem(t Thread, collection *mongo.Collection) string {
 //	return fmt.Sprintf("Matched %v documents and updated %v documents.\n", updateResult.MatchedCount, updateResult.ModifiedCount)
 //}
 
-//func FindItem(filter bson.D, collection *mongo.Collection) Thread {
-//	// create a value into which the result can be decoded
-//	var result Thread
-//
-//	err := collection.FindOne(context.TODO(), filter).Decode(&result)
-//	if err != nil {
-//		logger.Fatalln(err)
-//	}
-//
-//	return result
-//}
+func FindItem(docID primitive.ObjectID, collection *mongo.Collection) *Thread {
+	// create a value into which the result can be decoded
+	var result *Thread
+
+	err := collection.FindOne(context.TODO(), bson.M{"_id": docID}).Decode(&result)
+	if err != nil {
+		Logger.Fatalln(err)
+	}
+
+	return result
+}
 
 func FindAllItem(limit int64, collection *mongo.Collection) []*Thread {
 	// Pass these options to the Find method
