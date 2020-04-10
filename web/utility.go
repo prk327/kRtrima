@@ -3,7 +3,6 @@ package web
 import (
 	"encoding/json"
 	"fmt"
-	"html/template"
 	"kRtrima/plugins/database/mongoDB"
 	"log"
 	"net/http"
@@ -18,6 +17,8 @@ type Configuration struct {
 	Static       string
 }
 
+var lm = &mongoDB.Msg
+
 var config Configuration
 var logger *log.Logger
 
@@ -27,13 +28,13 @@ func p(a ...interface{}) {
 }
 
 func init() {
-	file, err := os.OpenFile("web/log/kRtrima.log", os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
+	file, err := os.OpenFile("../web.log", os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
 	//	defer file.Close()
 	if err != nil {
 		log.Fatalln("Failed to open log file", err)
 	}
-	logger = log.New(file, "INFO ", log.Ldate|log.Ltime|log.Lshortfile)
-    loadConfig()
+	logger = log.New(file, "Web INFO ", log.Ldate|log.Ltime|log.Lshortfile)
+	loadConfig()
 	initializeDB()
 }
 
@@ -66,28 +67,29 @@ func error_message(writer http.ResponseWriter, request *http.Request, msg string
 	http.Redirect(writer, request, strings.Join(url, ""), 302)
 }
 
-// Checks if the user is logged in and has a session, if not err is not nil
-//func session(writer http.ResponseWriter, request *http.Request, _ httprouter.Params) (sess data.Session, err error) {
-//	cookie, err := request.Cookie("_cookie")
-//	if err == nil {
-//		sess = data.Session{Uuid: cookie.Value}
-//		if ok, _ := sess.Check(); !ok {
-//			err = errors.New("Invalid session")
-//		}
-//	}
-//	return
-//}
+//to overrise the post method to follow the restful convention
+func methodOverride(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		// Only act on POST requests.
+		if r.Method == "POST" {
 
-// parse HTML templates
-// pass in a list of file names, and get a template
-func generateHTML(writer http.ResponseWriter, data interface{}, filenames ...string) {
-	var t *template.Template
-	var files []string
-	for _, file := range filenames {
-		files = append(files, fmt.Sprintf("web/ui/template/%s.html", file))
-	}
-	t = template.Must(template.ParseFiles(files...))
-	t.ExecuteTemplate(writer, "layout", data)
+			// Look in the request body and headers for a spoofed method.
+			// Prefer the value in the request body if they conflict.
+			method := r.PostFormValue("_method")
+			if method == "" {
+				method = r.Header.Get("X-HTTP-Method-Override")
+			}
+
+			// Check that the spoofed method is a valid HTTP method and
+			// update the request object accordingly.
+			if method == "PUT" || method == "PATCH" || method == "DELETE" {
+				r.Method = method
+			}
+		}
+
+		// Call the next handler in the chain.
+		next.ServeHTTP(w, r)
+	})
 }
 
 // for logging

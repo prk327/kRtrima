@@ -17,6 +17,12 @@
             <div class="card-body">
                 <h3 class="card-title">{{ .ContentDetails.Description }}</h3>
             </div>
+            <a href="/Dashboard/show/{{ .ContentDetails.ID }}/edit">Edit</a>
+            <form action="/Dashboard/show/{{ .ContentDetails.ID }}" method="post">
+                <!--              this is used to override the post method-->
+               <input type="hidden" name="_method" value="DELETE">
+               <button>Delete</button>
+            </form>
         </div>
         </div>
         

@@ -1,4 +1,4 @@
-package mongoDB
+package mDBTools
 
 import (
 	"strings"
