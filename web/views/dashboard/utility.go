@@ -3,19 +3,35 @@ package dashboard
 import (
 	"log"
 	"net/http"
-	"os"
+        "html/template"
+    "fmt"
+//	"os"
 	"strings"
 )
 
 var logger *log.Logger
 
-func init() {
-	file, err := os.OpenFile("../web.log", os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
-	//	defer file.Close()
-	if err != nil {
-		log.Fatalln("Failed to open log file", err)
+//func init() {
+//	file, err := os.OpenFile("../web.log", os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
+//	//	defer file.Close()
+//	if err != nil {
+//		log.Fatalln("Failed to open log file", err)
+//	}
+//	logger = log.New(file, "Web INFO ", log.Ldate|log.Ltime|log.Lshortfile)
+//}
+
+
+// parse HTML templates
+// pass in a list of file names, and get a template
+func generateHTML(writer http.ResponseWriter, data interface{}, filenames ...string) {
+
+	var t *template.Template
+	var files []string
+	for _, file := range filenames {
+		files = append(files, fmt.Sprintf("web/ui/template/datasource/%s.html", file))
 	}
-	logger = log.New(file, "Web INFO ", log.Ldate|log.Ltime|log.Lshortfile)
+	t = template.Must(template.ParseFiles(files...))
+	t.ExecuteTemplate(writer, "layout", data)
 }
 
 // Convenience function to redirect to the error message page

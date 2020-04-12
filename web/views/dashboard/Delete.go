@@ -3,7 +3,7 @@ package dashboard
 import (
     "fmt"
     "github.com/julienschmidt/httprouter"
-    "kRtrima/plugins/database/mongoDB"
+    m "kRtrima/plugins/database/mongoDB/models"
     "go.mongodb.org/mongo-driver/bson/primitive" // for BSON ObjectID
     "net/http"
     "regexp"
@@ -24,7 +24,7 @@ func Delete(writer http.ResponseWriter, request *http.Request, p httprouter.Para
 		danger(err)
 	}
     
-    mongoDB.DeleteItem(docID, mongoDB.Collection)
+    m.DeleteItem(docID, m.Collection)
     
     http.Redirect(writer, request, "/Dashboard", 302)
 }

@@ -2,7 +2,7 @@ package dashboard
 
 import (
     "github.com/julienschmidt/httprouter"
-    "kRtrima/plugins/database/mongoDB"
+//    "kRtrima/plugins/database/mongoDB"
     "go.mongodb.org/mongo-driver/bson/primitive" // for BSON ObjectID
     m "kRtrima/plugins/database/mongoDB/models"
     "net/http"
@@ -35,7 +35,7 @@ func Update(writer http.ResponseWriter, request *http.Request, p httprouter.Para
 		danger(err)
 	}
 
-	mongoDB.UpdateItem(docID, update, mongoDB.Collection)
+	m.UpdateItem(docID, update, m.Collection)
 
     http.Redirect(writer, request, "/Dashboard/show/" + p.ByName("id") , 302)
 }

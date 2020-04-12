@@ -1,31 +1,74 @@
 {{ define "content" }}
 
 <div class="container">
-    <header class="jumbotron">
-        <div class="container">
-            <h1>{{ .ContentDetails.Name }}</h1>
-            <p>More information about your dashboard</p>
+
+    <div class="row">
+        <div class="col-md-3">
+            <p class="lead">DataSource</p>
+            <div class="list-group">
+                <li class="list-group-item active">Info 1</li>
+                <li class="list-group-item">Info 2</li>
+                <li class="list-group-item">Info 3</li>
+            </div>
         </div>
-    </header>
+        <div class="col-md-9">
+            <div class="card">
+                <img class="card-img-top" src="{{ .ContentDetails.Image }}" alt="{{ .ContentDetails.Name }}">
+                <div class="card-body">
+
+                    <div class="caption">
+                        <h4 class="float-right">$9.00/day</h4>
+                        <h4><a>{{ .ContentDetails.Name }}</a></h4>
+                        <p>{{ .ContentDetails.Description }}</p>
+                    </div>
+                </div>
+
+                <div class="card-footer">
+                    <div class="text-right">
+                        <a class="btn btn-success" href="/Dashboard/show/{{ .ContentDetails.ID }}/Comments/New">Add New Comment</a>
+                    </div>
+                    <hr>
+                    {{if .Comments}}
+                    {{range .Comments}}
+                    <div class="row">
+                        <div class="col-md-12">
+                            <strong>{{ .Author }}</strong>
+                            <span class="float-right">10 days ago</span>
+                            <p>
+                                {{ .Comment }}
+                            </p>
+                        </div>
+                    </div>
+
+
+                    {{end}}
+                    {{end}}
+                    <a href="/Dashboard/show/{{ .ContentDetails.ID }}/edit">Edit</a>
+                    <form action="/Dashboard/show/{{ .ContentDetails.ID }}" method="post">
+                        <!--              this is used to override the post method-->
+                        <input type="hidden" name="_method" value="DELETE">
+                        <button>Delete</button>
+                    </form>
+                </div>
+
+
+            </div>
+
+
+
+        </div>
+
+    </div>
+
+
 
 
     <div class="row text-center">
 
         <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
-        <div class="card">
-            <img class="card-img-top" src="{{ .ContentDetails.Image }}" alt="{{ .ContentDetails.Name }}">
-            <div class="card-body">
-                <h3 class="card-title">{{ .ContentDetails.Description }}</h3>
-            </div>
-            <a href="/Dashboard/show/{{ .ContentDetails.ID }}/edit">Edit</a>
-            <form action="/Dashboard/show/{{ .ContentDetails.ID }}" method="post">
-                <!--              this is used to override the post method-->
-               <input type="hidden" name="_method" value="DELETE">
-               <button>Delete</button>
-            </form>
+
         </div>
-        </div>
-        
+
     </div>
 
 

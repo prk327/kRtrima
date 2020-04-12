@@ -4,7 +4,6 @@ import (
     "github.com/julienschmidt/httprouter"
     "go.mongodb.org/mongo-driver/bson/primitive" // for BSON ObjectID
     m "kRtrima/plugins/database/mongoDB/models"
-    "kRtrima/plugins/database/mongoDB"
     "net/http"
     "regexp"
     "fmt"
@@ -23,10 +22,10 @@ func Edit(writer http.ResponseWriter, request *http.Request, p httprouter.Params
 	if err != nil {
 		danger(err)
 	}
-
+    
 	dashlist := m.FindDetails{
-		mongoDB.ShowCollectionNames(mongoDB.DB),
-		mongoDB.FindItem(docID, mongoDB.Collection),
+        CollectionNames: m.ShowCollectionNames(m.DB),
+        ContentDetails: m.FindItem(docID, m.Collection),
 	}
 
 	generateHTML(writer, &dashlist, "layout", "leftsidebar", "topsidebar", "modal", "editData")

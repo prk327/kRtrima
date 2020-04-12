@@ -2,7 +2,7 @@ package dashboard
 
 import (
     "github.com/julienschmidt/httprouter"
-    "kRtrima/plugins/database/mongoDB"
+//    "kRtrima/plugins/database/mongoDB"
     m "kRtrima/plugins/database/mongoDB/models"
     "net/http"
 )
@@ -20,7 +20,7 @@ func Create(writer http.ResponseWriter, request *http.Request, _ httprouter.Para
 		Description: request.Form["desc"][0],
 	}
 
-	mongoDB.AddItem(newItem, mongoDB.Collection)
+	m.AddItem(newItem, m.Collection)
 
 	http.Redirect(writer, request, "/Dashboard", 302)
 }
