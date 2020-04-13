@@ -10,11 +10,17 @@ import (
 	//	"log"
 )
 
-func FindItem(docID primitive.ObjectID, collection *mongo.Collection) *Thread {
+func FindItem(res1 string, collection *mongo.Collection) *Thread {
+    
+    // Create a BSON ObjectID by passing string to ObjectIDFromHex() method
+	docID, err := primitive.ObjectIDFromHex(res1)
+	if err != nil {
+		Logger.Fatalln(err)
+	}
 
 	var result *Thread
 
-	err := collection.FindOne(context.TODO(), bson.M{"_id": docID}).Decode(&result)
+	err = collection.FindOne(context.TODO(), bson.M{"_id": docID}).Decode(&result)
 	if err != nil {
 		Logger.Fatalln(err)
 	}

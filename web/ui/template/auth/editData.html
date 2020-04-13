@@ -1,0 +1,29 @@
+{{ define "content" }}
+
+<div class="container">
+    <div class="row justify-content-center">
+       
+        <div class="col-4">
+            <h1>Edit {{ .ContentDetails.Name }}</h1>
+            <form action="/Dashboard/show/{{ .ContentDetails.ID }}" method="post">
+<!--              this is used to override the post method-->
+               <input type="hidden" name="_method" value="PUT">
+                <div class="form-group">
+                    <input class="form-control" type="text" name="name" value={{ .ContentDetails.Name }}>
+                </div>
+                <div class="form-group">
+                    <input class="form-control" type="text" name="image" value={{ .ContentDetails.Image }}>
+                </div>
+                <div class="form-group">
+                    <input class="form-control" type="text" name="desc" value={{ .ContentDetails.Description }}>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-block">Submit!</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+{{ end }}

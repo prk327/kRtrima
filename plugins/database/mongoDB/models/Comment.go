@@ -13,7 +13,6 @@ type Comment struct {
 	User    primitive.ObjectID `json:"user,omitempty" bson:"user,omitempty"`
 }
 
-
 //// ThreadComment represents an aggregation result-set for two collections
 //type ThreadComment struct {
 //	ID      primitive.ObjectID `json:"_id,omitempty" bson:"_id,omitempty"`

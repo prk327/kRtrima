@@ -42,16 +42,23 @@ func ShowCollectionNames(DB *mongo.Database) []string {
 }
 
 //To insert a single document working tested
-func AddItem(t interface{}, collection *mongo.Collection) string {
+func AddItem(t interface{}, collection *mongo.Collection) (string, error) {
 	insertResult, err := collection.InsertOne(context.TODO(), t)
 	if err != nil {
 		Logger.Fatalln(err)
 	}
-	return fmt.Sprintf("Inserted a single document: %v", insertResult.InsertedID)
+	return fmt.Sprintf("%v",insertResult.InsertedID), err
 }
 
 //To updated documents at a time
-func UpdateItem(docID primitive.ObjectID, change interface{}, collection *mongo.Collection) string {
+func UpdateItem(res1 string, change interface{}, collection *mongo.Collection) string {
+    
+    // Create a BSON ObjectID by passing string to ObjectIDFromHex() method
+	docID, err := primitive.ObjectIDFromHex(res1)
+	if err != nil {
+		Logger.Fatalln(err)
+	}
+    
 	// find the document for which the _id field matches id
 	// specify the Upsert option to insert a new document if a document matching the filter isn't found
 	//    uFil := primitive.E(change)
@@ -73,7 +80,14 @@ func UpdateItem(docID primitive.ObjectID, change interface{}, collection *mongo.
 	return fmt.Sprintf("Matched %v documents and updated %v documents.\n", result.MatchedCount, result.ModifiedCount)
 }
 
-func DeleteItem(docID primitive.ObjectID, collection *mongo.Collection) string {
+func DeleteItem(res1 string, collection *mongo.Collection) string {
+    
+    // Create a BSON ObjectID by passing string to ObjectIDFromHex() method
+	docID, err := primitive.ObjectIDFromHex(res1)
+	if err != nil {
+		Logger.Fatalln(err)
+	}
+    
 	// delete at most one document in which the "name" field is "Bob" or "bob"
 	// specify the SetCollation option to provide a collation that will ignore case for string comparisons
 	opts := options.Delete().SetCollation(&options.Collation{
@@ -87,4 +101,20 @@ func DeleteItem(docID primitive.ObjectID, collection *mongo.Collection) string {
 		Logger.Fatal(err)
 	}
 	return fmt.Sprintf("deleted %v documents\n", res.DeletedCount)
+}
+
+func DeleteAll(collection *mongo.Collection) string {
+    deleteResult, err := collection.DeleteMany(context.TODO(), bson.D{{}})
+    if err != nil {
+        Logger.Fatal(err)
+    }
+    return fmt.Sprintf("Deleted %v documents in the trainers collection\n", deleteResult.DeletedCount)
+}
+
+func DropCollection(collection *mongo.Collection) string {
+    err := collection.Drop(context.TODO())
+    if err != nil {
+        Logger.Fatal(err)
+    }
+    return fmt.Sprintf("Deleted the collection!!")
 }

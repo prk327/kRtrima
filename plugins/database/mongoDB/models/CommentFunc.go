@@ -9,11 +9,18 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
-func FindComment(docID primitive.ObjectID, collection *mongo.Collection) *Comment {
+func FindComment(res1 string, collection *mongo.Collection) *Comment {
+    
+    // Create a BSON ObjectID by passing string to ObjectIDFromHex() method
+	docID, err := primitive.ObjectIDFromHex(res1)
+	if err != nil {
+		Logger.Fatalln(err)
+	}
+    
 	// create a value into which the result can be decoded
 	var result *Comment
 
-	err := collection.FindOne(context.TODO(), bson.M{"_id": docID}).Decode(&result)
+	err = collection.FindOne(context.TODO(), bson.M{"_id": docID}).Decode(&result)
 	if err != nil {
 		Logger.Fatalln(err)
 	}
@@ -59,11 +66,17 @@ func FindAllComment(limit int64, collection *mongo.Collection) []*Comment {
 	return results
 }
 
-
-func FindAllCommentByID(key string, docID primitive.ObjectID, collection *mongo.Collection) []*Comment {
+func FindAllCommentByID(key string, res1 string, collection *mongo.Collection) []*Comment {
+    
+    // Create a BSON ObjectID by passing string to ObjectIDFromHex() method
+	docID, err := primitive.ObjectIDFromHex(res1)
+	if err != nil {
+		Logger.Fatalln(err)
+	}
+    
 	// Pass these options to the Find method
 	findOptions := options.Find()
-//	findOptions.SetLimit(limit)
+	//	findOptions.SetLimit(limit)
 
 	// Here's an array in which you can store the decoded documents
 	var results []*Comment
