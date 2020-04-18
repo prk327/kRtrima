@@ -30,16 +30,15 @@ func FindUserByID(res1 string, collection *mongo.Collection) *User {
 	return result
 }
 
-func FindUser(key string, value string, collection *mongo.Collection) *User {
-
-	var result *User
-
-	err := collection.FindOne(context.TODO(), bson.M{key: value}).Decode(&result)
-	if err != nil {
-		Logger.Fatalln(err)
-	}
-
-	return result
+func FindUser(key string, value interface{}, collection *mongo.Collection) (result []bson.M, err error) {
+    filterCursor, err := collection.Find(context.TODO(), bson.M{key: value})
+    if err != nil {
+        Logger.Fatal(err)
+    }
+    if err = filterCursor.All(context.TODO(), &result); err != nil {
+        Logger.Fatal(err)
+    }
+	return
 }
 
 func FindAllUser(limit int64, collection *mongo.Collection) []*User {
@@ -128,27 +127,21 @@ func FindAllUserByID(key string, res1 string, collection *mongo.Collection) []*U
 
 
 // Create a new session for an existing user
-func (user *User) CreateSession() (stmt *Session, err error) {
+func (user *User) CreateSession() (ssid primitive.ObjectID, uuid string, err error) {
     
      // Create a struct type to handle the session for login
     statement :=  Session {
-        Uuid: CreateUUID(),
+        Salt: CreateUUID(),
         Email: user.Email,
         UserId: user.ID,
         CreatedAt: time.Now(),
 }
  
-    ssid, err := AddItem(statement, Sessions)
+    ssid, err = AddItem(statement, Sessions)
     if err != nil {
 			Logger.Fatalln(err)
 		}
+    uuid = statement.Salt
     
-    stmt, err = FindSessionByID(ssid, Sessions)
-    
-    if err != nil {
-			Logger.Fatalln(err)
-		}
-    
-	
 	return
 }

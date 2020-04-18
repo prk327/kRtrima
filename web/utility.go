@@ -57,7 +57,7 @@ func error_message(writer http.ResponseWriter, request *http.Request, msg string
 	http.Redirect(writer, request, strings.Join(url, ""), 302)
 }
 
-//to overrise the post method to follow the restful convention
+//to override the post method to follow the restful convention
 func methodOverride(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		// Only act on POST requests.

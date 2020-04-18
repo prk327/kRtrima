@@ -8,10 +8,10 @@ import (
 // Create a struct type to handle the user
 type User struct {
 	ID        primitive.ObjectID   `json:"_id,omitempty" bson:"_id,omitempty"`
-	Uuid      string               `json:"uuid,omitempty" bson:"uuid,omitempty"`
+	Salt      string               `json:"salt,omitempty" bson:"salt,omitempty"`
 	Email     string               `json:"email" bson:"email"`
 	Name      string               `json:"name,omitempty" bson:"name,omitempty"`
-	Password  []byte               `json:"password" bson:"password"`
+    Hash      []byte               `json:"hash" bson:"hash"`
 	CreatedAt time.Time            `json:"createdat" bson:"createdat"`
 	Threads   []primitive.ObjectID `json:"thread,omitempty" bson:"thread,omitempty"`
 }

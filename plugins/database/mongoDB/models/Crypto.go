@@ -30,11 +30,11 @@ func CreateUUID() (uuid string) {
 }
 
 // hash plaintext with bcrypt
-func Encrypt(plaintext string) []byte {
+func Encrypt(plaintext string) (cryptext []byte, err error) {
     password := []byte(plaintext)
-    cryptext, err := bcrypt.GenerateFromPassword(password, bcrypt.DefaultCost)
+    cryptext, err = bcrypt.GenerateFromPassword(password, bcrypt.DefaultCost)
     if err != nil {
 		log.Fatalln("Cannot generate password encryption", err)
 	}
-    return cryptext
+    return 
 }

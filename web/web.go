@@ -5,6 +5,7 @@ import (
 	"net/http"
     D "kRtrima/web/views/dashboard"
     C "kRtrima/web/views/comments"
+    U "kRtrima/web/views/auth"
 )
 
 func Web() {
@@ -35,6 +36,19 @@ func Web() {
     //Add new comment to the show page
 	mux.POST("/Dashboard/show/:id/comments", C.Create)
     
+    //show register user route
+    mux.GET("/register", U.SignUp)
+    //register user route
+    mux.POST("/register", U.Create)
+    
+    //show login page
+    mux.GET("/login", U.LogIn)
+    //authenticate user for login
+    mux.POST("/login", U.Authenticate)
+    
+    //show logout page
+    mux.GET("/logout", U.LogOut)
+
 	//initializing the server
 	p("kRtrima App", version(), "started at", config.Address)
 	server := http.Server{
