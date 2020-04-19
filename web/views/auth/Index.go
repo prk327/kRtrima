@@ -3,6 +3,7 @@ package auth
 import (
     "github.com/julienschmidt/httprouter"
     m "kRtrima/plugins/database/mongoDB/models"
+    "go.mongodb.org/mongo-driver/bson"
     "net/http"
     "regexp"
     "fmt"
@@ -14,7 +15,11 @@ func LogOut(writer http.ResponseWriter, request *http.Request, _ httprouter.Para
 	cookie, err := request.Cookie("kRtrima")
     if err != http.ErrNoCookie {
         fmt.Println("Cookie was found with name kRtrima")
-        session, err := m.Findmodel("Salt", cookie.Value, m.Sessions)
+        cookie.MaxAge = -1 //delete the cookie
+        http.SetCookie(writer, cookie)
+        fmt.Println("Cookie has now been deleted!!")
+        fmt.Println("The cookie value is %v", cookie.Value)
+        session, err := m.Findmodel("salt", cookie.Value, m.Sessions)
         if err != nil {
             fmt.Println("Cannot Find session")
             http.Redirect(writer, request, "/Dashboard", 401)
@@ -22,21 +27,28 @@ func LogOut(writer http.ResponseWriter, request *http.Request, _ httprouter.Para
 		}
         
             re := regexp.MustCompile(`"(.*?)"`)
+        
+        fmt.Printf("The Object ID before Regex is %v", session[0]["_id"])
 
             rStr := fmt.Sprintf(`%v`, session[0]["_id"])
+        
+        
 
             res1 := re.FindStringSubmatch(rStr)[1]
+            
+        fmt.Printf("The Object ID after Regex is %v", res1)
         fmt.Println("Valid Session Was Found!!")
-        if _, err := m.DeleteItem(rStr, m.Sessions); err != nil{
+        if _, err := m.DeleteItem(res1, m.Sessions); err != nil{
             fmt.Println("Not able to Delete the session!!")
             http.Redirect(writer, request, "/Dashboard", 401)
             return 
         }
         fmt.Println("Session Was Deleted Successfully!!")
         //delete a user struct with session uuid as nil
-            update := m.User{
-                Salt: "",
+            update := bson.M{
+                "salt": "",
             }
+        
 //            re := regexp.MustCompile(`"(.*?)"`)
 
             rStr = fmt.Sprintf(`%v`, session[0]["userid"])

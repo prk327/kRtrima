@@ -130,7 +130,7 @@ func GetSession(next http.Handler) http.Handler {
 		cookie, err := r.Cookie("kRtrima")
 	if err != http.ErrNoCookie {
         fmt.Println("Cookie was Found with Name kRtrima")
-		if _, err = m.Findmodel("Salt", cookie.Value, m.Sessions)
+		if _, err = m.Findmodel("salt", cookie.Value, m.Sessions)
         err != nil {
 			fmt.Println("Cannot found a valid User Session!!")
             http.Redirect(w, r, "/login", 302)

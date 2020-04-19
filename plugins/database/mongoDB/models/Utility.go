@@ -63,6 +63,8 @@ func UpdateItem(res1 string, change interface{}, collection *mongo.Collection) (
 		Logger.Fatalln(err)
 	}
     
+//    chnage = bson.M{"fieldint": 42}
+    
 	// find the document for which the _id field matches id
 	// specify the Upsert option to insert a new document if a document matching the filter isn't found
 	//    uFil := primitive.E(change)
@@ -136,4 +138,65 @@ func Findmodel(key string, value interface{}, collection *mongo.Collection) (res
         Logger.Fatal(err)
     }
 	return
+}
+
+
+
+func DeleteByID(docID primitive.ObjectID, collection *mongo.Collection) (result string, err error) {
+    
+//    // Create a BSON ObjectID by passing string to ObjectIDFromHex() method
+//	docID, err := primitive.ObjectIDFromHex(res1)
+//	if err != nil {
+//		Logger.Fatalln(err)
+//	}
+    
+	// delete at most one document in which the "name" field is "Bob" or "bob"
+	// specify the SetCollation option to provide a collation that will ignore case for string comparisons
+	opts := options.Delete().SetCollation(&options.Collation{
+		Locale:    "en_US",
+		Strength:  1,
+		CaseLevel: false,
+	})
+	filter := bson.D{{"_id", docID}}
+    res, err := collection.DeleteOne(context.TODO(), filter, opts)
+	if err != nil {
+		Logger.Fatal(err)
+	}
+    result = fmt.Sprintf("deleted %v documents\n", res.DeletedCount)
+	return 
+}
+
+
+
+
+//To updated documents at a time
+func UpdateByID(docID primitive.ObjectID, change interface{}, collection *mongo.Collection) (retArg string, err error) {
+    
+    // Create a BSON ObjectID by passing string to ObjectIDFromHex() method
+//    docID, err := primitive.ObjectIDFromHex(res1)
+//	if err != nil {
+//		Logger.Fatalln(err)
+//	}
+    
+	// find the document for which the _id field matches id
+	// specify the Upsert option to insert a new document if a document matching the filter isn't found
+	//    uFil := primitive.E(change)
+	opts := options.Update().SetUpsert(false)
+	filter := bson.D{{"_id", docID}}
+	update := bson.D{{"$set", change}}
+	//    fmt.Println(bson.D{uFil})
+    result, err := collection.UpdateOne(context.TODO(), filter, update, opts)
+	if err != nil {
+		Logger.Fatal(err)
+	}
+    
+
+	if result.MatchedCount != 0 {
+        retArg = fmt.Sprintf("Matched %v documents and updated %v documents.\n", result.MatchedCount, result.ModifiedCount)
+	}
+	if result.UpsertedCount != 0 {
+		retArg  = fmt.Sprintf("inserted a new document with ID %v\n", result.UpsertedID)
+	}
+	retArg = fmt.Sprintf("Matched %v documents and updated %v documents.\n", result.MatchedCount, result.ModifiedCount)
+    return
 }

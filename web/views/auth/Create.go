@@ -21,13 +21,20 @@ func Create(w http.ResponseWriter, request *http.Request, _ httprouter.Params) {
     fmt.Println("SignUp Form Parsed Successfully!!")
     
 //    check for existing user
-    _, err = m.FindUser("email",request.Form["email"][0], m.Users)
-	if err == nil {
-        fmt.Println("User Already Register!!")
+    foundUser, err := m.FindUser("email",request.Form["email"][0], m.Users)
+	if err != nil {
+        fmt.Printf("Got some unexpected error")
+		// If there is an issue with the database, return a 500 error
+		http.Redirect(w, request, "/register", 500)	
+		return
+	}
+    
+    if foundUser != nil {
+        fmt.Printf("User Already Registered!!")
 		// If there is an issue with the database, return a 500 error
 		http.Redirect(w, request, "/login", 500)	
 		return
-	}
+    }
     
     hashed, err := m.Encrypt(request.Form["password"][0])
     if err != nil {
