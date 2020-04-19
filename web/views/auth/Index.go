@@ -18,29 +18,24 @@ func LogOut(writer http.ResponseWriter, request *http.Request, _ httprouter.Para
         cookie.MaxAge = -1 //delete the cookie
         http.SetCookie(writer, cookie)
         fmt.Println("Cookie has now been deleted!!")
-        fmt.Println("The cookie value is %v", cookie.Value)
         session, err := m.Findmodel("salt", cookie.Value, m.Sessions)
         if err != nil {
             fmt.Println("Cannot Find session")
-            http.Redirect(writer, request, "/Dashboard", 401)
+            http.Redirect(writer, request, "/login", 401)
             return
 		}
         
             re := regexp.MustCompile(`"(.*?)"`)
         
-        fmt.Printf("The Object ID before Regex is %v", session[0]["_id"])
 
             rStr := fmt.Sprintf(`%v`, session[0]["_id"])
-        
-        
 
             res1 := re.FindStringSubmatch(rStr)[1]
             
-        fmt.Printf("The Object ID after Regex is %v", res1)
         fmt.Println("Valid Session Was Found!!")
         if _, err := m.DeleteItem(res1, m.Sessions); err != nil{
             fmt.Println("Not able to Delete the session!!")
-            http.Redirect(writer, request, "/Dashboard", 401)
+            http.Redirect(writer, request, "/login", 401)
             return 
         }
         fmt.Println("Session Was Deleted Successfully!!")
@@ -48,8 +43,7 @@ func LogOut(writer http.ResponseWriter, request *http.Request, _ httprouter.Para
             update := bson.M{
                 "salt": "",
             }
-        
-//            re := regexp.MustCompile(`"(.*?)"`)
+    
 
             rStr = fmt.Sprintf(`%v`, session[0]["userid"])
 
@@ -59,7 +53,7 @@ func LogOut(writer http.ResponseWriter, request *http.Request, _ httprouter.Para
             if _, err := m.UpdateItem(res1, update, m.Users)
             err != nil{
                 fmt.Println("Not able to remove session ID from User!!")
-                http.Redirect(writer, request, "/Dashboard", 401)
+                http.Redirect(writer, request, "/login", 401)
                 return 
             }
             fmt.Println("Session was successfully removed from user!!")
@@ -67,5 +61,5 @@ func LogOut(writer http.ResponseWriter, request *http.Request, _ httprouter.Para
             return
 	}
     fmt.Println("No Cookie was found with kRtrima")
-    http.Redirect(writer, request, "/Dashboard", 302)
+    http.Redirect(writer, request, "/login", 302)
 }

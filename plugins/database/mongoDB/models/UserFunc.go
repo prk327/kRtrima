@@ -2,32 +2,32 @@ package models
 
 import (
 	"context"
-	//	"fmt"
+		"fmt"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive" // for BSON ObjectID
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
     "time"
+    "net/http"
+    "regexp"
 //    "strings"
 	//	"log"
 )
 
-func FindUserByID(res1 string, collection *mongo.Collection) *User {
+func FindUserByID(res1 string, collection *mongo.Collection) (result *User, err error) {
     
     // Create a BSON ObjectID by passing string to ObjectIDFromHex() method
 	docID, err := primitive.ObjectIDFromHex(res1)
 	if err != nil {
 		Logger.Fatalln(err)
 	}
-
-	var result *User
-
+    
 	err = collection.FindOne(context.TODO(), bson.M{"_id": docID}).Decode(&result)
 	if err != nil {
 		Logger.Fatalln(err)
 	}
 
-	return result
+	return
 }
 
 func FindUser(key string, value interface{}, collection *mongo.Collection) (result []bson.M, err error) {
@@ -144,4 +144,40 @@ func (user *User) CreateSession() (ssid primitive.ObjectID, uuid string, err err
     uuid = statement.Salt
     
 	return
+}
+
+
+
+//getting the user by session uuid
+func GetUserbyUUID(cookieName string,writer http.ResponseWriter, request *http.Request) (user *User, err error){
+    cookie, err := request.Cookie(cookieName)
+    if err != http.ErrNoCookie{
+        fmt.Println("Cookie found for user by session uuid ")
+        session, errr := Findmodel("salt", cookie.Value, Sessions)
+        if errr != nil {
+            fmt.Println("Cannot Find session in getuserby uuid")
+//            Logger.Fatalln(err)
+//            http.Redirect(writer, request, "/login", 401)
+            return
+		}
+        fmt.Println("Valid Session Was Found in get user by uuid")
+        re := regexp.MustCompile(`"(.*?)"`)
+        rStr := fmt.Sprintf(`%v`, session[0]["userid"])
+        res1 := re.FindStringSubmatch(rStr)[1]
+        user, err = FindUserByID(res1, Users)
+        if err != nil {
+            fmt.Println("Cannot Find user with uuid")
+//            Logger.Fatalln(err)
+//            http.Redirect(writer, request, "/login", 401)
+            return
+        }
+//        fmt.Println(user)
+        return 
+    } else{
+            fmt.Println("No Cookie was found with Name in get user by uuid")
+//            Logger.Fatalln(err)
+//            http.Redirect(writer, request, "/login", 401)
+            return
+    }
+    return 
 }
