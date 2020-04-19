@@ -109,41 +109,29 @@ func Authenticate(w http.ResponseWriter, request *http.Request, _ httprouter.Par
 
 }
 
-//// Checks if the user is logged in and has a session, if not err is not nil
-//func GetSession(writer http.ResponseWriter, request *http.Request, _ httprouter.Params) (sess m.Session, err error) {
-//	cookie, err := request.Cookie("_cookie")
-//	if err == nil {
-//		if _, err = m.FindSession("Salt", cookie.Value, m.Sessions); err != nil {
-//			err = errors.New("Invalid session")
-//            http.Redirect(writer, request, "/login", 302)
-//		}
-//	}
-//	return
-//}
+//to check if the user is logged in
+func GetSession(h httprouter.Handle) httprouter.Handle {
+	return func(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 
-
-
-//to override the post method to follow the restful convention
-func GetSession(next http.Handler) http.Handler {
-	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		// Check if user has a valid session.
-		cookie, err := r.Cookie("kRtrima")
-	if err != http.ErrNoCookie {
+		cookie, err := r.Cookie("kRtrima") //Grab the cookie from the header
+        if err == http.ErrNoCookie{
+            fmt.Println("No Cookie was Found with Name kRtrima")
+            //session is missing, returns with error code 403 Unauthorized
+            http.Redirect(w, r, "/login", 403)
+//			w.WriteHeader(http.StatusForbidden)
+			return
+        }
+        
         fmt.Println("Cookie was Found with Name kRtrima")
-		if _, err = m.Findmodel("salt", cookie.Value, m.Sessions)
+        
+        if _, err = m.Findmodel("salt", cookie.Value, m.Sessions)
         err != nil {
 			fmt.Println("Cannot found a valid User Session!!")
-            http.Redirect(w, r, "/login", 302)
-            return
+             //session is missing, returns with error code 403 Unauthorized
+			http.Redirect(w, r, "/login", 403)
+			return
 		}
         fmt.Println("Valid User Session was Found!!")
-        // Call the next handler in the chain.
-		next.ServeHTTP(w, r)
+		h(w, r, ps)
 	}
-        fmt.Println("Cannot Found a Valid User Session!!")
-		// Call the next handler in the chain.
-//		next.ServeHTTP(w, r)
-        http.Redirect(w, r, "/login", 302)
-            return
-	})
 }
