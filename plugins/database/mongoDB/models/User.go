@@ -14,4 +14,5 @@ type User struct {
     Hash      []byte               `json:"hash,omitempty" bson:"hash,omitempty"`
 	CreatedAt time.Time            `json:"createdat,omitempty" bson:"createdat,omitempty"`
 	Threads   []primitive.ObjectID `json:"thread,omitempty" bson:"thread,omitempty"`
+    Session   primitive.ObjectID   `json:"session,omitempty" bson:"session,omitempty"`
 }

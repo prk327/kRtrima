@@ -1,11 +1,11 @@
 package dashboard
 
 import (
+	"fmt"
+	"html/template"
 	"log"
 	"net/http"
-        "html/template"
-    "fmt"
-//	"os"
+	//	"os"
 	"strings"
 )
 
@@ -19,7 +19,6 @@ var logger *log.Logger
 //	}
 //	logger = log.New(file, "Web INFO ", log.Ldate|log.Ltime|log.Lshortfile)
 //}
-
 
 // parse HTML templates
 // pass in a list of file names, and get a template

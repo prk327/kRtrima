@@ -1,9 +1,9 @@
 package auth
 
 import (
-    "github.com/julienschmidt/httprouter"
-//    m "kRtrima/plugins/database/mongoDB/models"
-    "net/http"
+	"github.com/julienschmidt/httprouter"
+	//    m "kRtrima/plugins/database/mongoDB/models"
+	"net/http"
 )
 
 // GET /login

@@ -1,11 +1,11 @@
 package auth
 
 import (
+	"fmt"
+	"html/template"
 	"log"
 	"net/http"
-        "html/template"
-    "fmt"
-//	"os"
+	//	"os"
 	"strings"
 )
 

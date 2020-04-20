@@ -1,13 +1,13 @@
 package dashboard
 
 import (
-    "github.com/julienschmidt/httprouter"
-//    "kRtrima/plugins/database/mongoDB"
-//    "go.mongodb.org/mongo-driver/bson/primitive" // for BSON ObjectID
-    m "kRtrima/plugins/database/mongoDB/models"
-    "net/http"
-    "regexp"
-    "fmt"
+	"github.com/julienschmidt/httprouter"
+	//    "kRtrima/plugins/database/mongoDB"
+	//    "go.mongodb.org/mongo-driver/bson/primitive" // for BSON ObjectID
+	"fmt"
+	m "kRtrima/plugins/database/mongoDB/models"
+	"net/http"
+	"regexp"
 )
 
 func Update(writer http.ResponseWriter, request *http.Request, p httprouter.Params) {
@@ -30,12 +30,12 @@ func Update(writer http.ResponseWriter, request *http.Request, p httprouter.Para
 	res1 := re.FindStringSubmatch(rStr)[1]
 
 	// Create a BSON ObjectID by passing string to ObjectIDFromHex() method
-//	docID, err := primitive.ObjectIDFromHex(res1)
-//	if err != nil {
-//		danger(err)
-//	}
+	//	docID, err := primitive.ObjectIDFromHex(res1)
+	//	if err != nil {
+	//		danger(err)
+	//	}
 
 	m.UpdateItem(res1, update, m.Collection)
 
-    http.Redirect(writer, request, "/Dashboard/show/" + p.ByName("id") , 302)
+	http.Redirect(writer, request, "/Dashboard/show/"+p.ByName("id"), 302)
 }
