@@ -158,7 +158,7 @@ func GetSession(h httprouter.Handle) httprouter.Handle {
 		if err == http.ErrNoCookie {
 			fmt.Println("No Cookie was Found with Name kRtrima")
 			//session is missing, returns with error code 403 Unauthorized
-			http.Redirect(w, r, "/login", 403)
+			http.Redirect(w, r, "/login", 302)
 			//			w.WriteHeader(http.StatusForbidden)
 			return
 		}
@@ -168,7 +168,7 @@ func GetSession(h httprouter.Handle) httprouter.Handle {
 		if _, err = m.Findmodel("salt", cookie.Value, m.Sessions); err != nil {
 			fmt.Println("Cannot found a valid User Session!!")
 			//session is missing, returns with error code 403 Unauthorized
-			http.Redirect(w, r, "/login", 403)
+			http.Redirect(w, r, "/login", 302)
 			return
 		}
 		fmt.Println("Valid User Session was Found!!")

@@ -5,7 +5,7 @@ import (
 	//    "go.mongodb.org/mongo-driver/bson/primitive" // for BSON ObjectID
 	"fmt"
 	m "kRtrima/plugins/database/mongoDB/models"
-	"log"
+//	"log"
 	"net/http"
 	"regexp"
 )
@@ -21,9 +21,9 @@ func Show(w http.ResponseWriter, request *http.Request, p httprouter.Params) {
 	user, err := m.GetUserbyUUID("kRtrima", w, request)
 	if err != nil {
 		fmt.Println("Not able to find the user by UUID!!")
-		log.Fatalln(err)
-		http.Redirect(w, request, "/login", 401)
-		return
+//		log.Fatalln(err)
+//		http.Redirect(w, request, "/login", 401)
+//		return
 	}
 
 	// Create a BSON ObjectID by passing string to ObjectIDFromHex() method

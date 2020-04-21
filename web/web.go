@@ -30,12 +30,12 @@ func Web() {
 	// Auth route
 	//Display a list of all the Dashboard Index page
 	mux.GET("/Dashboard", D.Index)
-	//Display form to create a dashboard New
+	//Shows the info about a dashboard Show
+	mux.GET("/Dashboard/show/:id", D.Show)
+    //Display form to create a dashboard New
 	mux.GET("/Dashboard/New", U.GetSession(D.New))
 	//Add new dashboard into showpage Create
 	mux.POST("/Dashboard", U.GetSession(D.Create))
-	//Shows the info about a dashboard Show
-	mux.GET("/Dashboard/show/:id", U.GetSession(D.Show))
 	//Show EDIT page
 	mux.GET("/Dashboard/show/:id/edit", U.GetSession(D.Edit))
 	//Updated Route

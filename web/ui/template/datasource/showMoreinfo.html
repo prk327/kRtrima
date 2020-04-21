@@ -19,6 +19,14 @@
                         <h4 class="float-right">$9.00/day</h4>
                         <h4><a>{{ .ContentDetails.Name }}</a></h4>
                         <p>{{ .ContentDetails.Description }}</p>
+                        {{if .User}}
+                        <a class="btn btn-warning" href="/Dashboard/show/{{ .ContentDetails.ID }}/edit">Edit</a>
+                        <form class="d-inline-flex" action="/Dashboard/show/{{ .ContentDetails.ID }}" method="post">
+                            <!--              this is used to override the post method-->
+                            <input type="hidden" name="_method" value="DELETE">
+                            <button class="btn btn-danger">Delete</button>
+                        </form>
+                        {{end}}
                     </div>
                 </div>
                 <div class="card-footer">
@@ -39,12 +47,8 @@
                     </div>
                     {{end}}
                     {{end}}
-                    <a href="/Dashboard/show/{{ .ContentDetails.ID }}/edit">Edit</a>
-                    <form action="/Dashboard/show/{{ .ContentDetails.ID }}" method="post">
-                        <!--              this is used to override the post method-->
-                        <input type="hidden" name="_method" value="DELETE">
-                        <button>Delete</button>
-                    </form>
+
+
                 </div>
             </div>
         </div>
