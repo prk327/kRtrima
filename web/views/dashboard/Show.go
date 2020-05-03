@@ -1,48 +1,60 @@
 package dashboard
 
 import (
-	"github.com/julienschmidt/httprouter"
-	//    "go.mongodb.org/mongo-driver/bson/primitive" // for BSON ObjectID
-	"fmt"
 	m "kRtrima/plugins/database/mongoDB/models"
-//	"log"
+
+	"github.com/julienschmidt/httprouter"
+
 	"net/http"
-	"regexp"
 )
 
+//Show function is used to display the detail thread
 func Show(w http.ResponseWriter, request *http.Request, p httprouter.Params) {
 
-	re := regexp.MustCompile(`"(.*?)"`)
-
-	rStr := fmt.Sprintf(`%v`, p.ByName("id"))
-
-	res1 := re.FindStringSubmatch(rStr)[1]
-
-	user, err := m.GetUserbyUUID("kRtrima", w, request)
+	//get the user and assign to User UP struct
+	err := m.GetUserbyUUID("kRtrima", w, request)
 	if err != nil {
-		fmt.Println("Not able to find the user by UUID!!")
-//		log.Fatalln(err)
-//		http.Redirect(w, request, "/login", 401)
-//		return
+		Logger.Println("Not able to find the user by UUID!!")
+		http.Redirect(w, request, "/login", 401)
+		return
 	}
 
-	// Create a BSON ObjectID by passing string to ObjectIDFromHex() method
-	//	docID, err := primitive.ObjectIDFromHex(res1)
-	//	if err != nil {
-	//		danger(err)
-	//	}
+	docit, err := m.ToDocID(p.ByName("id"))
+	if err != nil {
+		Logger.Println("Not able to get the docid")
+		http.Redirect(w, request, "/login", 401)
+		return
+	}
 
-	//     fmt.Println(user)/
+	//get the thread and assign to Thread TP struct
+	err = m.Threads.Find("_id", docit)
+	if err != nil {
+		Logger.Println("Not able to Find the thread by ID!!")
+		http.Redirect(w, request, "/", 401)
+		return
+	}
+
+	//get the comment and assign to Comment CP struct
+	err = m.Comments.FindbyKeyValue("thread", docit)
+	if err != nil {
+		Logger.Println("Not able to Find The Comments by ID!!")
+	}
+
+	// get the list of mongo collections
+	coll, err := m.ShowCollectionNames(m.DB)
+	if err != nil {
+		Logger.Println("Not able to Get the list of Collection!!")
+	}
 
 	dashlist := m.FindDetails{
-		CollectionNames: m.ShowCollectionNames(m.DB),
-		ContentDetails:  m.FindItem(res1, m.Collection),
-		Comments:        m.FindAllCommentByID("thread", res1, m.Comments),
-		User:            user,
+		CollectionNames: coll,
+		ContentDetails:  m.TP,
+		Comments:        m.CSL,
+		User:            m.UP,
 	}
 
 	if dashlist.User != nil {
-		fmt.Println(dashlist.User.Name)
+		Logger.Println(dashlist.User.Name)
 	}
 
 	generateHTML(w, &dashlist, "layout", "leftsidebar", "topsidebar", "modal", "showMoreinfo")

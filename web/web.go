@@ -1,13 +1,15 @@
 package web
 
 import (
-	"github.com/julienschmidt/httprouter"
 	U "kRtrima/web/views/auth"
 	C "kRtrima/web/views/comments"
 	D "kRtrima/web/views/dashboard"
 	"net/http"
+
+	"github.com/julienschmidt/httprouter"
 )
 
+// Web is to initialize the we server
 func Web() {
 
 	//initializing the router
@@ -32,7 +34,7 @@ func Web() {
 	mux.GET("/Dashboard", D.Index)
 	//Shows the info about a dashboard Show
 	mux.GET("/Dashboard/show/:id", D.Show)
-    //Display form to create a dashboard New
+	//Display form to create a dashboard New
 	mux.GET("/Dashboard/New", U.GetSession(D.New))
 	//Add new dashboard into showpage Create
 	mux.POST("/Dashboard", U.GetSession(D.Create))

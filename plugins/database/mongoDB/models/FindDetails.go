@@ -1,13 +1,9 @@
 package models
 
+// FindDetails is used to export the data to the template
 type FindDetails struct {
-	CollectionNames []string   `json:"CollectionNames,omitempty" bson:"CollectionNames,omitempty"`
-	ContentDetails  *Thread    `json:"ContentDetails,omitempty" bson:"ContentDetails,omitempty"`
-	Comments        []*Comment `json:"Comments,omitempty" bson:"Comments,omitempty"`
-    User            *User      `json:"user,omitempty" bson:"user,omitempty"`
+	CollectionNames []string  `json:"collectionNames,omitempty" bson:"collectionNames,omitempty"`
+	ContentDetails  *Thread   `json:"contentDetails,omitempty" bson:"contentDetails,omitempty"`
+	Comments        []Comment `json:"comments,omitempty" bson:"comments,omitempty"`
+	User            *User     `json:"user,omitempty" bson:"user,omitempty"`
 }
-
-//type FindComment struct {
-//	CollectionNames []string `json:"CollectionNames,omitempty" bson:"CollectionNames,omitempty"`
-//	ContentDetails  *Comment  `json:"ContentDetails,omitempty" bson:"ContentDetails,omitempty"`
-//}

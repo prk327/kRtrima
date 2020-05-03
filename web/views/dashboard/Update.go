@@ -1,20 +1,20 @@
 package dashboard
 
 import (
-	"github.com/julienschmidt/httprouter"
-	//    "kRtrima/plugins/database/mongoDB"
-	//    "go.mongodb.org/mongo-driver/bson/primitive" // for BSON ObjectID
-	"fmt"
 	m "kRtrima/plugins/database/mongoDB/models"
 	"net/http"
-	"regexp"
+
+	"github.com/julienschmidt/httprouter"
 )
 
+//Update is used to updatde the thraed
 func Update(writer http.ResponseWriter, request *http.Request, p httprouter.Params) {
 
 	err := request.ParseForm()
 	if err != nil {
-		danger(err)
+		Logger.Println("Not able to Get the form data!!")
+		http.Redirect(writer, request, "/Home", 401)
+		return
 	}
 
 	update := m.Thread{
@@ -23,19 +23,13 @@ func Update(writer http.ResponseWriter, request *http.Request, p httprouter.Para
 		Description: request.Form["desc"][0],
 	}
 
-	re := regexp.MustCompile(`"(.*?)"`)
-
-	rStr := fmt.Sprintf(`%v`, p.ByName("id"))
-
-	res1 := re.FindStringSubmatch(rStr)[1]
-
-	// Create a BSON ObjectID by passing string to ObjectIDFromHex() method
-	//	docID, err := primitive.ObjectIDFromHex(res1)
-	//	if err != nil {
-	//		danger(err)
-	//	}
-
-	m.UpdateItem(res1, update, m.Collection)
+	msg, err := m.Threads.UpdateItem(p.ByName("id"), update)
+	if err != nil {
+		Logger.Println("Not able to Updated the thread to DB!!")
+		http.Redirect(writer, request, "/Home", 401)
+		return
+	}
+	Logger.Println(msg)
 
 	http.Redirect(writer, request, "/Dashboard/show/"+p.ByName("id"), 302)
 }

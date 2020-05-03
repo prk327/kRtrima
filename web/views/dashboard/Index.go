@@ -1,38 +1,48 @@
 package dashboard
 
 import (
-	"github.com/julienschmidt/httprouter"
-
-	//    "kRtrima/plugins/database/mongoDB"
-	"fmt"
 	m "kRtrima/plugins/database/mongoDB/models"
 	"net/http"
+
+	"github.com/julienschmidt/httprouter"
 )
 
+// Home is to show the home page
 func Home(writer http.ResponseWriter, request *http.Request, _ httprouter.Params) {
 	generateHTML(writer, "This is the Landing Page", "landing")
 }
 
+//Index is used to show the threads
 func Index(writer http.ResponseWriter, request *http.Request, _ httprouter.Params) {
 
-	user, err := m.GetUserbyUUID("kRtrima", writer, request)
+	err := m.GetUserbyUUID("kRtrima", writer, request)
 	if err != nil {
-		fmt.Println("Not able to find the user by user in Index")
-		//            http.Redirect(writer, request, "/login", 401)
-		//            return
+		Logger.Println("Not able to find the user")
+		http.Redirect(writer, request, "/login", 401)
+		return
 	}
-	fmt.Printf("%T", user)
+
+	//get the thread and assign it to slice of thread TSL
+	err = m.Threads.FindAll(10)
+	if err != nil {
+		Logger.Println("Not able to Find the list of Thread!!")
+		http.Redirect(writer, request, "/home", 401)
+		return
+	}
+
+	// get the list of mongo collections
+	coll, err := m.ShowCollectionNames(m.DB)
+	if err != nil {
+		Logger.Println("Not able to Get the list of Collection!!")
+		http.Redirect(writer, request, "/", 301)
+		return
+	}
 
 	dashlist := m.MainCongifDetails{
-		CollectionNames: m.ShowCollectionNames(m.DB),
-		ContentDetails:  m.FindAllItem(10, m.Collection),
-		User:            user,
+		CollectionNames: coll,
+		ContentDetails:  m.TSL,
+		User:            m.UP,
 	}
-
-	//    if dashlist.User != nil{
-	//        fmt.Println(dashlist.User.Name)
-	//    }
-	//
 
 	generateHTML(writer, &dashlist, "layout", "leftsidebar", "topsidebar", "modal", "index")
 }

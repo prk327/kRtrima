@@ -1,31 +1,34 @@
 package dashboard
 
 import (
-	"github.com/julienschmidt/httprouter"
-	//    "go.mongodb.org/mongo-driver/bson/primitive" // for BSON ObjectID
-	"fmt"
 	m "kRtrima/plugins/database/mongoDB/models"
 	"net/http"
-	"regexp"
+
+	"github.com/julienschmidt/httprouter"
 )
 
+// Edit is used to edit the thread
 func Edit(writer http.ResponseWriter, request *http.Request, p httprouter.Params) {
 
-	re := regexp.MustCompile(`"(.*?)"`)
+	//find the thread by id and assign it to TP
+	err := m.Threads.Find("_id", p.ByName("id"))
+	if err != nil {
+		Logger.Println("Not able to Find the thread by ID!!")
+		http.Redirect(writer, request, "/home", 401)
+		return
+	}
 
-	rStr := fmt.Sprintf(`%v`, p.ByName("id"))
-
-	res1 := re.FindStringSubmatch(rStr)[1]
-
-	//	// Create a BSON ObjectID by passing string to ObjectIDFromHex() method
-	//	docID, err := primitive.ObjectIDFromHex(res1)
-	//	if err != nil {
-	//		danger(err)
-	//	}
+	// get the list of mongo collections
+	coll, err := m.ShowCollectionNames(m.DB)
+	if err != nil {
+		Logger.Println("Not able to Get the list of Collection!!")
+		http.Redirect(writer, request, "/", 301)
+		return
+	}
 
 	dashlist := m.FindDetails{
-		CollectionNames: m.ShowCollectionNames(m.DB),
-		ContentDetails:  m.FindItem(res1, m.Collection),
+		CollectionNames: coll,
+		ContentDetails:  m.TP,
 	}
 
 	generateHTML(writer, &dashlist, "layout", "leftsidebar", "topsidebar", "modal", "editData")

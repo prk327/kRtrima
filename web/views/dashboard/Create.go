@@ -7,10 +7,13 @@ import (
 	"net/http"
 )
 
+// Create is used to create a new dashboard
 func Create(writer http.ResponseWriter, request *http.Request, _ httprouter.Params) {
 	err := request.ParseForm()
 	if err != nil {
-		danger(err)
+		Logger.Println("Not able to get the form detail!!")
+		http.Redirect(writer, request, "/home", 401)
+		return
 	}
 
 	newItem := m.Thread{
@@ -19,7 +22,12 @@ func Create(writer http.ResponseWriter, request *http.Request, _ httprouter.Para
 		Description: request.Form["desc"][0],
 	}
 
-	m.AddItem(newItem, m.Collection)
+	_, err = m.Threads.AddItem(newItem)
+	if err != nil {
+		Logger.Println("Not able to add new thread to DB!!")
+		http.Redirect(writer, request, "/home", 401)
+		return
+	}
 
 	http.Redirect(writer, request, "/Dashboard", 302)
 }

@@ -1,18 +1,19 @@
 package models
 
 import (
-   "golang.org/x/crypto/bcrypt"
 	"crypto/rand"
-//	"crypto/sha1"
-//	"database/sql"
+
+	"golang.org/x/crypto/bcrypt"
+
+	//	"crypto/sha1"
+	//	"database/sql"
 	"fmt"
-	_ "github.com/lib/pq"
+	//pg is used to generate uuid
 	"log"
+	// _ "github.com/lib/pq"
 )
 
-
-// create a random UUID with from RFC 4122
-// adapted from http://github.com/nu7hatch/gouuid
+//CreateUUID create a random UUID with from RFC 4122 adapted from http://github.com/nu7hatch/gouuid
 func CreateUUID() (uuid string) {
 	u := new([16]byte)
 	_, err := rand.Read(u[:])
@@ -29,12 +30,12 @@ func CreateUUID() (uuid string) {
 	return
 }
 
-// hash plaintext with bcrypt
+//Encrypt is a hash plaintext with bcrypt
 func Encrypt(plaintext string) (cryptext []byte, err error) {
-    password := []byte(plaintext)
-    cryptext, err = bcrypt.GenerateFromPassword(password, bcrypt.DefaultCost)
-    if err != nil {
+	password := []byte(plaintext)
+	cryptext, err = bcrypt.GenerateFromPassword(password, bcrypt.DefaultCost)
+	if err != nil {
 		log.Fatalln("Cannot generate password encryption", err)
 	}
-    return 
+	return
 }

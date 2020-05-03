@@ -3,8 +3,22 @@ package comments
 import (
 	"fmt"
 	"html/template"
+	"log"
 	"net/http"
+	"os"
 )
+
+// Logger is used to log all the comments msg
+var Logger *log.Logger
+
+func init() {
+	file, err := os.OpenFile("kRtrima_Log.log", os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
+	//	defer file.Close()
+	if err != nil {
+		log.Fatalln("Failed to open log file", err)
+	}
+	Logger = log.New(file, "Comment: ", log.Ldate|log.Ltime|log.Lshortfile)
+}
 
 // parse HTML templates
 // pass in a list of file names, and get a template

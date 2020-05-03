@@ -1,46 +1,66 @@
 package models
 
 import (
-	"fmt"
+	// "fmt"
 	"go.mongodb.org/mongo-driver/mongo"
-	"log"
+	// "log"
 )
 
+// DB is a variable to store the connection
 var DB *mongo.Database
 
-var Collection *mongo.Collection
+// Threads is a variable to store MongoCollection
+var Threads *MongoCollection
 
-var Comments *mongo.Collection
+//TP assign the pointer to the Thread model
+var TP *Thread
 
-var Users *mongo.Collection
+//TSL assign the Slice of Thread
+var TSL []Thread
 
-var Sessions *mongo.Collection
+// Comments is a variable to store MongoCollection
+var Comments *MongoCollection
 
-var Logger *log.Logger
+//CP assign the pointer to the Comment model
+var CP *Comment
 
-var Msg string
+//CSL assign the Slice of Comment
+var CSL []Comment
 
-var lm = &Msg
+// Users is a variable to store MongoCollection
+var Users *MongoCollection
+
+//UP assign the pointer to the User model
+var UP *User
+
+//USL assign the Slice of USER
+var USL []User
+
+// Sessions is a variable to store MongoCollection
+var Sessions *MongoCollection
+
+//SP assign the pointer to the Session model
+var SP *Session
+
+//SSL assign the Slice of Session
+var SSL []Session
 
 func init() {
 
-	*lm, DB = Connect_mongoDB("mongodb://localhost:27017", "kRtrima")
-	fmt.Println(Msg)
+	db := NewMongoConnection("mongodb://localhost:27017", "kRtrima")
 
-	//    conect to Thread collection
-	*lm, Collection = Cnt_Collection("Thread", DB)
-	fmt.Println(Msg)
+	DB = db.DB
 
-	//    conect to Comment collection
-	*lm, Comments = Cnt_Collection("Comment", DB)
-	fmt.Println(Msg)
-    
-    //    conect to User collection
-	*lm, Users = Cnt_Collection("User", DB)
-	fmt.Println(Msg)
-    
-    //    conect to Session collection
-	*lm, Sessions = Cnt_Collection("Session", DB)
-	fmt.Println(Msg)
+	//Get the pointer to mongo Collection for Thread
+	Threads = db.NewCollection("Thread", &TP, &TSL)
+
+	//conect to Comment collection
+	Comments = db.NewCollection("Comment", &CP, &CSL)
+
+	//conect to User collection
+	Users = db.NewCollection("User", &UP, &USL)
+
+	//conect to Session collection
+	Sessions = db.NewCollection("Session", &SP, &SSL)
 
 }

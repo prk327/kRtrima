@@ -1,36 +1,34 @@
 package auth
 
 import (
-	"github.com/julienschmidt/httprouter"
-	//    "github.com/satori/go.uuid"
-	"fmt"
 	m "kRtrima/plugins/database/mongoDB/models"
 	"net/http"
 	"time"
+
+	"github.com/julienschmidt/httprouter"
 )
 
-// POST /signup
-// Create the user account
+//Create is the POST route to create the user account
 func Create(w http.ResponseWriter, request *http.Request, _ httprouter.Params) {
 	err := request.ParseForm()
 	if err != nil {
-		// If there is something wrong with the request body, return a 400 status
-		w.WriteHeader(http.StatusBadRequest)
+		Logger.Printf("Error while parsing the Form!!")
+		http.Redirect(w, request, "/register", 500)
 		return
 	}
-	fmt.Println("SignUp Form Parsed Successfully!!")
+	Logger.Println("SignUp Form Parsed Successfully!!")
 
-	//    check for existing user
-	foundUser, err := m.FindUser("email", request.Form["email"][0], m.Users)
+	//check for existing user
+	err = m.Users.Find("email", request.Form["email"][0])
 	if err != nil {
-		fmt.Printf("Got some unexpected error")
+		Logger.Printf("Got some unexpected error")
 		// If there is an issue with the database, return a 500 error
 		http.Redirect(w, request, "/register", 500)
 		return
 	}
 
-	if foundUser != nil {
-		fmt.Printf("User Already Registered!!")
+	if m.UP.Email == request.Form["email"][0] {
+		Logger.Println("User Already Registered!!")
 		// If there is an issue with the database, return a 500 error
 		http.Redirect(w, request, "/login", 500)
 		return
@@ -39,10 +37,11 @@ func Create(w http.ResponseWriter, request *http.Request, _ httprouter.Params) {
 	hashed, err := m.Encrypt(request.Form["password"][0])
 	if err != nil {
 		// If there is something wrong with the request body, return a 400 status
-		w.WriteHeader(http.StatusBadRequest)
+		Logger.Println("Soething went wrong!!")
+		http.Redirect(w, request, "/login", 400)
 		return
 	}
-	fmt.Println("New User Password was Hashed Successfully!!")
+	Logger.Println("New User Password was Hashed Successfully!!")
 
 	user := m.User{
 		Email:     request.Form["email"][0],
@@ -51,13 +50,13 @@ func Create(w http.ResponseWriter, request *http.Request, _ httprouter.Params) {
 		CreatedAt: time.Now(),
 	}
 
-	_, err = m.AddItem(user, m.Users)
+	_, err = m.Users.AddItem(user)
 	if err != nil {
 		// If there is any issue with inserting into the database, return a 500 error
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
-	fmt.Printf("User %v Was successfully Created!!", request.Form["name"][0])
+	Logger.Printf("User %v Was successfully Created!!", request.Form["name"][0])
 
 	http.Redirect(w, request, "/login", 302)
 }

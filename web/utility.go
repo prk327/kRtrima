@@ -10,6 +10,7 @@ import (
 	"strings"
 )
 
+// Configuration for the web server
 type Configuration struct {
 	Address      string
 	ReadTimeout  int64
@@ -28,12 +29,12 @@ func p(a ...interface{}) {
 }
 
 func init() {
-	//	file, err := os.OpenFile("../web.log", os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
-	//	//	defer file.Close()
-	//	if err != nil {
-	//		log.Fatalln("Failed to open log file", err)
-	//	}
-	//	logger = log.New(file, "Web INFO ", log.Ldate|log.Ltime|log.Lshortfile)
+	file, err := os.OpenFile("kRtrima_Log.log", os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
+	//	defer file.Close()
+	if err != nil {
+		log.Fatalln("Failed to open log file", err)
+	}
+	logger = log.New(file, "Web: ", log.Ldate|log.Ltime|log.Lshortfile)
 	loadConfig()
 }
 
@@ -52,7 +53,7 @@ func loadConfig() {
 }
 
 // Convenience function to redirect to the error message page
-func error_message(writer http.ResponseWriter, request *http.Request, msg string) {
+func errormessage(writer http.ResponseWriter, request *http.Request, msg string) {
 	url := []string{"/err?msg=", msg}
 	http.Redirect(writer, request, strings.Join(url, ""), 302)
 }
