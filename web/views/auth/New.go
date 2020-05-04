@@ -1,6 +1,7 @@
 package auth
 
 import (
+	m "kRtrima/plugins/database/mongoDB/models"
 	"net/http"
 
 	"github.com/julienschmidt/httprouter"
@@ -8,10 +9,20 @@ import (
 
 //LogIn Show the login page
 func LogIn(writer http.ResponseWriter, request *http.Request, _ httprouter.Params) {
-	generateHTML(writer, nil, "layout", "leftsidebar", "topsidebar", "modal", "login_new")
+
+	dashlist := m.MainCongifDetails{
+		LogInUser: m.LIP,
+	}
+
+	generateHTML(writer, &dashlist, "Layout", "LoginLetfSideBar", "LoginTopSidebar", "LoginModal", "LoginContent")
 }
 
 //SignUp Show the signup page
 func SignUp(writer http.ResponseWriter, request *http.Request, _ httprouter.Params) {
-	generateHTML(writer, nil, "layout", "leftsidebar", "topsidebar", "modal", "signup")
+
+	dashlist := m.MainCongifDetails{
+		LogInUser: m.LIP,
+	}
+
+	generateHTML(writer, &dashlist, "Layout", "LoginLetfSideBar", "LoginTopSidebar", "LoginModal", "Register")
 }

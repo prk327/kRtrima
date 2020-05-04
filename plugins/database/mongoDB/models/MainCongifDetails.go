@@ -5,4 +5,5 @@ type MainCongifDetails struct {
 	CollectionNames []string `json:"collectionNames,omitempty" bson:"collectionNames,omitempty"`
 	ContentDetails  []Thread `json:"contentDetails,omitempty" bson:"contentDetails,omitempty"`
 	User            *User    `json:"user,omitempty" bson:"user,omitempty"`
+	LogInUser       *User    `json:"loginuser,omitempty" bson:"loginuser,omitempty"`
 }

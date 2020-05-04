@@ -1,24 +1,16 @@
-{{ define "topsidebar"}}
+{{ define "topsidebar" }}
 
 <nav class="navbar navbar-expand-md navbar-light bg-light">
-    <!--    <a class="navbar-brand" href="#">kRtrima</a>-->
-    <ul class="navbar-nav mr-auto mt-2 mt-md-0">
-        <li id="sidebarCollapse" class="nav-item">
-            <a class="nav-link" href="#">
-                <span class="fas fa-bars"></span>
-            </a>
-        </li>
-    </ul>
-
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="fas fa-bars"></span>
-    </button>
-    
-    <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+    <div class="collapse navbar-collapse">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
                 <a class="nav-link" href="/">Home</a>
             </li>
+            {{if .LogInUser}}
+            <li class="nav-item">
+                <a class="nav-link" href="/Dashboard">Dashboard</a>
+            </li>
+            {{end}}
             <li class="nav-item">
                 <a class="nav-link" href="#">About</a>
             </li>

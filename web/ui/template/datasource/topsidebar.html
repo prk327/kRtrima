@@ -30,7 +30,7 @@
         </form>
 
         <ul class="navbar-nav navbar-right">
-           {{if not .User}}
+           {{if not .LogInUser}}
             <li class="nav-item">
                 <a class="nav-link" href="/login">Login</a>
             </li>
@@ -43,7 +43,7 @@
             </li>
             
             <li class="nav-item">
-                <a class="nav-link" href="/Profile">{{.User.Name}}</a>
+                <a class="nav-link" href="/Profile">{{.LogInUser.Name}}</a>
             </li>
             {{end}}
         </ul>

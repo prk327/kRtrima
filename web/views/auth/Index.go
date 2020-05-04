@@ -19,14 +19,14 @@ func LogOut(writer http.ResponseWriter, request *http.Request, _ httprouter.Para
 		err := m.Sessions.Find("salt", cookie.Value)
 		if err != nil {
 			Logger.Println("Cannot Find session")
-			http.Redirect(writer, request, "/login", 401)
+			http.Redirect(writer, request, "/login", 302)
 			return
 		}
 
 		Logger.Println("Valid Session Was Found!!")
 		if _, err := m.Sessions.DeleteItem(m.SP.ID); err != nil {
 			Logger.Println("Not able to Delete the session!!")
-			http.Redirect(writer, request, "/login", 401)
+			http.Redirect(writer, request, "/login", 302)
 			return
 		}
 		Logger.Println("Session Was Deleted Successfully!!")
@@ -38,7 +38,7 @@ func LogOut(writer http.ResponseWriter, request *http.Request, _ httprouter.Para
 		//remove the user ID from the session
 		if _, err := m.Users.UpdateItem(m.SP.UserID, update); err != nil {
 			Logger.Println("Not able to remove session ID from User!!")
-			http.Redirect(writer, request, "/login", 401)
+			http.Redirect(writer, request, "/login", 302)
 			return
 		}
 		Logger.Println("Session was successfully removed from user!!")

@@ -13,7 +13,7 @@ func Update(writer http.ResponseWriter, request *http.Request, p httprouter.Para
 	err := request.ParseForm()
 	if err != nil {
 		Logger.Println("Not able to Get the form data!!")
-		http.Redirect(writer, request, "/Home", 401)
+		http.Redirect(writer, request, "/", 302)
 		return
 	}
 
@@ -21,12 +21,13 @@ func Update(writer http.ResponseWriter, request *http.Request, p httprouter.Para
 		Name:        request.Form["name"][0],
 		Image:       request.Form["image"][0],
 		Description: request.Form["desc"][0],
+		User:        m.LIP.ID,
 	}
 
 	msg, err := m.Threads.UpdateItem(p.ByName("id"), update)
 	if err != nil {
 		Logger.Println("Not able to Updated the thread to DB!!")
-		http.Redirect(writer, request, "/Home", 401)
+		http.Redirect(writer, request, "/", 302)
 		return
 	}
 	Logger.Println(msg)

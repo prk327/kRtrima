@@ -6,4 +6,5 @@ type FindDetails struct {
 	ContentDetails  *Thread   `json:"contentDetails,omitempty" bson:"contentDetails,omitempty"`
 	Comments        []Comment `json:"comments,omitempty" bson:"comments,omitempty"`
 	User            *User     `json:"user,omitempty" bson:"user,omitempty"`
+	LogInUser       *User     `json:"loginuser,omitempty" bson:"loginuser,omitempty"`
 }

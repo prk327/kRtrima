@@ -40,7 +40,7 @@ func GetUserbyUUID(cookieName string, writer http.ResponseWriter, request *http.
 			return
 		}
 		Logger.Println("Valid Session Was Found in get user by uuid")
-		err = Users.Find("_id", SP.UserID)
+		err = LogInUser.Find("_id", SP.UserID)
 		if err != nil {
 			Logger.Println("Cannot Find user with uuid")
 			http.Redirect(writer, request, "/login", 401)

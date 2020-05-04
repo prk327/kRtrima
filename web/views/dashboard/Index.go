@@ -9,24 +9,29 @@ import (
 
 // Home is to show the home page
 func Home(writer http.ResponseWriter, request *http.Request, _ httprouter.Params) {
-	generateHTML(writer, "This is the Landing Page", "landing")
+
+	dashlist := m.MainCongifDetails{
+		LogInUser: m.LIP,
+	}
+
+	generateHTML(writer, &dashlist, "Landing", "LoginTopSidebar", "LandingContent")
 }
 
 //Index is used to show the threads
 func Index(writer http.ResponseWriter, request *http.Request, _ httprouter.Params) {
 
-	err := m.GetUserbyUUID("kRtrima", writer, request)
-	if err != nil {
-		Logger.Println("Not able to find the user")
-		http.Redirect(writer, request, "/login", 401)
-		return
-	}
+	// err := m.GetUserbyUUID("kRtrima", writer, request)
+	// if err != nil {
+	// 	Logger.Println("Not able to find the user")
+	// 	http.Redirect(writer, request, "/login", 401)
+	// 	return
+	// }
 
 	//get the thread and assign it to slice of thread TSL
-	err = m.Threads.FindAll(10)
+	err := m.Threads.FindAll(100)
 	if err != nil {
 		Logger.Println("Not able to Find the list of Thread!!")
-		http.Redirect(writer, request, "/home", 401)
+		http.Redirect(writer, request, "/home", 302)
 		return
 	}
 
@@ -34,15 +39,15 @@ func Index(writer http.ResponseWriter, request *http.Request, _ httprouter.Param
 	coll, err := m.ShowCollectionNames(m.DB)
 	if err != nil {
 		Logger.Println("Not able to Get the list of Collection!!")
-		http.Redirect(writer, request, "/", 301)
+		http.Redirect(writer, request, "/", 302)
 		return
 	}
 
 	dashlist := m.MainCongifDetails{
 		CollectionNames: coll,
 		ContentDetails:  m.TSL,
-		User:            m.UP,
+		LogInUser:       m.LIP,
 	}
 
-	generateHTML(writer, &dashlist, "layout", "leftsidebar", "topsidebar", "modal", "index")
+	generateHTML(writer, &dashlist, "Layout", "ThreadLeftSideBar", "ThreadTopSideBar", "ThreadModal", "ThreadIndexContent")
 }

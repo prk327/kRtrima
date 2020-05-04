@@ -3,6 +3,7 @@ package comments
 import (
 	m "kRtrima/plugins/database/mongoDB/models"
 	"net/http"
+	"time"
 
 	"github.com/julienschmidt/httprouter"
 )
@@ -12,7 +13,7 @@ func Create(writer http.ResponseWriter, request *http.Request, p httprouter.Para
 	err := request.ParseForm()
 	if err != nil {
 		Logger.Println("Not able to get The Form Data!!")
-		http.Redirect(writer, request, "/home", 401)
+		http.Redirect(writer, request, "/home", 302)
 		return
 	}
 
@@ -20,20 +21,22 @@ func Create(writer http.ResponseWriter, request *http.Request, p httprouter.Para
 	docID, err := m.ToDocID(p.ByName("id"))
 	if err != nil {
 		Logger.Println("Not able to get the id of the Thread!!")
-		http.Redirect(writer, request, "/home", 401)
+		http.Redirect(writer, request, "/home", 302)
 		return
 	}
 
 	newItem := m.Comment{
-		Comment: request.Form["text"][0],
-		Author:  request.Form["author"][0],
-		Thread:  docID,
+		Comment:   request.Form["text"][0],
+		Author:    request.Form["author"][0],
+		Thread:    docID,
+		User:      m.LIP.ID,
+		CreatedAt: time.Now(),
 	}
 
 	_, err = m.Comments.AddItem(newItem)
 	if err != nil {
 		Logger.Println("Not able to add new Comment to DB!!")
-		http.Redirect(writer, request, "/home", 401)
+		http.Redirect(writer, request, "/home", 302)
 		return
 	}
 

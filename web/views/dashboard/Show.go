@@ -11,18 +11,18 @@ import (
 //Show function is used to display the detail thread
 func Show(w http.ResponseWriter, request *http.Request, p httprouter.Params) {
 
-	//get the user and assign to User UP struct
-	err := m.GetUserbyUUID("kRtrima", w, request)
-	if err != nil {
-		Logger.Println("Not able to find the user by UUID!!")
-		http.Redirect(w, request, "/login", 401)
-		return
-	}
+	// //get the user and assign to User UP struct
+	// err := m.GetUserbyUUID("kRtrima", w, request)
+	// if err != nil {
+	// 	Logger.Println("Not able to find the user by UUID!!")
+	// 	http.Redirect(w, request, "/login", 401)
+	// 	return
+	// }
 
 	docit, err := m.ToDocID(p.ByName("id"))
 	if err != nil {
 		Logger.Println("Not able to get the docid")
-		http.Redirect(w, request, "/login", 401)
+		http.Redirect(w, request, "/login", 302)
 		return
 	}
 
@@ -30,7 +30,15 @@ func Show(w http.ResponseWriter, request *http.Request, p httprouter.Params) {
 	err = m.Threads.Find("_id", docit)
 	if err != nil {
 		Logger.Println("Not able to Find the thread by ID!!")
-		http.Redirect(w, request, "/", 401)
+		http.Redirect(w, request, "/Home", 302)
+		return
+	}
+
+	//get the User and assign to User UP struct
+	err = m.Users.Find("_id", m.TP.User)
+	if err != nil {
+		Logger.Println("Not able to Find the user by ID!!")
+		http.Redirect(w, request, "/Home", 302)
 		return
 	}
 
@@ -51,11 +59,12 @@ func Show(w http.ResponseWriter, request *http.Request, p httprouter.Params) {
 		ContentDetails:  m.TP,
 		Comments:        m.CSL,
 		User:            m.UP,
+		LogInUser:       m.LIP,
 	}
 
 	if dashlist.User != nil {
 		Logger.Println(dashlist.User.Name)
 	}
 
-	generateHTML(w, &dashlist, "layout", "leftsidebar", "topsidebar", "modal", "showMoreinfo")
+	generateHTML(w, &dashlist, "Layout", "ThreadLeftSideBar", "ThreadTopSideBar", "ThreadModal", "ThreadShowContent")
 }

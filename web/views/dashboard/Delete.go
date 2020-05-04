@@ -18,7 +18,7 @@ func Delete(writer http.ResponseWriter, request *http.Request, p httprouter.Para
 	_, err := m.Threads.DeleteItem(p.ByName("id"))
 	if err != nil {
 		Logger.Println("Not able to add new thread to DB!!")
-		http.Redirect(writer, request, "/home", 401)
+		http.Redirect(writer, request, "/home", 302)
 		return
 	}
 

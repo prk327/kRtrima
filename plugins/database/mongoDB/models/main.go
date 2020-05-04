@@ -36,6 +36,17 @@ var UP *User
 //USL assign the Slice of USER
 var USL []User
 
+// LogInUser is a variable to store MongoCollection
+var LogInUser *MongoCollection
+
+//LIP assign the pointer to the User model
+var LIP *User
+
+//LISL assign the Slice of USER
+var LISL []User
+
+//-------------
+
 // Sessions is a variable to store MongoCollection
 var Sessions *MongoCollection
 
@@ -59,6 +70,9 @@ func init() {
 
 	//conect to User collection
 	Users = db.NewCollection("User", &UP, &USL)
+
+	//conect to User collection
+	LogInUser = db.NewCollection("User", &LIP, &LISL)
 
 	//conect to Session collection
 	Sessions = db.NewCollection("Session", &SP, &SSL)

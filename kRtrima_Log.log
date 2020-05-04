@@ -1,201 +1,101 @@
-Model: 2020/05/02 22:17:58 UserFunc.go:153: Cookie found for user by session uuid 
-Model: 2020/05/02 22:17:58 UserFunc.go:161: Valid Session Was Found in get user by uuid
-Model: 2020/05/02 22:18:05 UserFunc.go:153: Cookie found for user by session uuid 
-Model: 2020/05/02 22:18:05 UserFunc.go:161: Valid Session Was Found in get user by uuid
-Model: 2020/05/02 22:18:05 Utility.go:250: mongo: no documents in result
-Dashboard: 2020/05/02 22:18:05 Show.go:54: Not able to Find The Comments by ID!!
-Dashboard: 2020/05/02 22:18:05 Show.go:75: Prabhakar Srivastav
-Auth: 2020/05/02 22:18:10 Auth.go:168: Cookie was Found with Name kRtrima
-Auth: 2020/05/02 22:18:10 Auth.go:176: Valid User Session was Found!!
-Auth: 2020/05/02 22:18:37 Auth.go:168: Cookie was Found with Name kRtrima
-Auth: 2020/05/02 22:18:37 Auth.go:176: Valid User Session was Found!!
-Dashboard: 2020/05/02 22:18:37 Update.go:47: Matched 1 documents and updated 1 documents.
-
-Model: 2020/05/02 22:18:37 UserFunc.go:153: Cookie found for user by session uuid 
-Model: 2020/05/02 22:18:37 UserFunc.go:161: Valid Session Was Found in get user by uuid
-Model: 2020/05/02 22:18:37 Utility.go:250: mongo: no documents in result
-Dashboard: 2020/05/02 22:18:37 Show.go:54: Not able to Find The Comments by ID!!
-Dashboard: 2020/05/02 22:18:37 Show.go:75: Prabhakar Srivastav
-Auth: 2020/05/02 22:18:41 Auth.go:168: Cookie was Found with Name kRtrima
-Auth: 2020/05/02 22:18:41 Auth.go:176: Valid User Session was Found!!
-Auth: 2020/05/02 22:18:54 Auth.go:168: Cookie was Found with Name kRtrima
-Auth: 2020/05/02 22:18:54 Auth.go:176: Valid User Session was Found!!
-Model: 2020/05/02 22:18:54 UserFunc.go:153: Cookie found for user by session uuid 
-Model: 2020/05/02 22:18:54 UserFunc.go:161: Valid Session Was Found in get user by uuid
-Model: 2020/05/02 22:18:54 Utility.go:250: mongo: no documents in result
-Dashboard: 2020/05/02 22:18:54 Show.go:54: Not able to Find The Comments by ID!!
-Dashboard: 2020/05/02 22:18:54 Show.go:75: Prabhakar Srivastav
-Model: 2020/05/02 22:25:20 UserFunc.go:153: Cookie found for user by session uuid 
-Model: 2020/05/02 22:25:20 UserFunc.go:161: Valid Session Was Found in get user by uuid
-Model: 2020/05/02 22:25:22 UserFunc.go:153: Cookie found for user by session uuid 
-Model: 2020/05/02 22:25:22 UserFunc.go:161: Valid Session Was Found in get user by uuid
-Dashboard: 2020/05/02 22:25:22 Show.go:75: Prabhakar Srivastav
-Auth: 2020/05/02 22:25:39 Auth.go:168: Cookie was Found with Name kRtrima
-Auth: 2020/05/02 22:25:39 Auth.go:176: Valid User Session was Found!!
-Auth: 2020/05/02 22:25:48 Auth.go:168: Cookie was Found with Name kRtrima
-Auth: 2020/05/02 22:25:48 Auth.go:176: Valid User Session was Found!!
-Model: 2020/05/02 22:25:48 UserFunc.go:153: Cookie found for user by session uuid 
-Model: 2020/05/02 22:25:48 UserFunc.go:161: Valid Session Was Found in get user by uuid
-Dashboard: 2020/05/02 22:25:48 Show.go:75: Prabhakar Srivastav
-Dashboard: 2020/05/03 18:57:01 Index.go:22: Not able to find the user
-Auth: 2020/05/03 18:57:15 Auth.go:47: Register User Found!!
-Auth: 2020/05/03 18:57:15 Auth.go:57: No Cookie was Found with Name kRtrima
-Auth: 2020/05/03 18:57:15 Auth.go:60: User already have a valid session!!
-Auth: 2020/05/03 18:57:15 Auth.go:87: Session was successfully removed from user!!
-Auth: 2020/05/03 18:57:15 Auth.go:105: Password Did Not Matched!!
-Auth: 2020/05/03 18:58:12 Auth.go:47: Register User Found!!
-Auth: 2020/05/03 18:58:12 Auth.go:57: No Cookie was Found with Name kRtrima
-Auth: 2020/05/03 18:58:12 Auth.go:105: Password Did Not Matched!!
-Auth: 2020/05/03 18:58:21 Auth.go:47: Register User Found!!
-Auth: 2020/05/03 18:58:21 Auth.go:57: No Cookie was Found with Name kRtrima
-Auth: 2020/05/03 18:58:21 Auth.go:105: Password Did Not Matched!!
-Auth: 2020/05/03 18:58:27 Auth.go:47: Register User Found!!
-Auth: 2020/05/03 18:58:27 Auth.go:57: No Cookie was Found with Name kRtrima
-Auth: 2020/05/03 18:58:27 Auth.go:111: Password Matched Successfully
-Auth: 2020/05/03 18:58:27 Auth.go:120: New Session Was Created Successfully!!
-Auth: 2020/05/03 18:58:27 Auth.go:140: Session ID Was Inserted to User!!
-Auth: 2020/05/03 18:58:27 Auth.go:148: Cookie was assigned successfully
-Auth: 2020/05/03 18:58:27 Auth.go:150: Authentication SuccessFul
-Model: 2020/05/03 18:58:27 UserFunc.go:153: Cookie found for user by session uuid 
-Model: 2020/05/03 18:58:27 UserFunc.go:161: Valid Session Was Found in get user by uuid
-Model: 2020/05/03 18:58:27 UserFunc.go:153: Cookie found for user by session uuid 
-Model: 2020/05/03 18:58:27 UserFunc.go:161: Valid Session Was Found in get user by uuid
-Model: 2020/05/03 18:58:27 UserFunc.go:153: Cookie found for user by session uuid 
-Model: 2020/05/03 18:58:27 UserFunc.go:161: Valid Session Was Found in get user by uuid
-Model: 2020/05/03 18:58:27 UserFunc.go:153: Cookie found for user by session uuid 
-Model: 2020/05/03 18:58:27 UserFunc.go:161: Valid Session Was Found in get user by uuid
-Model: 2020/05/03 18:58:32 UserFunc.go:153: Cookie found for user by session uuid 
-Model: 2020/05/03 18:58:32 UserFunc.go:161: Valid Session Was Found in get user by uuid
-Model: 2020/05/03 18:58:33 UserFunc.go:153: Cookie found for user by session uuid 
-Model: 2020/05/03 18:58:33 UserFunc.go:161: Valid Session Was Found in get user by uuid
-Model: 2020/05/03 18:59:03 UserFunc.go:153: Cookie found for user by session uuid 
-Model: 2020/05/03 18:59:03 UserFunc.go:161: Valid Session Was Found in get user by uuid
-Model: 2020/05/03 19:02:45 UserFunc.go:153: Cookie found for user by session uuid 
-Model: 2020/05/03 19:02:45 UserFunc.go:161: Valid Session Was Found in get user by uuid
-Model: 2020/05/03 19:02:50 UserFunc.go:153: Cookie found for user by session uuid 
-Model: 2020/05/03 19:02:50 UserFunc.go:161: Valid Session Was Found in get user by uuid
-Dashboard: 2020/05/03 19:02:50 Show.go:75: Prabhakar Srivastav
-Model: 2020/05/03 19:03:06 UserFunc.go:153: Cookie found for user by session uuid 
-Model: 2020/05/03 19:03:06 UserFunc.go:161: Valid Session Was Found in get user by uuid
-Model: 2020/05/03 19:03:09 UserFunc.go:153: Cookie found for user by session uuid 
-Model: 2020/05/03 19:03:09 UserFunc.go:161: Valid Session Was Found in get user by uuid
-Dashboard: 2020/05/03 19:03:09 Show.go:75: Prabhakar Srivastav
-Model: 2020/05/03 19:03:19 UserFunc.go:153: Cookie found for user by session uuid 
-Model: 2020/05/03 19:03:19 UserFunc.go:161: Valid Session Was Found in get user by uuid
-Model: 2020/05/03 19:03:21 UserFunc.go:153: Cookie found for user by session uuid 
-Model: 2020/05/03 19:03:21 UserFunc.go:161: Valid Session Was Found in get user by uuid
-Dashboard: 2020/05/03 19:03:21 Show.go:75: Prabhakar Srivastav
-Auth: 2020/05/03 19:03:25 Auth.go:168: Cookie was Found with Name kRtrima
-Auth: 2020/05/03 19:03:25 Auth.go:176: Valid User Session was Found!!
-Auth: 2020/05/03 19:03:32 Auth.go:168: Cookie was Found with Name kRtrima
-Auth: 2020/05/03 19:03:32 Auth.go:176: Valid User Session was Found!!
-Model: 2020/05/03 19:03:32 UserFunc.go:153: Cookie found for user by session uuid 
-Model: 2020/05/03 19:03:32 UserFunc.go:161: Valid Session Was Found in get user by uuid
-Dashboard: 2020/05/03 19:03:32 Show.go:75: Prabhakar Srivastav
-Auth: 2020/05/03 19:03:43 Auth.go:168: Cookie was Found with Name kRtrima
-Auth: 2020/05/03 19:03:43 Auth.go:176: Valid User Session was Found!!
-Auth: 2020/05/03 19:03:52 Auth.go:168: Cookie was Found with Name kRtrima
-Auth: 2020/05/03 19:03:52 Auth.go:176: Valid User Session was Found!!
-Dashboard: 2020/05/03 19:03:52 Update.go:47: Matched 1 documents and updated 1 documents.
-
-Model: 2020/05/03 19:03:52 UserFunc.go:153: Cookie found for user by session uuid 
-Model: 2020/05/03 19:03:52 UserFunc.go:161: Valid Session Was Found in get user by uuid
-Dashboard: 2020/05/03 19:03:52 Show.go:75: Prabhakar Srivastav
-Model: 2020/05/03 19:04:00 UserFunc.go:153: Cookie found for user by session uuid 
-Model: 2020/05/03 19:04:00 UserFunc.go:161: Valid Session Was Found in get user by uuid
-Auth: 2020/05/03 19:04:02 Index.go:17: Cookie was found with name kRtrima
-Auth: 2020/05/03 19:04:02 Index.go:20: Cookie has now been deleted!!
-Auth: 2020/05/03 19:04:02 Index.go:34: Valid Session Was Found!!
-Auth: 2020/05/03 19:04:02 Index.go:40: Session Was Deleted Successfully!!
-Auth: 2020/05/03 19:04:02 Index.go:56: Session was successfully removed from user!!
-Dashboard: 2020/05/03 19:04:02 Index.go:22: Not able to find the user
-Dashboard: 2020/05/03 19:04:11 Index.go:22: Not able to find the user
-Auth: 2020/05/03 19:04:26 Auth.go:47: Register User Found!!
-Auth: 2020/05/03 19:04:26 Auth.go:57: No Cookie was Found with Name kRtrima
-Auth: 2020/05/03 19:04:26 Auth.go:111: Password Matched Successfully
-Auth: 2020/05/03 19:04:26 Auth.go:120: New Session Was Created Successfully!!
-Auth: 2020/05/03 19:04:26 Auth.go:140: Session ID Was Inserted to User!!
-Auth: 2020/05/03 19:04:26 Auth.go:148: Cookie was assigned successfully
-Auth: 2020/05/03 19:04:26 Auth.go:150: Authentication SuccessFul
-Model: 2020/05/03 19:04:26 UserFunc.go:153: Cookie found for user by session uuid 
-Model: 2020/05/03 19:04:26 UserFunc.go:161: Valid Session Was Found in get user by uuid
-Auth: 2020/05/03 19:06:46 Index.go:17: Cookie was found with name kRtrima
-Auth: 2020/05/03 19:06:46 Index.go:20: Cookie has now been deleted!!
-Auth: 2020/05/03 19:06:46 Index.go:34: Valid Session Was Found!!
-Auth: 2020/05/03 19:06:46 Index.go:40: Session Was Deleted Successfully!!
-Auth: 2020/05/03 19:06:46 Index.go:56: Session was successfully removed from user!!
-Dashboard: 2020/05/03 19:06:46 Index.go:22: Not able to find the user
-Dashboard: 2020/05/03 19:06:53 Index.go:22: Not able to find the user
-Dashboard: 2020/05/03 19:32:44 Index.go:20: Not able to find the user
-Auth: 2020/05/03 19:33:00 Auth.go:40: Register User Found!!
-Auth: 2020/05/03 19:33:00 Auth.go:45: No Cookie was Found with Name kRtrima
-Auth: 2020/05/03 19:33:00 Auth.go:93: Password Matched Successfully
-Auth: 2020/05/03 19:33:00 Auth.go:102: New Session Was Created Successfully!!
-Auth: 2020/05/03 19:33:00 Auth.go:116: Session ID Was Inserted to User!!
-Auth: 2020/05/03 19:33:00 Auth.go:124: Cookie was assigned successfully
-Auth: 2020/05/03 19:33:00 Auth.go:126: Authentication SuccessFul
-Model: 2020/05/03 19:33:00 UserFunc.go:35: Cookie found for user by session uuid 
-Model: 2020/05/03 19:33:00 UserFunc.go:42: Valid Session Was Found in get user by uuid
-Auth: 2020/05/03 19:33:05 Auth.go:144: Cookie was Found with Name kRtrima
-Auth: 2020/05/03 19:33:05 Auth.go:152: Valid User Session was Found!!
-Auth: 2020/05/03 19:33:44 Auth.go:144: Cookie was Found with Name kRtrima
-Auth: 2020/05/03 19:33:44 Auth.go:152: Valid User Session was Found!!
-Model: 2020/05/03 19:33:44 UserFunc.go:35: Cookie found for user by session uuid 
-Model: 2020/05/03 19:33:44 UserFunc.go:42: Valid Session Was Found in get user by uuid
-Model: 2020/05/03 19:33:47 UserFunc.go:35: Cookie found for user by session uuid 
-Model: 2020/05/03 19:33:47 UserFunc.go:42: Valid Session Was Found in get user by uuid
-Dashboard: 2020/05/03 19:33:47 Show.go:57: Prabhakar Srivastav
-Auth: 2020/05/03 19:33:50 Auth.go:144: Cookie was Found with Name kRtrima
-Auth: 2020/05/03 19:33:50 Auth.go:152: Valid User Session was Found!!
-Auth: 2020/05/03 19:34:09 Auth.go:144: Cookie was Found with Name kRtrima
-Auth: 2020/05/03 19:34:09 Auth.go:152: Valid User Session was Found!!
-Model: 2020/05/03 19:34:09 UserFunc.go:35: Cookie found for user by session uuid 
-Model: 2020/05/03 19:34:09 UserFunc.go:42: Valid Session Was Found in get user by uuid
-Dashboard: 2020/05/03 19:34:09 Show.go:57: Prabhakar Srivastav
-Auth: 2020/05/03 19:34:17 Index.go:15: Cookie was found with name kRtrima
-Auth: 2020/05/03 19:34:17 Index.go:18: Cookie has now been deleted!!
-Auth: 2020/05/03 19:34:17 Index.go:26: Valid Session Was Found!!
-Auth: 2020/05/03 19:34:17 Index.go:32: Session Was Deleted Successfully!!
-Auth: 2020/05/03 19:34:17 Index.go:44: Session was successfully removed from user!!
-Dashboard: 2020/05/03 19:34:17 Index.go:20: Not able to find the user
-Auth: 2020/05/03 19:34:26 Auth.go:40: Register User Found!!
-Auth: 2020/05/03 19:34:26 Auth.go:45: No Cookie was Found with Name kRtrima
-Auth: 2020/05/03 19:34:26 Auth.go:93: Password Matched Successfully
-Auth: 2020/05/03 19:34:26 Auth.go:102: New Session Was Created Successfully!!
-Auth: 2020/05/03 19:34:26 Auth.go:116: Session ID Was Inserted to User!!
-Auth: 2020/05/03 19:34:26 Auth.go:124: Cookie was assigned successfully
-Auth: 2020/05/03 19:34:26 Auth.go:126: Authentication SuccessFul
-Model: 2020/05/03 19:34:26 UserFunc.go:35: Cookie found for user by session uuid 
-Model: 2020/05/03 19:34:26 UserFunc.go:42: Valid Session Was Found in get user by uuid
-Model: 2020/05/03 19:34:31 UserFunc.go:35: Cookie found for user by session uuid 
-Model: 2020/05/03 19:34:31 UserFunc.go:42: Valid Session Was Found in get user by uuid
-Dashboard: 2020/05/03 19:34:31 Show.go:57: Bhaskar Srivastav
-Auth: 2020/05/03 19:34:35 Auth.go:144: Cookie was Found with Name kRtrima
-Auth: 2020/05/03 19:34:35 Auth.go:152: Valid User Session was Found!!
-Auth: 2020/05/03 19:34:54 Auth.go:144: Cookie was Found with Name kRtrima
-Auth: 2020/05/03 19:34:54 Auth.go:152: Valid User Session was Found!!
-Model: 2020/05/03 19:34:54 UserFunc.go:35: Cookie found for user by session uuid 
-Model: 2020/05/03 19:34:54 UserFunc.go:42: Valid Session Was Found in get user by uuid
-Dashboard: 2020/05/03 19:34:54 Show.go:57: Bhaskar Srivastav
-Auth: 2020/05/03 19:35:02 Index.go:15: Cookie was found with name kRtrima
-Auth: 2020/05/03 19:35:02 Index.go:18: Cookie has now been deleted!!
-Auth: 2020/05/03 19:35:02 Index.go:26: Valid Session Was Found!!
-Auth: 2020/05/03 19:35:02 Index.go:32: Session Was Deleted Successfully!!
-Auth: 2020/05/03 19:35:02 Index.go:44: Session was successfully removed from user!!
-Dashboard: 2020/05/03 19:35:02 Index.go:20: Not able to find the user
-Auth: 2020/05/03 19:35:12 Auth.go:40: Register User Found!!
-Auth: 2020/05/03 19:35:12 Auth.go:45: No Cookie was Found with Name kRtrima
-Auth: 2020/05/03 19:35:12 Auth.go:93: Password Matched Successfully
-Auth: 2020/05/03 19:35:12 Auth.go:102: New Session Was Created Successfully!!
-Auth: 2020/05/03 19:35:12 Auth.go:116: Session ID Was Inserted to User!!
-Auth: 2020/05/03 19:35:12 Auth.go:124: Cookie was assigned successfully
-Auth: 2020/05/03 19:35:12 Auth.go:126: Authentication SuccessFul
-Model: 2020/05/03 19:35:12 UserFunc.go:35: Cookie found for user by session uuid 
-Model: 2020/05/03 19:35:12 UserFunc.go:42: Valid Session Was Found in get user by uuid
-Model: 2020/05/03 19:35:28 UserFunc.go:35: Cookie found for user by session uuid 
-Model: 2020/05/03 19:35:28 UserFunc.go:42: Valid Session Was Found in get user by uuid
-Dashboard: 2020/05/03 19:35:28 Show.go:57: Pratibha Srivastav
-Auth: 2020/05/03 19:35:30 Auth.go:144: Cookie was Found with Name kRtrima
-Auth: 2020/05/03 19:35:30 Auth.go:152: Valid User Session was Found!!
-Model: 2020/05/03 19:35:30 UserFunc.go:35: Cookie found for user by session uuid 
-Model: 2020/05/03 19:35:30 UserFunc.go:42: Valid Session Was Found in get user by uuid
+Model: 2020/05/04 22:23:48 Utility.go:216: mongo: no documents in result
+Auth: 2020/05/04 22:23:48 Auth.go:27: Not Able to Found a Valid User ID with this Email
+Model: 2020/05/04 22:35:20 Utility.go:216: mongo: no documents in result
+Auth: 2020/05/04 22:35:20 Auth.go:27: Not Able to Found a Valid User ID with this Email
+Auth: 2020/05/04 22:35:36 Create.go:19: SignUp Form Parsed Successfully!!
+Model: 2020/05/04 22:35:36 Utility.go:216: mongo: no documents in result
+Auth: 2020/05/04 22:35:36 Create.go:24: Got some unexpected error
+Model: 2020/05/04 22:35:46 Utility.go:216: mongo: no documents in result
+Auth: 2020/05/04 22:35:46 Auth.go:27: Not Able to Found a Valid User ID with this Email
+Auth: 2020/05/04 22:57:26 Auth.go:143: Cookie was Found with Name kRtrima
+Model: 2020/05/04 22:57:26 Utility.go:216: mongo: no documents in result
+Auth: 2020/05/04 22:57:26 Auth.go:146: Cannot found a valid User Session!!
+Model: 2020/05/04 22:57:38 Utility.go:216: mongo: no documents in result
+Auth: 2020/05/04 22:57:38 Auth.go:27: Not Able to Found a Valid User ID with this Email
+Auth: 2020/05/04 22:58:29 Create.go:19: SignUp Form Parsed Successfully!!
+Model: 2020/05/04 22:58:29 Utility.go:216: mongo: no documents in result
+Auth: 2020/05/04 22:58:29 Create.go:24: Got some unexpected error mongo: no documents in result
+Auth: 2020/05/04 23:08:58 Auth.go:143: Cookie was Found with Name kRtrima
+Model: 2020/05/04 23:08:58 Utility.go:216: mongo: no documents in result
+Auth: 2020/05/04 23:08:58 Auth.go:146: Cannot found a valid User Session!!
+Model: 2020/05/04 23:09:06 Utility.go:216: mongo: no documents in result
+Auth: 2020/05/04 23:09:06 Auth.go:27: Not Able to Found a Valid User ID with this Email
+Auth: 2020/05/04 23:09:19 Create.go:20: SignUp Form Parsed Successfully!!
+Model: 2020/05/04 23:09:19 Utility.go:216: mongo: no documents in result
+Auth: 2020/05/04 23:09:19 Create.go:20: SignUp Form Parsed Successfully!!
+Model: 2020/05/04 23:09:19 Utility.go:216: mongo: no documents in result
+Auth: 2020/05/04 23:16:16 Auth.go:143: Cookie was Found with Name kRtrima
+Model: 2020/05/04 23:16:16 Utility.go:216: mongo: no documents in result
+Auth: 2020/05/04 23:16:16 Auth.go:146: Cannot found a valid User Session!!
+Model: 2020/05/04 23:16:24 Utility.go:216: mongo: no documents in result
+Auth: 2020/05/04 23:16:24 Auth.go:27: Not Able to Found a Valid User ID with this Email
+Auth: 2020/05/04 23:16:45 Create.go:20: SignUp Form Parsed Successfully!!
+Model: 2020/05/04 23:16:45 Utility.go:216: mongo: no documents in result
+Auth: 2020/05/04 23:16:45 Create.go:20: SignUp Form Parsed Successfully!!
+Model: 2020/05/04 23:16:45 Utility.go:216: mongo: no documents in result
+Auth: 2020/05/04 23:19:24 Auth.go:143: Cookie was Found with Name kRtrima
+Model: 2020/05/04 23:19:24 Utility.go:216: mongo: no documents in result
+Auth: 2020/05/04 23:19:24 Auth.go:146: Cannot found a valid User Session!!
+Model: 2020/05/04 23:19:31 Utility.go:216: mongo: no documents in result
+Auth: 2020/05/04 23:19:31 Auth.go:27: Not Able to Found a Valid User ID with this Email
+Auth: 2020/05/04 23:19:45 Create.go:20: SignUp Form Parsed Successfully!!
+Model: 2020/05/04 23:19:45 Utility.go:216: mongo: no documents in result
+Auth: 2020/05/04 23:19:45 Create.go:20: SignUp Form Parsed Successfully!!
+Model: 2020/05/04 23:19:45 Utility.go:216: mongo: no documents in result
+Auth: 2020/05/04 23:22:58 Auth.go:143: Cookie was Found with Name kRtrima
+Model: 2020/05/04 23:22:58 Utility.go:216: mongo: no documents in result
+Auth: 2020/05/04 23:22:58 Auth.go:146: Cannot found a valid User Session!!
+Model: 2020/05/04 23:23:06 Utility.go:216: mongo: no documents in result
+Auth: 2020/05/04 23:23:06 Auth.go:27: Not Able to Found a Valid User ID with this Email
+Auth: 2020/05/04 23:23:17 Create.go:20: SignUp Form Parsed Successfully!!
+Model: 2020/05/04 23:23:17 Utility.go:216: mongo: no documents in result
+Auth: 2020/05/04 23:24:36 Create.go:20: SignUp Form Parsed Successfully!!
+Model: 2020/05/04 23:37:01 Utility.go:216: mongo: no documents in result
+Auth: 2020/05/04 23:37:01 Auth.go:27: Not Able to Found a Valid User ID with this Email
+Auth: 2020/05/04 23:37:12 Create.go:20: SignUp Form Parsed Successfully!!
+Model: 2020/05/04 23:37:12 Utility.go:216: mongo: no documents in result
+Auth: 2020/05/04 23:37:12 Create.go:47: New User Password was Hashed Successfully!!
+Auth: 2020/05/04 23:37:12 Create.go:62: User Prabhakar Srivastav Was successfully Created!!
+Auth: 2020/05/04 23:37:25 Auth.go:40: Register User Found!!
+Auth: 2020/05/04 23:37:25 Auth.go:73: Cookie was Found with Name kRtrima during login
+Auth: 2020/05/04 23:37:25 Auth.go:81: User do not have a valid session!!
+Auth: 2020/05/04 23:37:25 Auth.go:93: Password Matched Successfully
+Auth: 2020/05/04 23:37:25 Auth.go:102: New Session Was Created Successfully!!
+Auth: 2020/05/04 23:37:25 Auth.go:116: Session ID Was Inserted to User!!
+Auth: 2020/05/04 23:37:25 Auth.go:124: Cookie was assigned successfully
+Auth: 2020/05/04 23:37:25 Auth.go:126: Authentication SuccessFul
+Auth: 2020/05/04 23:37:25 Auth.go:143: Cookie was Found with Name kRtrima
+Auth: 2020/05/04 23:37:25 Auth.go:152: Valid User Session was Found!!
+Auth: 2020/05/04 23:37:46 Auth.go:143: Cookie was Found with Name kRtrima
+Auth: 2020/05/04 23:37:46 Auth.go:152: Valid User Session was Found!!
+Auth: 2020/05/04 23:37:49 Auth.go:143: Cookie was Found with Name kRtrima
+Auth: 2020/05/04 23:37:49 Auth.go:152: Valid User Session was Found!!
+Auth: 2020/05/04 23:44:15 Auth.go:40: Register User Found!!
+Auth: 2020/05/04 23:44:15 Auth.go:73: Cookie was Found with Name kRtrima during login
+Auth: 2020/05/04 23:44:15 Auth.go:76: User already have a valid session!!
+Auth: 2020/05/04 23:44:15 Auth.go:143: Cookie was Found with Name kRtrima
+Auth: 2020/05/04 23:44:15 Auth.go:152: Valid User Session was Found!!
+Auth: 2020/05/04 23:47:31 Auth.go:40: Register User Found!!
+Auth: 2020/05/04 23:47:31 Auth.go:73: Cookie was Found with Name kRtrima during login
+Auth: 2020/05/04 23:47:31 Auth.go:76: User already have a valid session!!
+Auth: 2020/05/04 23:47:31 Auth.go:143: Cookie was Found with Name kRtrima
+Auth: 2020/05/04 23:47:31 Auth.go:152: Valid User Session was Found!!
+Auth: 2020/05/04 23:47:36 Auth.go:143: Cookie was Found with Name kRtrima
+Auth: 2020/05/04 23:47:36 Auth.go:152: Valid User Session was Found!!
+Auth: 2020/05/04 23:47:42 Auth.go:143: Cookie was Found with Name kRtrima
+Auth: 2020/05/04 23:47:42 Auth.go:152: Valid User Session was Found!!
+Auth: 2020/05/04 23:48:12 Auth.go:143: Cookie was Found with Name kRtrima
+Auth: 2020/05/04 23:48:12 Auth.go:152: Valid User Session was Found!!
+Auth: 2020/05/04 23:48:12 Auth.go:143: Cookie was Found with Name kRtrima
+Auth: 2020/05/04 23:48:12 Auth.go:152: Valid User Session was Found!!
+Auth: 2020/05/04 23:48:17 Auth.go:143: Cookie was Found with Name kRtrima
+Auth: 2020/05/04 23:48:17 Auth.go:152: Valid User Session was Found!!
+Auth: 2020/05/04 23:48:18 Auth.go:143: Cookie was Found with Name kRtrima
+Auth: 2020/05/04 23:48:18 Auth.go:152: Valid User Session was Found!!
+Dashboard: 2020/05/04 23:48:18 Show.go:66: Prabhakar Srivastav
+Auth: 2020/05/04 23:48:22 Index.go:15: Cookie was found with name kRtrima
+Auth: 2020/05/04 23:48:22 Index.go:18: Cookie has now been deleted!!
+Auth: 2020/05/04 23:48:22 Index.go:26: Valid Session Was Found!!
+Auth: 2020/05/04 23:48:22 Index.go:32: Session Was Deleted Successfully!!
+Auth: 2020/05/04 23:48:22 Index.go:44: Session was successfully removed from user!!
+Auth: 2020/05/04 23:48:22 Auth.go:137: No Cookie was Found with Name kRtrima
