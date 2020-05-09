@@ -7,11 +7,11 @@
             <h1>Add New Comment to {{ .ContentDetails.Name }}</h1>
             <form action="/Dashboard/show/{{ .ContentDetails.ID }}/comments" method="post">
                 <div class="form-group">
-                    <input class="form-control" type="text" name="text" placeholder="text">
+                    <input class="form-control" type="text" name="comment" placeholder="text">
                 </div>
-                <div class="form-group">
+                <!-- <div class="form-group">
                     <input class="form-control" type="text" name="author" placeholder="author">
-                </div>
+                </div> -->
                 <div class="form-group">
                     <button type="submit" class="btn btn-primary btn-block">Submit!</button>
                 </div>

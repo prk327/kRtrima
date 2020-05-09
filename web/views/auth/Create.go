@@ -47,6 +47,7 @@ func Create(w http.ResponseWriter, request *http.Request, _ httprouter.Params) {
 	Logger.Println("New User Password was Hashed Successfully!!")
 
 	user := m.User{
+		Salt:      m.CreateUUID(),
 		Email:     request.Form["email"][0],
 		Name:      request.Form["name"][0],
 		Hash:      hashed,

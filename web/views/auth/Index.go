@@ -5,7 +5,6 @@ import (
 	"net/http"
 
 	"github.com/julienschmidt/httprouter"
-	"go.mongodb.org/mongo-driver/bson"
 )
 
 //LogOut lets the user out
@@ -16,7 +15,7 @@ func LogOut(writer http.ResponseWriter, request *http.Request, _ httprouter.Para
 		cookie.MaxAge = -1 //delete the cookie
 		http.SetCookie(writer, cookie)
 		Logger.Println("Cookie has now been deleted!!")
-		err := m.Sessions.Find("salt", cookie.Value)
+		err := m.Sessions.Find("_id", cookie.Value)
 		if err != nil {
 			Logger.Println("Cannot Find session")
 			http.Redirect(writer, request, "/login", 302)
@@ -31,17 +30,21 @@ func LogOut(writer http.ResponseWriter, request *http.Request, _ httprouter.Para
 		}
 		Logger.Println("Session Was Deleted Successfully!!")
 		//delete a user struct with session uuid as nil
-		update := bson.M{
-			"salt": "",
-		}
+		// update := bson.M{
+		// 	"salt": "",
+		// }
 
 		//remove the user ID from the session
-		if _, err := m.Users.UpdateItem(m.SP.UserID, update); err != nil {
-			Logger.Println("Not able to remove session ID from User!!")
-			http.Redirect(writer, request, "/login", 302)
-			return
-		}
-		Logger.Println("Session was successfully removed from user!!")
+
+		Logger.Println("Login Pointer to user has been cleared!!")
+		m.LIP = nil
+
+		// if _, err := m.Users.UpdateItem(m.SP.Salt, update); err != nil {
+		// 	Logger.Println("Not able to remove session ID from User!!")
+		// 	http.Redirect(writer, request, "/login", 302)
+		// 	return
+		// }
+		// Logger.Println("Session was successfully removed from user!!")
 		http.Redirect(writer, request, "/Dashboard", 302)
 		return
 	}

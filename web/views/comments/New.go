@@ -29,6 +29,7 @@ func New(writer http.ResponseWriter, request *http.Request, p httprouter.Params)
 	dashlist := m.FindDetails{
 		CollectionNames: coll,
 		ContentDetails:  m.TP,
+		User:            m.UP,
 		LogInUser:       m.LIP,
 	}
 

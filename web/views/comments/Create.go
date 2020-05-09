@@ -12,8 +12,8 @@ import (
 func Create(writer http.ResponseWriter, request *http.Request, p httprouter.Params) {
 	err := request.ParseForm()
 	if err != nil {
-		Logger.Println("Not able to get The Form Data!!")
-		http.Redirect(writer, request, "/home", 302)
+		Logger.Println("Not able to get The Form Detail!!")
+		http.Redirect(writer, request, "/Dashboard", 302)
 		return
 	}
 
@@ -21,13 +21,13 @@ func Create(writer http.ResponseWriter, request *http.Request, p httprouter.Para
 	docID, err := m.ToDocID(p.ByName("id"))
 	if err != nil {
 		Logger.Println("Not able to get the id of the Thread!!")
-		http.Redirect(writer, request, "/home", 302)
+		http.Redirect(writer, request, "/Dashboard/show/"+p.ByName("id"), 302)
 		return
 	}
 
 	newItem := m.Comment{
-		Comment:   request.Form["text"][0],
-		Author:    request.Form["author"][0],
+		Comment:   request.Form["comment"][0],
+		Author:    m.LIP.Name,
 		Thread:    docID,
 		User:      m.LIP.ID,
 		CreatedAt: time.Now(),
@@ -36,7 +36,7 @@ func Create(writer http.ResponseWriter, request *http.Request, p httprouter.Para
 	_, err = m.Comments.AddItem(newItem)
 	if err != nil {
 		Logger.Println("Not able to add new Comment to DB!!")
-		http.Redirect(writer, request, "/home", 302)
+		http.Redirect(writer, request, "/Dashboard/show/"+p.ByName("id"), 302)
 		return
 	}
 

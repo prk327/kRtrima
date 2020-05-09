@@ -51,6 +51,10 @@ func Web() {
 	mux.POST("/Dashboard/show/:id/comments", U.GetSession(C.Create))
 	//Edit comment
 	mux.GET("/Dashboard/show/:id/comments/show/:cid/edit", U.GetSession(C.Edit))
+	//Updated comment
+	mux.PUT("/Dashboard/show/:id/comments/show/:cid", U.GetSession(C.Update))
+	//Deleate comment
+	mux.DELETE("/Dashboard/show/:id/comments/show/:cid", U.GetSession(C.Delete))
 
 	//initializing the server
 	p("kRtrima App", version(), "started at", config.Address)

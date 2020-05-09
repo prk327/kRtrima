@@ -13,9 +13,7 @@ func (user *User) CreateSession() (ssid primitive.ObjectID, uuid string, err err
 
 	// Create a struct type to handle the session for login
 	statement := Session{
-		Salt:      CreateUUID(),
-		Email:     user.Email,
-		UserID:    user.ID,
+		Salt:      user.Salt,
 		CreatedAt: time.Now(),
 	}
 
@@ -33,16 +31,16 @@ func GetUserbyUUID(cookieName string, writer http.ResponseWriter, request *http.
 	cookie, err := request.Cookie(cookieName)
 	if err != http.ErrNoCookie {
 		Logger.Println("Cookie found for user by session uuid ")
-		errr := Sessions.Find("salt", cookie.Value)
+		errr := Sessions.Find("_id", cookie.Value)
 		if errr != nil {
-			Logger.Println("Cannot Find session in getuserby uuid")
+			Logger.Println("Cannot Find session by ID")
 			http.Redirect(writer, request, "/login", 401)
 			return
 		}
-		Logger.Println("Valid Session Was Found in get user by uuid")
-		err = LogInUser.Find("_id", SP.UserID)
+		Logger.Println("Valid Session Was Found in get user by salt")
+		err = LogInUser.Find("salt", SP.Salt)
 		if err != nil {
-			Logger.Println("Cannot Find user with uuid")
+			Logger.Println("Cannot Find user with salt")
 			http.Redirect(writer, request, "/login", 401)
 			return
 		}

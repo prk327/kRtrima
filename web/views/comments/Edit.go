@@ -14,7 +14,7 @@ func Edit(writer http.ResponseWriter, request *http.Request, p httprouter.Params
 	//find the thread by id and assign it to TP
 	err := m.Threads.Find("_id", p.ByName("id"))
 	if err != nil {
-		Logger.Println("Not able to Find the thread by ID!!")
+		Logger.Println("Not able to Find the comment by ID!!")
 		http.Redirect(writer, request, "/Dashboard", 302)
 		return
 	}
@@ -31,7 +31,13 @@ func Edit(writer http.ResponseWriter, request *http.Request, p httprouter.Params
 	err = m.Users.Find("_id", m.CP.User)
 	if err != nil {
 		Logger.Println("Not able to Find the user by ID!!")
-		http.Redirect(writer, request, "/", 302)
+		http.Redirect(writer, request, "/Dashboard", 302)
+		return
+	}
+
+	if m.UP.Email != m.LIP.Email {
+		Logger.Println("You are not authorized to edit this comment!!")
+		http.Redirect(writer, request, "/Dashboard/show/"+p.ByName("id"), 302)
 		return
 	}
 
@@ -46,7 +52,7 @@ func Edit(writer http.ResponseWriter, request *http.Request, p httprouter.Params
 	dashlist := m.FindDetails{
 		CollectionNames: coll,
 		ContentDetails:  m.TP,
-		Comments:        m.CSL,
+		SingleComment:   m.CP,
 		User:            m.UP,
 		LogInUser:       m.LIP,
 	}

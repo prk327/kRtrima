@@ -230,7 +230,7 @@ func (m *MongoCollection) FindAll(limit int64) (err error) {
 	if err = cursor.All(context.TODO(), *&m.SLModel); err != nil {
 		Logger.Println(err)
 	}
-	cursor.Close(context.TODO())
+	// cursor.Close(context.TODO())
 	return
 }
 
@@ -243,6 +243,5 @@ func (m *MongoCollection) FindbyKeyValue(key string, value interface{}) (err err
 	if err = cursor.All(context.TODO(), *&m.SLModel); err != nil {
 		Logger.Println(err)
 	}
-	cursor.Close(context.TODO())
 	return
 }

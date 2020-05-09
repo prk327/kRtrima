@@ -43,7 +43,7 @@ func Show(w http.ResponseWriter, request *http.Request, p httprouter.Params) {
 	}
 
 	//get the comment and assign to Comment CP struct
-	err = m.Comments.FindbyKeyValue("thread", docit)
+	err = m.Comments.FindbyKeyValue("thread", m.TP.ID)
 	if err != nil {
 		Logger.Println("Not able to Find The Comments by ID!!")
 	}
@@ -60,10 +60,6 @@ func Show(w http.ResponseWriter, request *http.Request, p httprouter.Params) {
 		Comments:        m.CSL,
 		User:            m.UP,
 		LogInUser:       m.LIP,
-	}
-
-	if dashlist.User != nil {
-		Logger.Println(dashlist.User.Name)
 	}
 
 	generateHTML(w, &dashlist, "Layout", "ThreadLeftSideBar", "ThreadTopSideBar", "ThreadModal", "ThreadShowContent")
