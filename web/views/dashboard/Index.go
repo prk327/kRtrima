@@ -9,9 +9,17 @@ import (
 
 // Home is to show the home page
 func Home(writer http.ResponseWriter, request *http.Request, _ httprouter.Params) {
+	var dashlist m.MainCongifDetails
 
-	dashlist := m.MainCongifDetails{
-		LogInUser: m.LIP,
+	_, err := request.Cookie("kRtrima") //Grab the cookie from the header
+	if err == http.ErrNoCookie {
+		Logger.Println("No Cookie was Found with Name kRtrima")
+
+	} else {
+		Logger.Println("Cookie was Found with Name kRtrima")
+		dashlist = m.MainCongifDetails{
+			LogInUser: m.LIP,
+		}
 	}
 
 	generateHTML(writer, &dashlist, "Landing", "LoginTopSidebar", "LandingContent")

@@ -3,28 +3,25 @@ package models
 import (
 	"fmt"
 	"net/http"
-	"time"
-
-	"go.mongodb.org/mongo-driver/bson/primitive" // for BSON ObjectID
+	// for BSON ObjectID
 )
 
 //CreateSession a new session for an existing user
-func (user *User) CreateSession() (ssid primitive.ObjectID, uuid string, err error) {
+// func (user *User) CreateSession() (err error) {
 
-	// Create a struct type to handle the session for login
-	statement := Session{
-		Salt:      user.Salt,
-		CreatedAt: time.Now(),
-	}
+// 	// Create a struct type to handle the session for login
+// 	statement := Session{
+// 		Salt:      user.Salt,
+// 		CreatedAt: time.Now(),
+// 	}
 
-	ssid, err = Sessions.AddItem(statement)
-	if err != nil {
-		Logger.Fatalln(err)
-	}
-	uuid = statement.Salt
+// 	_, err = Sessions.AddItem(statement)
+// 	if err != nil {
+// 		Logger.Fatalln(err)
+// 	}
 
-	return
-}
+// 	return
+// }
 
 //GetUserbyUUID is used to getting the user by session uuid
 func GetUserbyUUID(cookieName string, writer http.ResponseWriter, request *http.Request) (err error) {

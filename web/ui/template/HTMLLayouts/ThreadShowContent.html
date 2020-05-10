@@ -16,7 +16,7 @@
                 <div class="card-body">
 
                     <div class="caption">
-                        <h4 class="float-right">$9.00/day</h4>
+                        <h4 class="float-right">{{ .ContentDetails.CreatedAt }}</h4>
                         <h4 class="card-title"><a>{{ .ContentDetails.Name }}</a></h4>
                         <p class="card-text">{{ .ContentDetails.Description }}</p>
                         {{if eq .User.Email .LogInUser.Email}}
@@ -35,20 +35,19 @@
                     </div>
                     <hr>
                     {{$ThreadID:= .ContentDetails.ID }}
-                    {{$User:= .LogInUser.ID}}
+                    {{$User:= .LogInUser.ID.Hex}}
                     {{range .Comments}}
 
                     <div class="row">
                         <div class="col-md-12">
                             <strong>{{ .Author }}</strong>
-                            <span class="float-right">10 days ago</span>
+                            <span id="daysago"  class="float-right">{{ .CreatedAt }}</span>
                             <p>
                                 {{ .Comment }}
                             </p>
                         </div>
                     </div>
-
-                    {{if eq $User .User}}
+                    {{if eq .User.Hex $User}}
                     <a class="btn btn-warning" href="/Dashboard/show/{{ $ThreadID }}/Comments/show/{{ .ID }}/edit">Edit</a>
                     <form class="d-inline-flex" action="/Dashboard/show/{{ $ThreadID }}/Comments/show/{{ .ID }}" method="post">
                         <!--              this is used to override the post method-->
@@ -72,6 +71,10 @@
     // JavaScript program to illustrate 
     // calculation of no. of days between two date 
 
+
+
+
+
     var daysAgo = function(date) {
         var dt = date;
         // To set two dates to two variables 
@@ -84,6 +87,11 @@
         //To display the final no. of days (result) 
         return Difference_In_Days.toFixed();
     }
+
+
+    $(document).ready(function() {
+        alert("$(document).ready fired");
+    });
 
 </script>
 
