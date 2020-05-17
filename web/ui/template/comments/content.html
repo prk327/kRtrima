@@ -1,13 +1,101 @@
 {{ define "content" }}
 
-<div id="dataSourceList">
-    <h1>DataSource Connection<i class="fa fa-plus"></i></h1>
-    <input type="text" placeholder="Add New Todo">
-    <ul>
-        <li><span><i class="fa fa-trash"></i></span>Go To Potions Class</li>
-        <li><span><i class="fa fa-trash"></i></span>Buy New Robes</li>
-        <li><span><i class="fa fa-trash"></i></span>Visit Hagrid</li>
-    </ul>
+{{$Admin := .LogInUser.IsAdmin}}
+{{$ThreadID:= .ContentDetails.ID }}
+{{$User:= .LogInUser.ID.Hex}}
+{{$CurrUser:= .LogInUser.Name}}
+
+<!--Comment section title-->
+<h4><strong>Comments <span class="glyphicon glyphicon glyphicon-comment" aria-hidden="true"></span></strong></h4>
+
+<!--Collapse Add a comment form START-->
+<div class="collapse" id="collapseComment">
+    <div class="well" style="border-left: 5px solid #00C851;">
+        {{if not $User}}
+        <!--If the user is not logged in, direct him to the login page-->
+        <h5>You need to login before you can comment. <a href="/login">Click here</a> to go to the login page.</h5>
+        {{end}}
+        {{if $User}}
+        <!--If the user is logged in, show the new comment form-->
+        <h4>Write your comment <span class="glyphicon glyphicon glyphicon-pencil" aria-hidden="true"></span></h4>
+        <form id="add-comment-form" action="/Dashboard/show/{{ $ThreadID }}/comments" method="POST">
+            <div class="form-group">
+                <input class="form-control" type="text" disabled value={{.LogInUser.Name}}>
+            </div>
+            <div class="form-group">
+                <textarea class="form-control" name="comment" placeholder="Write your comment..." form="add-comment-form" rows="5" cols="70"></textarea>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-success btn-sm">Comment <span class="glyphicon glyphicon-comment" aria-hidden="true"></span></button>
+            </div>
+        </form>
+        {{end}}
+    </div>
 </div>
+<!--Collapse Add a comment form END-->
+
+<hr>
+
+<!--Check if there are comments, if there are none say no comments.-->
+<% if (campground.comments.length === 0) { %>
+<em style="color: grey;">No comments yet.</em>
+<% } %>
+
+<!--Display comments by looping through them-->
+{{range .Comments}}
+<div class="row">
+    <div class="col-md-12">
+        <strong>
+            {{if eq .User.Hex $User | or $Admin}}
+            <!--If the current user owns the comment, change the color of the user icon-->
+            <span style="color: orange;" class="glyphicon glyphicon-user" aria-hidden="true"></span>
+            {{else}}
+                <!--Else just display it black-->
+                <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                {{end}}
+                <!--Print out the author username-->
+                {{ .Author }}
+        </strong>
+        <!--Show when the comment was made-->
+        <span class="pull-right">{{ .CreatedAt }}</span>
+        <!--Printing the comment-->
+        <p>{{ .Comment }}</p>
+        <!--If the visitor is logged in and the owner of the comment, show the edit and delete buttons-->
+        {{if eq .User.Hex $User | or $Admin}}
+        <!--Edit button used for collapsing the edit comment form-->
+        <a class="btn btn-xs btn-warning" role="button" data-toggle="collapse" href="#collapseEdit{{ .ID }}" aria-expanded="false" aria-controls="collapse{{ .ID }}">
+            Edit</a>
+        <!--Delete comment button-->
+        <form id="delete-form" action="/Dashboard/show/{{ $ThreadID }}/Comments/show/{{ .ID }}" method="POST" style="display: inline;">
+            <!--              this is used to override the post method-->
+            <input type="hidden" name="_method" value="DELETE">
+            <button class="btn btn-xs btn-danger">Delete</button>
+        </form>
+        <!--Edit comment form-->
+        <div class="collapse" id="collapseEdit{{ .ID }}">
+            <div class="well" style="border-left: 5px solid #ffbb33; margin-top: 15px;">
+                <h4>Edit your comment <span class="glyphicon glyphicon-edit" aria-hidden="true"></span></h4>
+                <form id="edit-comment-form{{ .ID }}" action="/Dashboard/show/{{ .ContentDetails.ID }}/comments/show/{{ .ID }}" method="POST">
+                    <!--this is used to override the post method-->
+                    <input type="hidden" name="_method" value="PUT">
+                    <div class="form-group">
+                        <input class="form-control" type="text" name="author" disabled value={{ $CurrUser }}>
+                    </div>
+                    <div class="form-group">
+                        <textarea class="form-control" name="comment" placeholder="Your comment text..." form="edit-comment-form{{ .ID }}" rows="5" cols="70"><%= comment.text %></textarea>
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-warning btn-sm">Edit comment <span class="glyphicon glyphicon-comment" aria-hidden="true"></span></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        {{end}}
+        <hr>
+    </div>
+</div>
+{{end}}
+</div>
+<!--COMMENT SECTION END-->
 
 {{ end }}

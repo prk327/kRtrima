@@ -46,7 +46,12 @@
             </li>
             
             <li class="nav-item">
-                <a class="nav-link" href="/Profile">{{.LogInUser.Name}}</a>
+                <a class="nav-link" href="/Profile">{{.LogInUser.Name}}
+                    {{if .LogInUser.IsAdmin}}
+                    <sup class="text-primary"><i>admin</i></sup>
+                    {{end}}
+                
+                </a>
             </li>
             {{end}}
         </ul>

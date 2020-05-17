@@ -46,12 +46,20 @@ func Create(w http.ResponseWriter, request *http.Request, _ httprouter.Params) {
 	}
 	Logger.Println("New User Password was Hashed Successfully!!")
 
+	var admin bool
+	if request.Form["adminCode"][0] == "161812" {
+		admin = true
+	} else {
+		admin = false
+	}
+
 	user := m.User{
 		Salt:      m.CreateUUID(),
 		Email:     request.Form["email"][0],
 		Name:      request.Form["name"][0],
 		Hash:      hashed,
 		CreatedAt: time.Now(),
+		IsAdmin:   admin,
 	}
 
 	_, err = m.Users.AddItem(user)

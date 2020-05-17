@@ -19,7 +19,8 @@
                         <h4 class="float-right">{{ .ContentDetails.CreatedAt }}</h4>
                         <h4 class="card-title"><a>{{ .ContentDetails.Name }}</a></h4>
                         <p class="card-text">{{ .ContentDetails.Description }}</p>
-                        {{if eq .User.Email .LogInUser.Email}}
+                        {{$Admin := .LogInUser.IsAdmin}}
+                        {{if eq .User.Email .LogInUser.Email | or $Admin }}
                         <a class="btn btn-warning" href="/Dashboard/show/{{ .ContentDetails.ID }}/edit">Edit</a>
                         <form class="d-inline-flex" action="/Dashboard/show/{{ .ContentDetails.ID }}" method="post">
                             <!--              this is used to override the post method-->
@@ -47,7 +48,7 @@
                             </p>
                         </div>
                     </div>
-                    {{if eq .User.Hex $User}}
+                    {{if eq .User.Hex $User | or $Admin}}
                     <a class="btn btn-warning" href="/Dashboard/show/{{ $ThreadID }}/Comments/show/{{ .ID }}/edit">Edit</a>
                     <form class="d-inline-flex" action="/Dashboard/show/{{ $ThreadID }}/Comments/show/{{ .ID }}" method="post">
                         <!--              this is used to override the post method-->
@@ -70,11 +71,6 @@
 <script>
     // JavaScript program to illustrate 
     // calculation of no. of days between two date 
-
-
-
-
-
     var daysAgo = function(date) {
         var dt = date;
         // To set two dates to two variables 

@@ -22,7 +22,7 @@ func Show(w http.ResponseWriter, request *http.Request, p httprouter.Params) {
 	docit, err := m.ToDocID(p.ByName("id"))
 	if err != nil {
 		Logger.Println("Not able to get the docid")
-		http.Redirect(w, request, "/login", 302)
+		http.Redirect(w, request, "/Dashboard", 302)
 		return
 	}
 
@@ -30,7 +30,7 @@ func Show(w http.ResponseWriter, request *http.Request, p httprouter.Params) {
 	err = m.Threads.Find("_id", docit)
 	if err != nil {
 		Logger.Println("Not able to Find the thread by ID!!")
-		http.Redirect(w, request, "/Home", 302)
+		http.Redirect(w, request, "/Dashboard", 302)
 		return
 	}
 
@@ -38,8 +38,6 @@ func Show(w http.ResponseWriter, request *http.Request, p httprouter.Params) {
 	err = m.Users.Find("_id", m.TP.User)
 	if err != nil {
 		Logger.Println("Not able to Find the user by ID!!")
-		http.Redirect(w, request, "/Home", 302)
-		return
 	}
 
 	//get the comment and assign to Comment CP struct

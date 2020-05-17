@@ -1,90 +1,46 @@
-Dashboard: 2020/05/11 21:23:55 Index.go:16: No Cookie was Found with Name kRtrima
-Auth: 2020/05/11 21:24:04 Auth.go:173: No Cookie was Found with Name kRtrima
-Auth: 2020/05/11 21:24:12 Auth.go:44: Register User with Email prk327@gmail.com was Found Successfully
-Auth: 2020/05/11 21:24:13 Auth.go:97: Password Matched Successfully
-Auth: 2020/05/11 21:24:13 Auth.go:130: New Session Was Created Successfully for User: Prabhakar Srivastav
-Auth: 2020/05/11 21:24:13 Auth.go:158: Cookie was assigned successfully for User Prabhakar Srivastav
-Auth: 2020/05/11 21:24:13 Auth.go:160: Authentication SuccessFul
-Auth: 2020/05/11 21:24:13 Auth.go:199: Cookie was Found with Name kRtrima
-Auth: 2020/05/11 21:24:13 Auth.go:215: Valid User Session was Found!!
-Dashboard: 2020/05/11 21:24:17 Index.go:19: Cookie was Found with Name kRtrima
-Dashboard: 2020/05/11 21:29:36 Index.go:19: Cookie was Found with Name kRtrima
-Auth: 2020/05/11 21:29:39 Auth.go:199: Cookie was Found with Name kRtrima
-Auth: 2020/05/11 21:29:39 Auth.go:215: Valid User Session was Found!!
-Auth: 2020/05/11 21:29:42 Index.go:16: Cookie was found with name kRtrima
-Auth: 2020/05/11 21:29:42 Index.go:19: Cookie has now been deleted!!
-Auth: 2020/05/11 21:29:42 Index.go:35: Valid User Session was Found!!
-Auth: 2020/05/11 21:29:42 Index.go:45: Session Was Deleted Successfully!!
-Auth: 2020/05/11 21:29:42 Index.go:53: Login Pointer to user has been cleared!!
-Auth: 2020/05/11 21:29:42 Auth.go:173: No Cookie was Found with Name kRtrima
-Dashboard: 2020/05/11 21:29:51 Index.go:16: No Cookie was Found with Name kRtrima
-Auth: 2020/05/11 22:27:44 Auth.go:44: Register User with Email prk327@gmail.com was Found Successfully
-Auth: 2020/05/11 22:27:44 Auth.go:97: Password Matched Successfully
-Auth: 2020/05/11 22:27:44 Auth.go:130: New Session Was Created Successfully for User: Prabhakar Srivastav
-Auth: 2020/05/11 22:27:44 Auth.go:158: Cookie was assigned successfully for User Prabhakar Srivastav
-Auth: 2020/05/11 22:27:44 Auth.go:160: Authentication SuccessFul
-Auth: 2020/05/11 22:27:44 Auth.go:199: Cookie was Found with Name kRtrima
-Auth: 2020/05/11 22:27:44 Auth.go:215: Valid User Session was Found!!
-Dashboard: 2020/05/11 22:27:48 Index.go:19: Cookie was Found with Name kRtrima
-Dashboard: 2020/05/11 22:27:53 Index.go:19: Cookie was Found with Name kRtrima
-Auth: 2020/05/11 22:27:55 Auth.go:199: Cookie was Found with Name kRtrima
-Auth: 2020/05/11 22:27:55 Auth.go:215: Valid User Session was Found!!
-Auth: 2020/05/11 22:27:59 Auth.go:199: Cookie was Found with Name kRtrima
-Auth: 2020/05/11 22:27:59 Auth.go:215: Valid User Session was Found!!
-Dashboard: 2020/05/11 22:28:00 Index.go:19: Cookie was Found with Name kRtrima
-Auth: 2020/05/11 22:28:05 Auth.go:199: Cookie was Found with Name kRtrima
-Auth: 2020/05/11 22:28:05 Auth.go:215: Valid User Session was Found!!
-Auth: 2020/05/11 22:28:08 Auth.go:199: Cookie was Found with Name kRtrima
-Auth: 2020/05/11 22:28:08 Auth.go:215: Valid User Session was Found!!
-Auth: 2020/05/11 22:28:38 Auth.go:199: Cookie was Found with Name kRtrima
-Auth: 2020/05/11 22:28:38 Auth.go:215: Valid User Session was Found!!
-Auth: 2020/05/11 22:28:38 Auth.go:199: Cookie was Found with Name kRtrima
-Auth: 2020/05/11 22:28:38 Auth.go:215: Valid User Session was Found!!
-Auth: 2020/05/11 22:28:42 Auth.go:199: Cookie was Found with Name kRtrima
-Auth: 2020/05/11 22:28:42 Auth.go:215: Valid User Session was Found!!
-Auth: 2020/05/11 22:28:45 Auth.go:199: Cookie was Found with Name kRtrima
-Auth: 2020/05/11 22:28:45 Auth.go:215: Valid User Session was Found!!
-Auth: 2020/05/11 22:28:47 Auth.go:199: Cookie was Found with Name kRtrima
-Auth: 2020/05/11 22:28:47 Auth.go:215: Valid User Session was Found!!
-Auth: 2020/05/11 22:28:47 Auth.go:199: Cookie was Found with Name kRtrima
-Auth: 2020/05/11 22:28:47 Auth.go:215: Valid User Session was Found!!
-Auth: 2020/05/11 22:28:51 Auth.go:199: Cookie was Found with Name kRtrima
-Auth: 2020/05/11 22:28:51 Auth.go:215: Valid User Session was Found!!
-Auth: 2020/05/11 22:28:59 Index.go:16: Cookie was found with name kRtrima
-Auth: 2020/05/11 22:28:59 Index.go:19: Cookie has now been deleted!!
-Auth: 2020/05/11 22:28:59 Index.go:35: Valid User Session was Found!!
-Auth: 2020/05/11 22:28:59 Index.go:45: Session Was Deleted Successfully!!
-Auth: 2020/05/11 22:28:59 Index.go:53: Login Pointer to user has been cleared!!
-Auth: 2020/05/11 22:28:59 Auth.go:173: No Cookie was Found with Name kRtrima
-Auth: 2020/05/11 22:29:07 Auth.go:44: Register User with Email prabhakarsrivastav@ymail.com was Found Successfully
-Auth: 2020/05/11 22:29:07 Auth.go:97: Password Matched Successfully
-Auth: 2020/05/11 22:29:07 Auth.go:130: New Session Was Created Successfully for User: Pratibha Srivastav
-Auth: 2020/05/11 22:29:07 Auth.go:158: Cookie was assigned successfully for User Pratibha Srivastav
-Auth: 2020/05/11 22:29:07 Auth.go:160: Authentication SuccessFul
-Auth: 2020/05/11 22:29:07 Auth.go:199: Cookie was Found with Name kRtrima
-Auth: 2020/05/11 22:29:07 Auth.go:215: Valid User Session was Found!!
-Auth: 2020/05/11 22:29:10 Auth.go:199: Cookie was Found with Name kRtrima
-Auth: 2020/05/11 22:29:10 Auth.go:215: Valid User Session was Found!!
-Auth: 2020/05/11 22:29:30 Auth.go:199: Cookie was Found with Name kRtrima
-Auth: 2020/05/11 22:29:30 Auth.go:215: Valid User Session was Found!!
-Auth: 2020/05/11 22:29:30 Auth.go:199: Cookie was Found with Name kRtrima
-Auth: 2020/05/11 22:29:30 Auth.go:215: Valid User Session was Found!!
-Auth: 2020/05/11 22:29:33 Auth.go:199: Cookie was Found with Name kRtrima
-Auth: 2020/05/11 22:29:33 Auth.go:215: Valid User Session was Found!!
-Auth: 2020/05/11 22:29:35 Auth.go:199: Cookie was Found with Name kRtrima
-Auth: 2020/05/11 22:29:35 Auth.go:215: Valid User Session was Found!!
-Auth: 2020/05/11 22:29:37 Auth.go:199: Cookie was Found with Name kRtrima
-Auth: 2020/05/11 22:29:37 Auth.go:215: Valid User Session was Found!!
-Auth: 2020/05/11 22:29:37 Auth.go:199: Cookie was Found with Name kRtrima
-Auth: 2020/05/11 22:29:37 Auth.go:215: Valid User Session was Found!!
-Auth: 2020/05/11 22:29:41 Auth.go:199: Cookie was Found with Name kRtrima
-Auth: 2020/05/11 22:29:41 Auth.go:215: Valid User Session was Found!!
-Dashboard: 2020/05/11 22:29:47 Index.go:19: Cookie was Found with Name kRtrima
-Auth: 2020/05/11 22:29:52 Auth.go:199: Cookie was Found with Name kRtrima
-Auth: 2020/05/11 22:29:52 Auth.go:215: Valid User Session was Found!!
-Auth: 2020/05/11 22:29:56 Index.go:16: Cookie was found with name kRtrima
-Auth: 2020/05/11 22:29:56 Index.go:19: Cookie has now been deleted!!
-Auth: 2020/05/11 22:29:56 Index.go:35: Valid User Session was Found!!
-Auth: 2020/05/11 22:29:56 Index.go:45: Session Was Deleted Successfully!!
-Auth: 2020/05/11 22:29:56 Index.go:53: Login Pointer to user has been cleared!!
-Auth: 2020/05/11 22:29:56 Auth.go:173: No Cookie was Found with Name kRtrima
+Dashboard: 2020/05/17 18:09:28 Index.go:16: No Cookie was Found with Name kRtrima
+Auth: 2020/05/17 18:09:42 Auth.go:44: Register User with Email prk327@gmail.com was Found Successfully
+Auth: 2020/05/17 18:09:42 Auth.go:97: Password Matched Successfully
+Auth: 2020/05/17 18:09:42 Auth.go:130: New Session Was Created Successfully for User: Prabhakar Srivastav
+Auth: 2020/05/17 18:09:42 Auth.go:158: Cookie was assigned successfully for User Prabhakar Srivastav
+Auth: 2020/05/17 18:09:42 Auth.go:160: Authentication SuccessFul
+Auth: 2020/05/17 18:09:42 Auth.go:199: Cookie was Found with Name kRtrima
+Auth: 2020/05/17 18:09:42 Auth.go:215: Valid User Session was Found!!
+Auth: 2020/05/17 18:09:45 Auth.go:199: Cookie was Found with Name kRtrima
+Auth: 2020/05/17 18:09:45 Auth.go:215: Valid User Session was Found!!
+Auth: 2020/05/17 18:09:49 Auth.go:199: Cookie was Found with Name kRtrima
+Auth: 2020/05/17 18:09:49 Auth.go:215: Valid User Session was Found!!
+Auth: 2020/05/17 18:09:53 Auth.go:199: Cookie was Found with Name kRtrima
+Auth: 2020/05/17 18:09:53 Auth.go:215: Valid User Session was Found!!
+Auth: 2020/05/17 18:09:53 Auth.go:199: Cookie was Found with Name kRtrima
+Auth: 2020/05/17 18:09:53 Auth.go:215: Valid User Session was Found!!
+Auth: 2020/05/17 18:10:09 Auth.go:199: Cookie was Found with Name kRtrima
+Auth: 2020/05/17 18:10:09 Auth.go:215: Valid User Session was Found!!
+Auth: 2020/05/17 18:10:13 Auth.go:199: Cookie was Found with Name kRtrima
+Auth: 2020/05/17 18:10:13 Auth.go:215: Valid User Session was Found!!
+Comment: 2020/05/17 18:10:13 Update.go:32: Matched 1 documents and updated 1 documents.
+
+Auth: 2020/05/17 18:10:13 Auth.go:199: Cookie was Found with Name kRtrima
+Auth: 2020/05/17 18:10:13 Auth.go:215: Valid User Session was Found!!
+Dashboard: 2020/05/17 18:30:28 Index.go:16: No Cookie was Found with Name kRtrima
+Auth: 2020/05/17 18:30:31 Auth.go:173: No Cookie was Found with Name kRtrima
+Auth: 2020/05/17 18:30:46 Auth.go:44: Register User with Email prk327@gmail.com was Found Successfully
+Auth: 2020/05/17 18:30:46 Auth.go:97: Password Matched Successfully
+Auth: 2020/05/17 18:30:46 Auth.go:130: New Session Was Created Successfully for User: Prabhakar Srivastav
+Auth: 2020/05/17 18:30:46 Auth.go:158: Cookie was assigned successfully for User Prabhakar Srivastav
+Auth: 2020/05/17 18:30:46 Auth.go:160: Authentication SuccessFul
+Auth: 2020/05/17 18:30:46 Auth.go:199: Cookie was Found with Name kRtrima
+Auth: 2020/05/17 18:30:46 Auth.go:215: Valid User Session was Found!!
+Auth: 2020/05/17 18:31:04 Auth.go:199: Cookie was Found with Name kRtrima
+Auth: 2020/05/17 18:31:04 Auth.go:215: Valid User Session was Found!!
+Dashboard: 2020/05/17 18:31:19 Index.go:19: Cookie was Found with Name kRtrima
+Auth: 2020/05/17 18:31:23 Auth.go:199: Cookie was Found with Name kRtrima
+Auth: 2020/05/17 18:31:23 Auth.go:215: Valid User Session was Found!!
+Auth: 2020/05/17 18:31:38 Auth.go:199: Cookie was Found with Name kRtrima
+Auth: 2020/05/17 18:31:38 Auth.go:215: Valid User Session was Found!!
+Auth: 2020/05/17 18:31:40 Auth.go:199: Cookie was Found with Name kRtrima
+Auth: 2020/05/17 18:31:40 Auth.go:215: Valid User Session was Found!!
+Auth: 2020/05/17 18:31:43 Auth.go:199: Cookie was Found with Name kRtrima
+Auth: 2020/05/17 18:31:43 Auth.go:215: Valid User Session was Found!!
+Auth: 2020/05/17 18:31:44 Auth.go:199: Cookie was Found with Name kRtrima
+Auth: 2020/05/17 18:31:44 Auth.go:215: Valid User Session was Found!!
