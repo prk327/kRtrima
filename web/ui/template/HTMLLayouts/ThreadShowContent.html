@@ -9,6 +9,7 @@
                 <li class="list-group-item">Info 2</li>
                 <li class="list-group-item">Info 3</li>
             </div>
+            <div id="map"></div>
         </div>
         <div class="col-md-9">
             <div class="card">
@@ -16,9 +17,12 @@
                 <div class="card-body">
 
                     <div class="caption">
-                        <h4 class="float-right">{{ .ContentDetails.CreatedAt }}</h4>
+                        <h4 class="float-right">$100/night</h4>
                         <h4 class="card-title"><a>{{ .ContentDetails.Name }}</a></h4>
                         <p class="card-text">{{ .ContentDetails.Description }}</p>
+                        <p>
+                            <em>Submitted by: {{.User.Name}}, {{ .ContentDetails.CreatedAt }}</em>
+                        </p>
                         {{$Admin := .LogInUser.IsAdmin}}
                         {{if eq .User.Email .LogInUser.Email | or $Admin }}
                         <a class="btn btn-warning" href="/Dashboard/show/{{ .ContentDetails.ID }}/edit">Edit</a>
@@ -30,37 +34,122 @@
                         {{end}}
                     </div>
                 </div>
+                <!--COMMENT SECTION START-->
                 <div class="card-footer">
-                    <div class="text-right">
+                    <!-- <div class="text-right">
                         <a class="btn btn-success" href="/Dashboard/show/{{ .ContentDetails.ID }}/Comments/New">Add New Comment</a>
+                    </div> -->
+                    <!--Setting up the add new comment button that is used for collapsing-->
+                    <div class="text-right">
+                        <a class="btn btn-success" role="button" data-toggle="collapse" href="#collapseComment" aria-expanded="false" aria-controls="collapseComment">
+                            <i class="fa fa-plus" aria-hidden="true"></i> Add new comment</a>
                     </div>
+
+                    <!--Comment section title-->
+                    <h4><strong>Comments
+                            <i class="fa fa-comment" aria-hidden="true"></i>
+
+                        </strong></h4>
+
+                    <!--Collapse Add a comment form START-->
+                    <div class="collapse" id="collapseComment">
+                        <div class="card-footer" style="border-left: 5px solid #00C851;">
+                            {{if not .LogInUser}}
+                            <!--If the user is not logged in, direct him to the login page-->
+                            <h5>You need to login before you can comment. <a href="/login">Click here</a> to go to the login page.</h5>
+                            {{end}}
+                            {{if .LogInUser}}
+                            <!--If the user is logged in, show the new comment form-->
+                            <h4>Write your comment <svg class="bi bi-pencil" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" d="M11.293 1.293a1 1 0 011.414 0l2 2a1 1 0 010 1.414l-9 9a1 1 0 01-.39.242l-3 1a1 1 0 01-1.266-1.265l1-3a1 1 0 01.242-.391l9-9zM12 2l2 2-9 9-3 1 1-3 9-9z" clip-rule="evenodd" />
+                                    <path fill-rule="evenodd" d="M12.146 6.354l-2.5-2.5.708-.708 2.5 2.5-.707.708zM3 10v.5a.5.5 0 00.5.5H4v.5a.5.5 0 00.5.5H5v.5a.5.5 0 00.5.5H6v-1.5a.5.5 0 00-.5-.5H5v-.5a.5.5 0 00-.5-.5H3z" clip-rule="evenodd" />
+                                </svg>
+                            </h4>
+                            <form id="add-comment-form" action="/Dashboard/show/{{ .ContentDetails.ID }}/comments" method="post">
+                                <div class="form-group">
+                                    <input class="form-control" type="text" disabled value="{{.LogInUser.Name}}">
+                                </div>
+                                <div class="form-group">
+                                    <textarea class="form-control" name="comment" placeholder="Write your comment..." form="add-comment-form" rows="5" cols="70"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <button class="btn btn-success btn-sm">Comment <i class="fa fa-comment-o" aria-hidden="true"></i></button>
+                                </div>
+                            </form>
+                            {{end}}
+                        </div>
+                    </div>
+                    <!--Collapse Add a comment form END-->
                     <hr>
                     {{$ThreadID:= .ContentDetails.ID }}
                     {{$User:= .LogInUser.ID.Hex}}
+                    <!--Check if there are comments, if there are none say no comments.-->
+                    {{if not .Comments}}
+                    <em style="color: grey;">No comments yet.</em>
+                    {{end}}
+
                     {{range .Comments}}
 
                     <div class="row">
                         <div class="col-md-12">
-                            <strong>{{ .Author }}</strong>
-                            <span id="daysago"  class="float-right">{{ .CreatedAt }}</span>
+                            <strong>
+                                {{if eq .User.Hex $User | or $Admin}}
+                                <!--If the current user owns the comment, change the color of the user icon-->
+                                <i style="color: orange;" class="fa fa-user" aria-hidden="true"></i>
+                                {{else}}
+                                    <!--Else just display it black-->
+                                    <i class="fa fa-user" aria-hidden="true"></i>
+                                    {{end}}
+                                    <!--Print out the author username-->
+                                    {{ .Author }}
+                            </strong>
+                            <!--Show when the comment was made-->
+                            <span id="daysago" class="float-right">{{ .CreatedAt }}</span>
+                            <!--Printing the comment-->
                             <p>
                                 {{ .Comment }}
                             </p>
+                            <!--If the visitor is logged in and the owner of the comment, show the edit and delete buttons-->
+                            {{if eq .User.Hex $User | or $Admin}}
+
+                            <!--Edit button used for collapsing the edit comment form-->
+                            <a class="btn btn-warning" role="button" data-toggle="collapse" href="#collapseEdit{{ .User.Hex }}" aria-expanded="false" aria-controls="collapse{{ .User.Hex }}">
+                                Edit</a>
+
+                            <!--Delete comment button-->
+                            <form class="d-inline-flex" action="/Dashboard/show/{{ $ThreadID }}/Comments/show/{{ .ID }}" method="post">
+                                <!--this is used to override the post method-->
+                                <input type="hidden" name="_method" value="DELETE">
+                                <button class="btn btn-danger">Delete</button>
+                            </form>
+
+                            <!--Edit comment form-->
+                            <div class="collapse" id="collapseEdit{{ .User.Hex }}">
+                                <div class="card-footer" style="border-left: 5px solid #ffbb33; margin-top: 15px;">
+                                    <h4>Edit your comment <i class="fa fa-pencil-square" aria-hidden="true"></i> </h4>
+                                    <form id="edit-comment-form{{ .User.Hex }}" action="/Dashboard/show/{{ $ThreadID }}/comments/show/{{ .ID }}" method="POST">
+                                        <!--this is used to override the post method-->
+                                        <input type="hidden" name="_method" value="PUT">
+                                        <div class="form-group">
+                                            <input class="form-control" type="author" disabled value="{{ .Author }}">
+                                        </div>
+                                        <div class="form-group">
+                                            <textarea class="form-control" name="comment" placeholder="Your comment text..." form="edit-comment-form{{ .User.Hex }}" rows="5" cols="70">{{ .Comment }}</textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <button class="btn btn-warning btn-sm">Edit comment <i class="fa fa-pencil-square-o" aria-hidden="true"></i> </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+
+                            <hr>
+
+                            {{end}}
                         </div>
                     </div>
-                    {{if eq .User.Hex $User | or $Admin}}
-                    <a class="btn btn-warning" href="/Dashboard/show/{{ $ThreadID }}/Comments/show/{{ .ID }}/edit">Edit</a>
-                    <form class="d-inline-flex" action="/Dashboard/show/{{ $ThreadID }}/Comments/show/{{ .ID }}" method="post">
-                        <!--              this is used to override the post method-->
-                        <input type="hidden" name="_method" value="DELETE">
-                        <button class="btn btn-danger">Delete</button>
-                    </form>
-                    {{end}}
-
 
                     {{end}}
-
-
 
                 </div>
             </div>
