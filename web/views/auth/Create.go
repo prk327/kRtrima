@@ -19,8 +19,9 @@ func Create(w http.ResponseWriter, request *http.Request, _ httprouter.Params) {
 	}
 	Logger.Println("SignUp Form Parsed Successfully!!")
 
+	var UP m.User
 	//check for existing user
-	err = m.Users.Find("email", request.Form["email"][0])
+	err = m.Users.Find("email", request.Form["email"][0], &UP)
 	if err != nil && fmt.Sprintf("%v", err) != "mongo: no documents in result" {
 		Logger.Printf("Got some unexpected error %v", err)
 		// If there is an issue with the database, return a 500 error
@@ -28,13 +29,11 @@ func Create(w http.ResponseWriter, request *http.Request, _ httprouter.Params) {
 		return
 	}
 
-	if m.UP != nil {
-		if m.UP.Email == request.Form["email"][0] {
-			Logger.Println("User Already Registered!!")
-			// If there is an issue with the database, return a 500 error
-			http.Redirect(w, request, "/login", 302)
-			return
-		}
+	if UP.Email == request.Form["email"][0] {
+		Logger.Println("User Already Registered!!")
+		// If there is an issue with the database, return a 500 error
+		http.Redirect(w, request, "/login", 302)
+		return
 	}
 
 	hashed, err := m.Encrypt(request.Form["password"][0])

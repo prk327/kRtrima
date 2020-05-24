@@ -10,8 +10,17 @@ import (
 //LogIn Show the login page
 func LogIn(writer http.ResponseWriter, request *http.Request, _ httprouter.Params) {
 
+	var LIP m.LogInUser
+
+	err := m.GetLogInUser("User", &LIP, request)
+	if err == nil {
+		Logger.Println("User Already Login!!")
+		http.Redirect(writer, request, "/Dashboard", 302)
+		return
+	}
+
 	dashlist := m.MainCongifDetails{
-		LogInUser: m.LIP,
+		LogInUser: &LIP,
 	}
 
 	generateHTML(writer, &dashlist, "Layout", "LoginLetfSideBar", "LoginTopSidebar", "LoginModal", "LoginContent")
@@ -20,8 +29,14 @@ func LogIn(writer http.ResponseWriter, request *http.Request, _ httprouter.Param
 //SignUp Show the signup page
 func SignUp(writer http.ResponseWriter, request *http.Request, _ httprouter.Params) {
 
+	var LIP m.LogInUser
+	err := m.GetLogInUser("User", &LIP, request)
+	if err != nil {
+		Logger.Printf("Failed to get the login details %v\n", err)
+	}
+
 	dashlist := m.MainCongifDetails{
-		LogInUser: m.LIP,
+		LogInUser: &LIP,
 	}
 
 	generateHTML(writer, &dashlist, "Layout", "LoginLetfSideBar", "LoginTopSidebar", "LoginModal", "Register")

@@ -83,12 +83,10 @@ func (m MongoConfig) ConnectDB() (DB *mongo.Database, err error) {
 }
 
 // NewCollection is used to get the collection object and initialize the model
-func (m *MongoConfig) NewCollection(Name string, model interface{}, SliceOFModel interface{}) (modelstruct *MongoCollection) {
+func (m *MongoConfig) NewCollection(Name string) (modelstruct *MongoCollection) {
 	modelstruct = &MongoCollection{
 		CollectionName: Name,
 		Collection:     m.DB.Collection(Name),
-		Model:          model,
-		SLModel:        SliceOFModel,
 	}
 	*&Msg = fmt.Sprintf("Connected to MongoDB Collection: %v", Name)
 	fmt.Println(Msg)
@@ -201,7 +199,7 @@ func (m *MongoCollection) DropCollection() (err error) {
 }
 
 // Find will search for item using key value pair
-func (m *MongoCollection) Find(key string, value interface{}) (err error) {
+func (m *MongoCollection) Find(key string, value interface{}, result interface{}) (err error) {
 	var vx interface{}
 	if key == "_id" {
 		vx, err = ToDocID(value)
@@ -211,7 +209,7 @@ func (m *MongoCollection) Find(key string, value interface{}) (err error) {
 	if err != nil {
 		Logger.Println(err)
 	}
-	err = m.Collection.FindOne(context.TODO(), bson.M{key: vx}).Decode(m.Model)
+	err = m.Collection.FindOne(context.TODO(), bson.M{key: vx}).Decode(result)
 	if err != nil {
 		Logger.Println(err)
 	}
@@ -219,7 +217,7 @@ func (m *MongoCollection) Find(key string, value interface{}) (err error) {
 }
 
 // FindAll will return all the documents in a collection
-func (m *MongoCollection) FindAll(limit int64) (err error) {
+func (m *MongoCollection) FindAll(limit int64, result interface{}) (err error) {
 	// Pass these options to the Find method
 	findOptions := options.Find()
 	findOptions.SetLimit(limit)
@@ -227,20 +225,20 @@ func (m *MongoCollection) FindAll(limit int64) (err error) {
 	if err != nil {
 		Logger.Println(err)
 	}
-	if err = cursor.All(context.TODO(), *&m.SLModel); err != nil {
+	if err = cursor.All(context.TODO(), result); err != nil {
 		Logger.Println(err)
 	}
-	// cursor.Close(context.TODO())
+	 cursor.Close(context.TODO())
 	return
 }
 
 // FindbyKeyValue will return all the documents in a collection
-func (m *MongoCollection) FindbyKeyValue(key string, value interface{}) (err error) {
+func (m *MongoCollection) FindbyKeyValue(key string, value interface{}, result interface{}) (err error) {
 	cursor, err := m.Collection.Find(context.TODO(), bson.M{key: value})
 	if err != nil {
 		Logger.Println(err)
 	}
-	if err = cursor.All(context.TODO(), *&m.SLModel); err != nil {
+	if err = cursor.All(context.TODO(), result); err != nil {
 		Logger.Println(err)
 	}
 	return

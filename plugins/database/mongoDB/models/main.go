@@ -13,37 +13,37 @@ var DB *mongo.Database
 var Threads *MongoCollection
 
 //TP assign the pointer to the Thread model
-var TP *Thread
+//var TP *Thread
 
 //TSL assign the Slice of Thread
-var TSL []Thread
+//var TSL []Thread
 
 // Comments is a variable to store MongoCollection
 var Comments *MongoCollection
 
 //CP assign the pointer to the Comment model
-var CP *Comment
+//var CP *Comment
 
 //CSL assign the Slice of Comment
-var CSL []Comment
+//var CSL []Comment
 
 // Users is a variable to store MongoCollection
 var Users *MongoCollection
 
 //UP assign the pointer to the User model
-var UP *User
+//var UP *User
 
 //USL assign the Slice of USER
-var USL []User
+//var USL []User
 
 // LogInUser is a variable to store MongoCollection
-var LogInUser *MongoCollection
+// var LogInUser *MongoCollection
 
 //LIP assign the pointer to the User model
-var LIP *User
+//var LIP *User
 
 //LISL assign the Slice of USER
-var LISL []User
+//var LISL []User
 
 //-------------
 
@@ -51,10 +51,10 @@ var LISL []User
 var Sessions *MongoCollection
 
 //SP assign the pointer to the Session model
-var SP *Session
+//var SP *Session
 
 //SSL assign the Slice of Session
-var SSL []Session
+//var SSL []Session
 
 func init() {
 
@@ -63,18 +63,18 @@ func init() {
 	DB = db.DB
 
 	//Get the pointer to mongo Collection for Thread
-	Threads = db.NewCollection("Thread", &TP, &TSL)
+	Threads = db.NewCollection("Thread")
 
 	//conect to Comment collection
-	Comments = db.NewCollection("Comment", &CP, &CSL)
+	Comments = db.NewCollection("Comment")
 
 	//conect to User collection
-	Users = db.NewCollection("User", &UP, &USL)
+	Users = db.NewCollection("User")
 
 	//conect to User collection
-	LogInUser = db.NewCollection("User", &LIP, &LISL)
+	// LogInUser = db.NewCollection("User")
 
 	//conect to Session collection
-	Sessions = db.NewCollection("Session", &SP, &SSL)
+	Sessions = db.NewCollection("Session")
 
 }

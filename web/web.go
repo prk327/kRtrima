@@ -4,6 +4,7 @@ import (
 	U "kRtrima/web/views/auth"
 	C "kRtrima/web/views/comments"
 	D "kRtrima/web/views/dashboard"
+	G "kRtrima/web/views/graphics"
 	"net/http"
 
 	"github.com/julienschmidt/httprouter"
@@ -55,6 +56,10 @@ func Web() {
 	mux.PUT("/Dashboard/show/:id/comments/show/:cid", U.GetSession(C.Update))
 	//Deleate comment
 	mux.DELETE("/Dashboard/show/:id/comments/show/:cid", U.GetSession(C.Delete))
+
+	// The route for SVG Element testing
+	//Display a list of all the Dashboard Index page
+	mux.GET("/canvassvg", U.GetSession(G.Index))
 
 	//initializing the server
 	p("kRtrima App", version(), "started at", config.Address)

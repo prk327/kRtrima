@@ -17,11 +17,18 @@ func Update(writer http.ResponseWriter, request *http.Request, p httprouter.Para
 		return
 	}
 
+	var LIP m.LogInUser
+
+	err = m.GetLogInUser("User", &LIP, request)
+	if err != nil {
+		Logger.Printf("Failed to get the login details %v\n", err)
+	}
+
 	update := m.Thread{
 		Name:        request.Form["name"][0],
 		Image:       request.Form["image"][0],
 		Description: request.Form["desc"][0],
-		User:        m.LIP.ID,
+		User:        LIP.ID,
 	}
 
 	msg, err := m.Threads.UpdateItem(p.ByName("id"), update)

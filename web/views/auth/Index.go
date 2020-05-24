@@ -25,7 +25,9 @@ func LogOut(writer http.ResponseWriter, request *http.Request, _ httprouter.Para
 			Logger.Println(err)
 		}
 
-		if err = m.Sessions.Find("_id", docID); err != nil {
+		var SP m.Session
+
+		if err = m.Sessions.Find("_id", docID, &SP); err != nil {
 			Logger.Println("Cannot found a valid User Session!!")
 			//session is missing, returns with error code 403 Unauthorized
 			http.Redirect(writer, request, "/login", 302)
@@ -34,14 +36,14 @@ func LogOut(writer http.ResponseWriter, request *http.Request, _ httprouter.Para
 
 		Logger.Println("Valid User Session was Found!!")
 
-		if _, err := m.Sessions.DeleteItem(m.SP.ID); err != nil {
+		if _, err := m.Sessions.DeleteItem(SP.ID); err != nil {
 			Logger.Println("Not able to Delete the session!!")
 			http.Redirect(writer, request, "/login", 302)
 			return
 		}
 
 		// reset the SP
-		m.SP = nil
+		// m.SP = nil
 		Logger.Println("Session Was Deleted Successfully!!")
 		//delete a user struct with session uuid as nil
 		// update := bson.M{
@@ -49,10 +51,10 @@ func LogOut(writer http.ResponseWriter, request *http.Request, _ httprouter.Para
 		// }
 
 		//remove the user ID from the session
-
+		request.Header.Del("User")
 		Logger.Println("Login Pointer to user has been cleared!!")
 
-		m.LIP = nil
+		// m.LIP = nil
 
 		// if _, err := m.Users.UpdateItem(m.SP.Salt, update); err != nil {
 		// 	Logger.Println("Not able to remove session ID from User!!")

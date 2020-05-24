@@ -14,14 +14,15 @@ import (
 	"go.mongodb.org/mongo-driver/x/bsonx"
 )
 
+// IndexModel is the model for creating index on mongodb
 type IndexModel struct {
-	cmd        string `json:"cmd,omitempty" bson:"cmd,omitempty"`
-	address    string `json:"address,omitempty" bson:"address,omitempty"`
-	database   string `json:"database,omitempty" bson:"database,omitempty"`
-	collection string `json:"collection,omitempty" bson:"collection,omitempty"`
-	key        string `json:"key,omitempty" bson:"key,omitempty"`
-	unique     bool   `json:"unique,omitempty" bson:"unique,omitempty"`
-	value      int    `json:"value,omitempty" bson:"value,omitempty"`
+	cmd        string
+	address    string
+	database   string
+	collection string
+	key        string
+	unique     bool
+	value      int
 }
 
 //"cmd", "", "list or add?"
@@ -31,6 +32,8 @@ type IndexModel struct {
 //"key", "", "The field you'd like to place an index on"
 //"unique", false, "Would you like the index to be unique?"
 //"value", 1, "would you like the index to be ascending (1) or descending (-1)?"
+
+// CreateIndex is to create a index
 func (i IndexModel) CreateIndex() {
 	switch {
 	case (i.cmd != "add" && i.cmd != "list"):
@@ -49,6 +52,7 @@ func (i IndexModel) CreateIndex() {
 	}
 }
 
+// ConnectToTheMongoDB is to connect mondodb client
 func (i IndexModel) ConnectToTheMongoDB() *mongo.Client {
 	// Set client options
 	clientOptions := options.Client().ApplyURI(i.address)
@@ -61,6 +65,7 @@ func (i IndexModel) ConnectToTheMongoDB() *mongo.Client {
 	return client
 }
 
+// PopulateIndex is to fill all the index
 func (i IndexModel) PopulateIndex(client *mongo.Client) {
 	c := client.Database(i.database).Collection(i.collection)
 	opts := options.CreateIndexes().SetMaxTime(10 * time.Second)
@@ -84,6 +89,7 @@ func (i IndexModel) yieldIndexModel() mongo.IndexModel {
 	return index
 }
 
+// ListIndexes is to list index
 func (i IndexModel) ListIndexes(client *mongo.Client) {
 	c := client.Database(i.database).Collection(i.collection)
 	duration := 10 * time.Second

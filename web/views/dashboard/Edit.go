@@ -10,16 +10,20 @@ import (
 // Edit is used to edit the thread
 func Edit(writer http.ResponseWriter, request *http.Request, p httprouter.Params) {
 
+	var TP m.Thread
+
 	//find the thread by id and assign it to TP
-	err := m.Threads.Find("_id", p.ByName("id"))
+	err := m.Threads.Find("_id", p.ByName("id"), &TP)
 	if err != nil {
 		Logger.Println("Not able to Find the thread by ID!!")
 		http.Redirect(writer, request, "/home", 302)
 		return
 	}
 
+	var UP m.User
+
 	//get the User and assign to User UP struct
-	err = m.Users.Find("_id", m.TP.User)
+	err = m.Users.Find("_id", TP.User, &UP)
 	if err != nil {
 		Logger.Println("Not able to Find the user by ID!!")
 		http.Redirect(writer, request, "/", 302)
@@ -34,11 +38,18 @@ func Edit(writer http.ResponseWriter, request *http.Request, p httprouter.Params
 		return
 	}
 
+	var LIP m.LogInUser
+
+	err = m.GetLogInUser("User", &LIP, request)
+	if err != nil {
+		Logger.Printf("Failed to get the login details %v\n", err)
+	}
+
 	dashlist := m.FindDetails{
 		CollectionNames: coll,
-		ContentDetails:  m.TP,
-		User:            m.UP,
-		LogInUser:       m.LIP,
+		ContentDetails:  &TP,
+		User:            &UP,
+		LogInUser:       &LIP,
 	}
 
 	generateHTML(writer, &dashlist, "Layout", "ThreadLeftSideBar", "ThreadTopSideBar", "ThreadModal", "ThreadEdit")

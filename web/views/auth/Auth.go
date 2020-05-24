@@ -2,11 +2,9 @@ package auth
 
 import (
 	"fmt"
-	"time"
-
 	m "kRtrima/plugins/database/mongoDB/models"
-
 	"net/http"
+	"time"
 
 	"github.com/julienschmidt/httprouter" // for BSON ObjectID
 	"go.mongodb.org/mongo-driver/bson/primitive"
@@ -24,7 +22,9 @@ func Authenticate(w http.ResponseWriter, request *http.Request, _ httprouter.Par
 	}
 	fmt.Println("LogIn Form Parsed Successfully!!")
 
-	err = m.Users.Find("email", request.Form["email"][0])
+	var UP m.User
+
+	err = m.Users.Find("email", request.Form["email"][0], &UP)
 	if err != nil {
 		Logger.Printf("Not Able to Found a Valid User ID with Email: %v", request.Form["email"][0])
 		// If there is an issue with the database, return a 500 error
@@ -32,16 +32,14 @@ func Authenticate(w http.ResponseWriter, request *http.Request, _ httprouter.Par
 		return
 	}
 
-	if m.UP != nil {
-		if m.UP.Email != request.Form["email"][0] {
-			Logger.Println("Invalid User Please Register!!")
-			// If there is an issue with the database, return a 500 error
-			http.Redirect(w, request, "/register", 302)
-			return
-		}
+	if UP.Email != request.Form["email"][0] {
+		Logger.Println("Invalid User Please Register!!")
+		// If there is an issue with the database, return a 500 error
+		http.Redirect(w, request, "/register", 302)
+		return
 	}
 
-	Logger.Printf("Register User with Email %v was Found Successfully", m.UP.Email)
+	Logger.Printf("Register User with Email %v was Found Successfully", UP.Email)
 
 	//check for valid cookie
 	// _, err = request.Cookie("kRtrima") //Grab the cookie from the header
@@ -87,7 +85,7 @@ func Authenticate(w http.ResponseWriter, request *http.Request, _ httprouter.Par
 	// }
 
 	// Compare the stored hashed password, with the hashed version of the password that was received
-	if err = bcrypt.CompareHashAndPassword(m.UP.Hash, []byte(request.Form["password"][0])); err != nil {
+	if err = bcrypt.CompareHashAndPassword(UP.Hash, []byte(request.Form["password"][0])); err != nil {
 		Logger.Println("Password Did Not Matched!!")
 		// If the two passwords don't match, return a 401 status
 		http.Redirect(w, request, "/login", 302)
@@ -96,15 +94,16 @@ func Authenticate(w http.ResponseWriter, request *http.Request, _ httprouter.Par
 
 	Logger.Println("Password Matched Successfully")
 
+	var SSL []m.Session
 	// Find all the session with user salt
-	err = m.Sessions.FindbyKeyValue("salt", m.UP.Salt)
+	err = m.Sessions.FindbyKeyValue("salt", UP.Salt, &SSL)
 	if err != nil {
-		Logger.Printf("Cannot find a Valid Session for User %v", m.UP.Name)
+		Logger.Printf("Cannot find a Valid Session for User %v", UP.Name)
 		// http.Redirect(w, request, "/login", 302)
 	}
 
-	if m.SSL != nil {
-		for _, s := range m.SSL {
+	if SSL != nil {
+		for _, s := range SSL {
 			// 		//Delete the old session
 			if _, err := m.Sessions.DeleteItem(s.ID); err != nil {
 				Logger.Printf("Not able to Delete the session with ID: %v", s.ID)
@@ -117,17 +116,17 @@ func Authenticate(w http.ResponseWriter, request *http.Request, _ httprouter.Par
 	//create a new session
 	// Create a struct type to handle the session for login
 	statement := m.Session{
-		Salt:      m.UP.Salt,
+		Salt:      UP.Salt,
 		CreatedAt: time.Now(),
 	}
 
 	SSID, err := m.Sessions.AddItem(statement)
 	if err != nil {
-		Logger.Printf("Cannot Create a Valid Session for User: %v", m.UP.Name)
+		Logger.Printf("Cannot Create a Valid Session for User: %v", UP.Name)
 		http.Redirect(w, request, "/login", 302)
 		return
 	}
-	Logger.Printf("New Session Was Created Successfully for User: %v", m.UP.Name)
+	Logger.Printf("New Session Was Created Successfully for User: %v", UP.Name)
 
 	// //create a user struct with session uuid
 	// update := m.User{
@@ -155,7 +154,7 @@ func Authenticate(w http.ResponseWriter, request *http.Request, _ httprouter.Par
 		HttpOnly: true,
 	}
 	http.SetCookie(w, &cookie)
-	Logger.Printf("Cookie was assigned successfully for User %v", m.UP.Name)
+	Logger.Printf("Cookie was assigned successfully for User %v", UP.Name)
 
 	Logger.Println("Authentication SuccessFul")
 	http.Redirect(w, request, "/Dashboard", 302)
@@ -172,15 +171,11 @@ func GetSession(h httprouter.Handle) httprouter.Handle {
 			case http.ErrNoCookie:
 				Logger.Println("No Cookie was Found with Name kRtrima")
 
-				// Clear the login user
-				m.LIP = nil
 				http.Redirect(w, r, "/login", 302)
 				return
 			default:
 				Logger.Println("No Cookie was Found with Name kRtrima")
 
-				// Clear the login user
-				m.LIP = nil
 				http.Redirect(w, r, "/login", 302)
 				return
 			}
@@ -205,7 +200,8 @@ func GetSession(h httprouter.Handle) httprouter.Handle {
 			Logger.Println(err)
 		}
 
-		if err = m.Sessions.Find("_id", docID); err != nil {
+		var SP m.Session
+		if err = m.Sessions.Find("_id", docID, &SP); err != nil {
 			Logger.Println("Cannot found a valid User Session!!")
 			//session is missing, returns with error code 403 Unauthorized
 			http.Redirect(w, r, "/login", 302)
@@ -214,21 +210,32 @@ func GetSession(h httprouter.Handle) httprouter.Handle {
 
 		Logger.Println("Valid User Session was Found!!")
 
-		err = m.LogInUser.Find("salt", m.SP.Salt)
+		var UP m.LogInUser
+
+		err = m.Users.Find("salt", SP.Salt, &UP)
 		if err != nil {
 			Logger.Println("Cannot Find user with salt")
 			//Delete the old session
-			if _, err := m.Sessions.DeleteItem(m.SP.ID); err != nil {
-				Logger.Printf("Not able to Delete the session with ID: %v", m.SP.ID)
+			if _, err := m.Sessions.DeleteItem(SP.ID); err != nil {
+				Logger.Printf("Not able to Delete the session with ID: %v", SP.ID)
 				http.Redirect(w, r, "/login", 302)
 				return
 			}
 			// reset session and login user
-			m.SP = nil
-			m.LIP = nil
 			http.Redirect(w, r, "/register", 302)
 			return
 		}
+
+		m.AddToHeader("User", UP, r)
+
+		// bytes, err := json.Marshal(UP)
+		// if err != nil {
+		// 	panic(err)
+		// }
+
+		// fmt.Println(string(bytes))
+
+		// r.Header.Set("User", string(bytes))
 
 		h(w, r, ps)
 	}

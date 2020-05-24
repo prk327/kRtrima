@@ -25,11 +25,17 @@ func Create(writer http.ResponseWriter, request *http.Request, p httprouter.Para
 		return
 	}
 
+	var LIP m.LogInUser
+
+	err = m.GetLogInUser("User", &LIP, request)
+	if err != nil {
+		Logger.Printf("Failed to get the login details %v\n", err)
+	}
 	newItem := m.Comment{
 		Comment:   request.Form["comment"][0],
-		Author:    m.LIP.Name,
+		Author:    LIP.Name,
 		Thread:    docID,
-		User:      m.LIP.ID,
+		User:      LIP.ID,
 		CreatedAt: time.Now(),
 	}
 
