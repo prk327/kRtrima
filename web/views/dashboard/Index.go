@@ -24,21 +24,14 @@ type RegEx struct {
 func Home(writer http.ResponseWriter, request *http.Request, _ httprouter.Params) {
 	var dashlist m.MainCongifDetails
 
-	_, err := request.Cookie("kRtrima") //Grab the cookie from the header
-	if err == http.ErrNoCookie {
-		Logger.Println("No Cookie was Found with Name kRtrima")
+	var LIP m.LogInUser
 
+	err := m.GetLogInUser("User", &LIP, request)
+	if err != nil {
+		dashlist.LogInUser = nil
+		Logger.Printf("Failed to get the login details %v\n", err)
 	} else {
-		Logger.Println("Cookie was Found with Name kRtrima")
-		var LIP m.LogInUser
-
-		err = m.GetLogInUser("User", &LIP, request)
-		if err != nil {
-			Logger.Printf("Failed to get the login details %v\n", err)
-		}
-		dashlist = m.MainCongifDetails{
-			LogInUser: &LIP,
-		}
+		dashlist.LogInUser = &LIP
 	}
 
 	generateHTML(writer, &dashlist, "Landing", "LoginTopSidebar", "LandingContent")
@@ -46,20 +39,6 @@ func Home(writer http.ResponseWriter, request *http.Request, _ httprouter.Params
 
 //Index is used to show the threads
 func Index(writer http.ResponseWriter, request *http.Request, _ httprouter.Params) {
-
-	// err := m.GetUserbyUUID("kRtrima", writer, request)
-	// if err != nil {
-	// 	Logger.Println("Not able to find the user")
-	// 	http.Redirect(writer, request, "/login", 401)
-	// 	return
-	// }
-	// q := RegEx{
-	// 	Pattern: "/a/",
-	// 	Options: "im",
-	// }
-	// query := bson.M{
-	// 	"$regex": q,
-	// }
 
 	var TSL []m.Thread
 	//get the thread and assign it to slice of thread TSL
@@ -78,17 +57,19 @@ func Index(writer http.ResponseWriter, request *http.Request, _ httprouter.Param
 		return
 	}
 
+	dashlist := m.MainCongifDetails{
+		CollectionNames: coll,
+		ContentDetails:  TSL,
+	}
+
 	var LIP m.LogInUser
 
 	err = m.GetLogInUser("User", &LIP, request)
 	if err != nil {
+		dashlist.LogInUser = nil
 		Logger.Printf("Failed to get the login details %v\n", err)
-	}
-
-	dashlist := m.MainCongifDetails{
-		CollectionNames: coll,
-		ContentDetails:  TSL,
-		LogInUser:       &LIP,
+	} else {
+		dashlist.LogInUser = &LIP
 	}
 
 	generateHTML(writer, &dashlist, "Layout", "ThreadLeftSideBar", "ThreadTopSideBar", "ThreadModal", "ThreadIndexContent")

@@ -37,19 +37,22 @@ func New(writer http.ResponseWriter, request *http.Request, p httprouter.Params)
 		return
 	}
 
+	dashlist := m.FindDetails{
+		CollectionNames: coll,
+		ContentDetails:  &TP,
+		User:            &UP,
+	}
+
 	var LIP m.LogInUser
 
 	err = m.GetLogInUser("User", &LIP, request)
 	if err != nil {
 		Logger.Printf("Failed to get the login details %v\n", err)
+		http.Redirect(writer, request, "/login", 302)
+		return
 	}
 
-	dashlist := m.FindDetails{
-		CollectionNames: coll,
-		ContentDetails:  &TP,
-		User:            &UP,
-		LogInUser:       &LIP,
-	}
+	dashlist.LogInUser = &LIP
 
 	generateHTML(writer, &dashlist, "Layout", "ThreadLeftSideBar", "ThreadTopSideBar", "ThreadModal", "CommentNew")
 }

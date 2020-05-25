@@ -38,18 +38,20 @@ func Edit(writer http.ResponseWriter, request *http.Request, p httprouter.Params
 		return
 	}
 
-	var LIP m.LogInUser
-
-	err = m.GetLogInUser("User", &LIP, request)
-	if err != nil {
-		Logger.Printf("Failed to get the login details %v\n", err)
-	}
-
 	dashlist := m.FindDetails{
 		CollectionNames: coll,
 		ContentDetails:  &TP,
 		User:            &UP,
-		LogInUser:       &LIP,
+	}
+
+	var LIP m.LogInUser
+
+	err = m.GetLogInUser("User", &LIP, request)
+	if err != nil {
+		dashlist.LogInUser = nil
+		Logger.Printf("Failed to get the login details %v\n", err)
+	} else {
+		dashlist.LogInUser = &LIP
 	}
 
 	generateHTML(writer, &dashlist, "Layout", "ThreadLeftSideBar", "ThreadTopSideBar", "ThreadModal", "ThreadEdit")

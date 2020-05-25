@@ -1,7 +1,6 @@
 package auth
 
 import (
-	"fmt"
 	m "kRtrima/plugins/database/mongoDB/models"
 	"net/http"
 
@@ -21,7 +20,7 @@ func LogOut(writer http.ResponseWriter, request *http.Request, _ httprouter.Para
 		// Create a BSON ObjectID by passing string to ObjectIDFromHex() method
 		docID, err := primitive.ObjectIDFromHex(cookie.Value)
 		if err != nil {
-			fmt.Printf("Cannot Convert %T type to object id", cookie.Value)
+			Logger.Printf("Cannot Convert %T type to object id", cookie.Value)
 			Logger.Println(err)
 		}
 

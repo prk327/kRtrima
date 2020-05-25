@@ -46,6 +46,8 @@ func Edit(writer http.ResponseWriter, request *http.Request, p httprouter.Params
 	err = m.GetLogInUser("User", &LIP, request)
 	if err != nil {
 		Logger.Printf("Failed to get the login details %v\n", err)
+		http.Redirect(writer, request, "/Dashboard", 302)
+		return
 	}
 
 	if UP.Email != LIP.Email {

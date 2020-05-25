@@ -18,17 +18,17 @@ func Web() {
 	// handle static assets
 	mux.ServeFiles("/resources/*filepath", http.Dir(config.Static))
 	// Home Page
-	mux.GET("/", D.Home)
+	mux.GET("/", U.IsLogIn(D.Home))
 	//show register user route
-	mux.GET("/register", U.SignUp)
+	mux.GET("/register", U.IsLogIn(U.SignUp))
 	//register user route
-	mux.POST("/register", U.Create)
+	mux.POST("/register", U.IsLogIn(U.Create))
 	//show login page
-	mux.GET("/login", U.LogIn)
+	mux.GET("/login", U.IsLogIn(U.LogIn))
 	//authenticate user for login
-	mux.POST("/login", U.Authenticate)
+	mux.POST("/login", U.IsLogIn(U.Authenticate))
 	//show logout page
-	mux.GET("/logout", U.LogOut)
+	mux.GET("/logout", U.GetSession(U.LogOut))
 
 	// Auth route
 	//Display a list of all the Dashboard Index page

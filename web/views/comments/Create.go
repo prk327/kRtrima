@@ -30,6 +30,8 @@ func Create(writer http.ResponseWriter, request *http.Request, p httprouter.Para
 	err = m.GetLogInUser("User", &LIP, request)
 	if err != nil {
 		Logger.Printf("Failed to get the login details %v\n", err)
+		http.Redirect(writer, request, "/login", 302)
+		return
 	}
 	newItem := m.Comment{
 		Comment:   request.Form["comment"][0],

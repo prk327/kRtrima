@@ -58,19 +58,21 @@ func Show(w http.ResponseWriter, request *http.Request, p httprouter.Params) {
 		Logger.Println("Not able to Get the list of Collection!!")
 	}
 
-	var LIP m.LogInUser
-
-	err = m.GetLogInUser("User", &LIP, request)
-	if err != nil {
-		Logger.Printf("Failed to get the login details %v\n", err)
-	}
-
 	dashlist := m.FindDetails{
 		CollectionNames: coll,
 		ContentDetails:  &thread,
 		Comments:        cmt,
 		User:            &up,
-		LogInUser:       &LIP,
+	}
+
+	var LIP m.LogInUser
+
+	err = m.GetLogInUser("User", &LIP, request)
+	if err != nil {
+		dashlist.LogInUser = nil
+		Logger.Printf("Failed to get the login details %v\n", err)
+	} else {
+		dashlist.LogInUser = &LIP
 	}
 
 	generateHTML(w, &dashlist, "Layout", "ThreadLeftSideBar", "ThreadTopSideBar", "ThreadModal", "ThreadShowContent")

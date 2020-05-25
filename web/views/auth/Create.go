@@ -69,5 +69,45 @@ func Create(w http.ResponseWriter, request *http.Request, _ httprouter.Params) {
 	}
 	Logger.Printf("User %v Was successfully Created!!", request.Form["name"][0])
 
-	http.Redirect(w, request, "/login", 302)
+	//create a new session
+	// Create a struct type to handle the session for login
+	statement := m.Session{
+		Salt:      UP.Salt,
+		CreatedAt: time.Now(),
+	}
+
+	SSID, err := m.Sessions.AddItem(statement)
+	if err != nil {
+		Logger.Printf("Cannot Create a Valid Session for User: %v", UP.Name)
+		//remove the user ID from the session
+		request.Header.Del("User")
+		http.Redirect(w, request, "/login", 302)
+		return
+	}
+
+	Logger.Printf("New Session Was Created Successfully for User: %v", UP.Name)
+
+	cookie := http.Cookie{
+		Name:     "kRtrima",
+		Value:    SSID.Hex(),
+		HttpOnly: true,
+	}
+	http.SetCookie(w, &cookie)
+	Logger.Printf("Cookie was assigned successfully for User %v", UP.Name)
+
+	LIP := m.LogInUser{
+		Email:     request.Form["email"][0],
+		Name:      request.Form["name"][0],
+		CreatedAt: time.Now(),
+		IsAdmin:   admin,
+	}
+
+	err = m.AddToHeader("User", &LIP, request)
+	if err != nil {
+		// If there is any issue with inserting into the header
+		http.Redirect(w, request, "/login", 302)
+		return
+	}
+
+	http.Redirect(w, request, "/Dashboard", 302)
 }
