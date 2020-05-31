@@ -1,6 +1,6 @@
 {{ define "topsidebar" }}
 
-<nav class="navbar navbar-expand-md navbar-light bg-light">
+<nav class="navbar navbar-expand-md navbar-light bg-light" id="mainNavbar">
     <div class="collapse navbar-collapse">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
@@ -16,10 +16,7 @@
             </li>
         </ul>
         
-        <form class="form-inline my-2 my-lg-0" action="/Dashboard" method="GET">
-            <input class="form-control mr-sm-2" type="search" id="dsearch" name="dsearch" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
+        
 
         <ul class="navbar-nav navbar-right">
            {{if not .LogInUser}}
@@ -42,7 +39,18 @@
                 <a class="nav-link" href="/logout">Log Out</a>
             </li>
 
+            <form class="form-inline m-0 p-0" action="/Dashboard" method="GET">
+                <input class="form-control fas bg-light rounded-0 border-top-0 border-right-0 border-left-0 m-0 p-0" type="search" id="dsearch" name="dsearch" placeholder="&#xf002" aria-label="Search">
+            </form>
+
             {{end}}
+
+            <!-- <form class="form-inline my-2 my-lg-0" action="/Dashboard" method="GET">
+                <input class="form-control mr-sm-2" type="search" id="dsearch" name="dsearch" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form> -->
+
+            
         </ul>
 
     </div>

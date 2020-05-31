@@ -1,60 +1,60 @@
 {{ define "topsidebar" }}
 
-<nav class="navbar navbar-expand-md navbar-light bg-light">
-    <!--    <a class="navbar-brand" href="#">kRtrima</a>-->
-    <ul class="navbar-nav mr-auto mt-2 mt-md-0">
-        <li id="sidebarCollapse" class="nav-item">
-            <a class="nav-link" href="#">
-                <span class="fas fa-bars"></span>
-            </a>
-        </li>
-    </ul>
+<nav class="navbar navbar-expand-lg navbar-light bg-light" id="mainNavbar">
+
+    <a id="sidebarCollapse" class="nav-link" href="#">
+        <span class="fas fa-bars"></span>
+    </a>
+
+    <a class="navbar-brand m-0 p-0 d-block d-sm-none" href="#">kRtrima</a>
+
 
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
         <span class="fas fa-bars"></span>
     </button>
 
-    <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-                <a class="nav-link" href="/">Home</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/Dashboard">Dashboard</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">About</a>
-            </li>
-        </ul>
-        
-        <form class="form-inline my-2 my-lg-0" action="/Dashboard" method="GET">
-            <input class="form-control mr-sm-2" type="search" id="dsearch" name="dsearch" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
+    <div class="justify-content-between collapse navbar-collapse" id="navbarTogglerDemo02">
 
-        <ul class="navbar-nav navbar-right">
-           {{if not .LogInUser}}
-            <li class="nav-item">
-                <a class="nav-link" href="/login">Login</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/register">Sign Up</a>
-            </li>
-            {{else}}
-            <li class="nav-item">
-                <a class="nav-link" href="/logout">Log Out</a>
-            </li>
+        <a class="nav-link m-0 p-0" href="/">Home</a>
+
+        <a class="nav-link m-0 p-0" href="/Dashboard">Dashboard</a>
+
+        <a class="nav-link m-0 p-0" href="#">About</a>
+
+
+
+
+        
+        {{if not .LogInUser}}
+        
+        <a class="nav-link m-0 p-0" href="/login">Login</a>
+        
+        <a class="nav-link m-0 p-0" href="/register">Sign Up</a>
+        
+        {{else}}
             
-            <li class="nav-item">
-                <a class="nav-link" href="/Profile">{{.LogInUser.Name}}
+            <div class="dropdown m-0 p-0">
+                <a class="nav-link m-0 p-0" href="#" id="logoutlink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-label="Toggle navigation">{{.LogInUser.Name}}
                     {{if .LogInUser.IsAdmin}}
-                    <sup class="text-primary"><i>admin</i></sup>
+                    <sup class="text-primary m-0 p-0"><i>admin</i></sup>
                     {{end}}
-                
                 </a>
-            </li>
+
+                <div class="dropdown-menu m-0 p-0" aria-labelledby="logoutlink">
+                    <a class="nav-link m-0 p-0" href="/logout">Log Out</a>
+                </div>
+
+            </div>
+
+
+
+            
             {{end}}
-        </ul>
+            
+
+            <form class="form-inline m-0 p-0" action="/Dashboard" method="GET">
+                <input class="form-control fas bg-light rounded-0 border-top-0 border-right-0 border-left-0 m-0 p-0" type="search" id="dsearch" name="dsearch" placeholder="&#xf002" aria-label="Search">
+            </form>
 
     </div>
 </nav>
